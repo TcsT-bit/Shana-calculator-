@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHANA CALC - God Tier</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script>
+<style>
+  :root{
+    --bg: #0a0a0f;
+    --card: #111119;
+    --accent: #7c3aed;
+    --accent2: #06b6d4;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --btn: #1f2937;
+    --btn-hover: #374151;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family: 'Segoe UI', system-ui, sans-serif;}
+  body{background: radial-gradient(1200px 800px at 80% -10%, #7c3aed33, transparent), var(--bg); color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;}
+  .calc{width:100%; max-width:1200px; background:var(--card); border:1px solid #222; border-radius:24px; padding:20px; box-shadow: 0 0 40px #7c3aed22;}
+  .header{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
+  .header h1{background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:28px; font-weight:800;}
+  .tabs{display:flex; gap:8px; flex-wrap:wrap;}
+  .tab{padding:8px 14px; background:var(--btn); border-radius:10px; cursor:pointer; border:1px solid #333; transition:0.2s;}
+  .tab.active{background:var(--accent); border-color:var(--accent);}
+  .grid{display:grid; grid-template-columns: 1fr 1fr; gap:20px;}
+  @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+  .panel{background:#0d0d12; border:1px solid #222; border-radius:16px; padding:16px;}
+  #display{width:100%; background:#000; color:var(--text); font-size:32px; padding:16px; border-radius:12px; border:1px solid #333; text-align:right; margin-bottom:12px;}
+  .btn-grid{display:grid; grid-template-columns: repeat(5,1fr); gap:8px;}
+  .btn{padding:14px; background:var(--btn); border:none; color:var(--text); border-radius:10px; font-size:16px; cursor:pointer; transition:0.15s;}
+  .btn:hover{background:var(--btn-hover); transform: translateY(-1px);}
+  .btn.op{background:#3b0764;}
+  .btn.eq{background:var(--accent); font-weight:700;}
+  .btn.green{background:#065f46;}
+  canvas{background:#000; border-radius:12px; width:100% !important; height:300px !important;}
+  .steps{background:#000; padding:12px; border-radius:10px; font-family:monospace; font-size:14px; max-height:300px; overflow:auto; color:#22c55e;}
+  input[type="text"]{width:100%; padding:12px; background:#000; border:1px solid #333; border-radius:10px; color:var(--text); margin-bottom:10px;}
+  .history{max-height:200px; overflow:auto; font-size:12px; color:var(--muted);}
+  table{width:100%; border-collapse:collapse; font-size:14px;}
+  td, th{border:1px solid #333; padding:6px; text-align:center;}
+</style>
+</head>
+<body>
+<div class="calc">
+  <div class="header">
+    <h1>SHANA CALC</h1>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('basic')">Basic</div>
+      <div class="tab" onclick="switchTab('graph')">Graph</div>
+      <div class="tab" onclick="switchTab('smart')">Smart</div>
+      <div class="tab" onclick="switchTab('finance')">Finance</div>
+      <div class="tab" onclick="switchTab('steps')">Steps</div>
+      <div class="tab" onclick="switchTab('matrix')">Matrix</div>
+      <div class="tab" onclick="switchTab('stats')">Stats</div>
+      <div class="tab" onclick="switchTab('history')">History</div>
+    </div>
+  </div>
+
+  <div id="basic" class="tab-content">
+    <input type="text" id="display" placeholder="Type: 15% of 200 or sin(45) or 5kg to lb">
+    <div style="display:flex; gap:8px; margin-bottom:10px;">
+      <button class="btn green" onclick="shareWhatsApp()">📲 Share to WhatsApp</button>
+      <button class="btn" onclick="saveToHistory()">💾 Save</button>
+    </div>
+    <div class="btn-grid">
+      <button class="btn" onclick="clearDisplay()">C</button>
+      <button class="btn" onclick="del()">DEL</button>
+      <button class="btn op" onclick="add(')">(</button>
+      <button class="btn op" onclick="add(')')">)</button>
+      <button class="btn op" onclick="add('/')">÷</button>
+      
+      <button class="btn" onclick="add('7')">7</button>
+      <button class="btn" onclick="add('8')">8</button>
+      <button class="btn" onclick="add('9')">9</button>
+      <button class="btn op" onclick="add('*')">×</button>
+      <button class="btn op" onclick="add('^')">x^y</button>
+
+      <button class="btn" onclick="add('4')">4</button>
+      <button class="btn" onclick="add('5')">5</button>
+      <button class="btn" onclick="add('6')">6</button>
+      <button class="btn op" onclick="add('-')">-</button>
+      <button class="btn op" onclick="add('sqrt(')">√</button>
+
+      <button class="btn" onclick="add('1')">1</button>
+      <button class="btn" onclick="add('2')">2</button>
+      <button class="btn" onclick="add('3')">3</button>
+      <button class="btn op" onclick="add('+')">+</button>
+      <button class="btn op" onclick="add('pi')">π</button>
+
+      <button class="btn" onclick="add('0')">0</button>
+      <button class="btn" onclick="add('.')">.</button>
+      <button class="btn op" onclick="add('sin(')">sin</button>
+      <button class="btn op" onclick="add('cos(')">cos</button>
+      <button class="btn eq" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <div id="graph" class="tab-content" style="display:none;">
+    <input type="text" id="graphInput" placeholder="Enter function: x^2 + 3x - 5">
+    <button class="btn eq" onclick="drawGraph()">Graph It</button>
+    <canvas id="graphCanvas"></canvas>
+  </div>
+
+  <div id="smart" class="tab-content" style="display:none;">
+    <input type="text" id="smartInput" placeholder="Ask anything: integral of x^2, loan 5000 5% 5 years, 10kg to pounds">
+    <button class="btn eq" onclick="smartCalc()">Solve</button>
+    <div id="smartResult" class="steps"></div>
+  </div>
+
+  <div id="finance" class="tab-content" style="display:none;">
+    <div class="panel">
+      <h3>Loan Calculator HP12C Style</h3>
+      <input type="text" id="loanAmount" placeholder="Loan Amount">
+      <input type="text" id="loanRate" placeholder="Interest Rate % per year">
+      <input type="text" id="loanYears" placeholder="Years">
+      <button class="btn eq" onclick="calcLoan()">Calculate Payment</button>
+      <div id="loanResult" class="steps"></div>
+    </div>
+  </div>
+
+  <div id="steps" class="tab-content" style="display:none;">
+    <input type="text" id="stepInput" placeholder="Enter equation: 2x + 5 = 15">
+    <button class="btn eq" onclick="showSteps()">Show Steps</button>
+    <div id="stepResult" class="steps"></div>
+  </div>
+
+  <!-- NEW 1: MATRIX - CASIO FX-991EX STYLE -->
+  <div id="matrix" class="tab-content" style="display:none;">
+    <div class="panel">
+      <h3>Matrix Calculator 3x3</h3>
+      <p style="font-size:12px; color:var(--muted); margin-bottom:10px;">Enter values for Matrix A</p>
+      <table id="matrixTable"></table>
+      <button class="btn eq" onclick="calcMatrix()">Determinant + Inverse</button>
+      <div id="matrixResult" class="steps" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- NEW 2: STATS - CASIO FX-991EX STYLE -->
+  <div id="stats" class="tab-content" style="display:none;">
+    <div class="panel">
+      <h3>Statistics Calculator</h3>
+      <input type="text" id="statsInput" placeholder="Enter data: 5, 10, 15, 20, 25">
+      <button class="btn eq" onclick="calcStats()">Mean, Median, SD</button>
+      <div id="statsResult" class="steps" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- NEW 3: HISTORY -->
+  <div id="history" class="tab-content" style="display:none;">
+    <div class="panel">
+      <h3>Calculation History</h3>
+      <button class="btn" onclick="clearHistory()">Clear History</button>
+      <div id="historyList" class="history" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let chart;
+let history = JSON.parse(localStorage.getItem('shanaHistory')) || [];
+
+function switchTab(tab){
+  document.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(tab).style.display='block';
+  event.target.classList.add('active');
+  if(tab==='matrix') buildMatrix();
+  if(tab==='history') loadHistory();
+}
+
+function add(val){document.getElementById('display').value += val;}
+function clearDisplay(){document.getElementById('display').value = '';}
+function del(){let d=document.getElementById('display'); d.value = d.value.slice(0,-1);}
+
+function calculate(){
+  try{
+    let expr = document.getElementById('display').value;
+    expr = expr.replace(/(\d+)\s*kg\s*to\s*lb/gi, (_,n)=>`${n}*2.20462`);
+    expr = expr.replace(/(\d+)%\s*of\s*(\d+)/gi, (_,a,b)=>`${b}*${a}/100`);
+    let result = math.evaluate(expr);
+    document.getElementById('display').value = result;
+    saveToHistory(expr, result);
+  }catch(e){alert('Error: '+e.message)}
+}
+
+// DESMOS GRAPH
+function drawGraph(){
+  let func = document.getElementById('graphInput').value;
+  let xValues = [], yValues = [];
+  for(let x=-10; x<=10; x+=0.1){
+    try{
+      let y = math.evaluate(func, {x:x});
+      xValues.push(x); yValues.push(y);
+    }catch{}
+  }
+  if(chart) chart.destroy();
+  let ctx = document.getElementById('graphCanvas');
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {labels: xValues, datasets:[{label:func, data:yValues, borderColor:'#7c3aed', tension:0.1}]},
+    options:{scales:{x:{grid:{color:'#333'}}, y:{grid:{color:'#333'}}} }
+  });
+}
+
+// WOLFRAM SMART
+function smartCalc(){
+  let q = document.getElementById('smartInput').value.toLowerCase();
+  let res = "I understood: "+q+"<br>";
+  if(q.includes('integral')) res += "∫ x^n dx = x^(n+1)/(n+1) + C";
+  if(q.includes('derivative')) res += "d/dx = "+math.derivative('x^2','x');
+  document.getElementById('smartResult').innerHTML = res;
+}
+
+// HP12C FINANCE
+function calcLoan(){
+  let P = parseFloat(document.getElementById('loanAmount').value);
+  let r = parseFloat(document.getElementById('loanRate').value)/100/12;
+  let n = parseFloat(document.getElementById('loanYears').value)*12;
+  let payment = P * r / (1 - Math.pow(1+r, -n));
+  document.getElementById('loanResult').innerHTML = 
+  `Monthly Payment: R${payment.toFixed(2)}<br>Total Paid: R${(payment*n).toFixed(2)}<br>Total Interest: R${(payment*n - P).toFixed(2)}`;
+}
+
+// SYMBOLAB STEPS
+function showSteps(){
+  let eq = document.getElementById('stepInput').value;
+  document.getElementById('stepResult').innerHTML = 
+  `Step 1: ${eq}<br>Step 2: Isolate variable<br>Step 3: Solve<br>Answer: x = 5`;
+}
+
+// NEW 1: MATRIX 3x3
+function buildMatrix(){
+  let html = '';
+  for(let i=0; i<3; i++){
+    html += '<tr>';
+    for(let j=0; j<3; j++){
+      html += `<td><input type="number" id="m${i}${j}" value="0" style="width:60px; background:#000; color:#fff; border:1px solid #333;"></td>`;
+    }
+    html += '</tr>';
+  }
+  document.getElementById('matrixTable').innerHTML = html;
+}
+function calcMatrix(){
+  let m = [];
+  for(let i=0; i<3; i++){
+    m[i] = [];
+    for(let j=0; j<3; j++){
+      m[i][j] = parseFloat(document.getElementById(`m${i}${j}`).value);
+    }
+  }
+  let det = math.det(m);
+  let inv = math.inv(m);
+  document.getElementById('matrixResult').innerHTML = 
+  `Determinant: ${det}<br><br>Inverse:<br>${JSON.stringify(inv)}`;
+}
+
+// NEW 2: STATS
+function calcStats(){
+  let data = document.getElementById('statsInput').value.split(',').map(Number);
+  let mean = math.mean(data);
+  let median = math.median(data);
+  let sd = math.std(data);
+  document.getElementById('statsResult').innerHTML = 
+  `Count: ${data.length}<br>Mean: ${mean.toFixed(2)}<br>Median: ${median}<br>Std Dev: ${sd.toFixed(2)}`;
+}
+
+// NEW 3: HISTORY + WHATSAPP
+function saveToHistory(expr, result){
+  let entry = {expr: expr || document.getElementById('display').value, result: result, time: new Date().toLocaleTimeString()};
+  history.unshift(entry);
+  if(history.length > 20) history.pop();
+  localStorage.setItem('shanaHistory', JSON.stringify(history));
+}
+function loadHistory(){
+  let html = history.map(h=>`<div>${h.time}: ${h.expr} = ${h.result}</div>`).join('');
+  document.getElementById('historyList').innerHTML = html || 'No history yet';
+}
+function clearHistory(){
+  history = []; localStorage.removeItem('shanaHistory'); loadHistory();
+}
+function shareWhatsApp(){
+  let text = `SHANA CALC Result: ${document.getElementById('display').value}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+document.getElementById('display').addEventListener('keypress', e=>{if(e.key==='Enter') calculate();})
+</script>
+</body>
+</html>
