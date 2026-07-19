@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#00d4ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>SHANA CALC - Tesla UI</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script>
@@ -20,85 +22,101 @@
   }
   *{margin:0;padding:0;box-sizing:border-box;font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;}
   body{
-    background: radial-gradient(1200px 800px at 80% -10%, #00d4ff22, transparent), 
+    background: radial-gradient(1200px 800px at 80% -10%, #00d4ff22, transparent),
                 radial-gradient(800px 600px at 20% 110%, #7c3aed22, transparent),
-                var(--bg); 
-    color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
+                var(--bg);
+    color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:10px;
     overflow-x:hidden;
   }
-  .calc{
-    width:100%; max-width:1300px; background:var(--card); 
-    border:1px solid rgba(255,255,255,0.1); border-radius:32px; padding:24px; 
+ .calc{
+    width:100%; max-width:1300px; background:var(--card);
+    border:1px solid rgba(255,255,255,0.1); border-radius:32px; padding:24px;
     backdrop-filter: blur(20px); box-shadow: var(--glow), 0 20px 60px rgba(0,0,0,0.5);
     animation: fadeIn 0.6s ease;
   }
   @keyframes fadeIn{ from{opacity:0; transform: translateY(20px);} to{opacity:1; transform: translateY(0);} }
-  
-  .header{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;}
-  .header h1{
-    background: linear-gradient(90deg, var(--accent), var(--accent2)); 
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent; 
+
+ .header{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;}
+ .header h1{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     font-size:32px; font-weight:900; letter-spacing:-1px;
     text-shadow: 0 0 30px rgba(0,212,255,0.3);
   }
-  .tabs{display:flex; gap:10px; flex-wrap:wrap;}
-  .tab{
-    padding:10px 18px; background:var(--btn); border-radius:14px; cursor:pointer; 
+ .tabs{display:flex; gap:10px; flex-wrap:wrap; overflow-x:auto; padding-bottom:5px;}
+ .tab{
+    padding:10px 18px; background:var(--btn); border-radius:14px; cursor:pointer;
     border:1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; font-weight:600;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); white-space:nowrap; flex-shrink:0;
   }
-  .tab:hover{transform: translateY(-2px); box-shadow: var(--glow);}
-  .tab.active{
-    background: linear-gradient(135deg, var(--accent), var(--accent2)); 
+ .tab:hover{transform: translateY(-2px); box-shadow: var(--glow);}
+ .tab.active{
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
     border-color:var(--accent); box-shadow: var(--glow);
   }
-  
-  .panel{
-    background:rgba(13,13,18,0.7); border:1px solid rgba(255,255,255,0.1); 
+
+ .panel{
+    background:rgba(13,13,18,0.7); border:1px solid rgba(255,255,255,0.1);
     border-radius:20px; padding:20px; backdrop-filter: blur(10px);
   }
   #display{
-    width:100%; background:rgba(0,0,0,0.8); color:var(--text); font-size:40px; 
-    padding:20px; border-radius:16px; border:1px solid rgba(0,212,255,0.3); 
+    width:100%; background:rgba(0,0,0,0.8); color:var(--text); font-size:40px;
+    padding:20px; border-radius:16px; border:1px solid rgba(0,212,255,0.3);
     text-align:right; margin-bottom:16px; font-weight:700;
     box-shadow: inset 0 0 20px rgba(0,212,255,0.1); transition:0.3s;
   }
   #display:focus{outline:none; border-color:var(--accent); box-shadow: 0 0 30px rgba(0,212,255,0.3);}
-  
-  .btn-grid{display:grid; grid-template-columns: repeat(5,1fr); gap:10px;}
-  .btn{
-    padding:16px; background:var(--btn); border:none; color:var(--text); 
+
+ .btn-grid{display:grid; grid-template-columns: repeat(5,1fr); gap:10px;}
+ .btn{
+    padding:16px; background:var(--btn); border:none; color:var(--text);
     border-radius:14px; font-size:18px; cursor:pointer; transition: all 0.2s ease;
     border:1px solid rgba(255,255,255,0.05); font-weight:600;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); touch-action: manipulation;
   }
-  .btn:hover{background:var(--btn-hover); transform: translateY(-3px) scale(1.02); box-shadow: var(--glow);}
-  .btn:active{transform: scale(0.95);}
-  .btn.op{background: linear-gradient(135deg, #3b0764, #581c87);}
-  .btn.eq{background: linear-gradient(135deg, var(--accent), var(--accent2)); font-weight:800; box-shadow: var(--glow);}
-  .btn.green{background: linear-gradient(135deg, #065f46, #047857);}
-  
-  canvas{background:rgba(0,0,0,0.8); border-radius:16px; width:100% !important; height:350px !important; border:1px solid rgba(0,212,255,0.2);}
-  .steps{
-    background:rgba(0,0,0,0.8); padding:16px; border-radius:14px; font-family:'Fira Code', monospace; 
+ .btn:hover{background:var(--btn-hover); transform: translateY(-3px) scale(1.02); box-shadow: var(--glow);}
+ .btn:active{transform: scale(0.95);}
+ .btn.op{background: linear-gradient(135deg, #3b0764, #581c87);}
+ .btn.eq{background: linear-gradient(135deg, var(--accent), var(--accent2)); font-weight:800; box-shadow: var(--glow);}
+ .btn.green{background: linear-gradient(135deg, #065f46, #047857);}
+
+  canvas{background:rgba(0,0,0,0.8); border-radius:16px; width:100%!important; height:350px!important; border:1px solid rgba(0,212,255,0.2);}
+ .steps{
+    background:rgba(0,0,0,0.8); padding:16px; border-radius:14px; font-family:'Fira Code', monospace;
     font-size:14px; max-height:300px; overflow:auto; color:#22c55e; border:1px solid rgba(34,197,94,0.3);
   }
   input[type="text"]{
-    width:100%; padding:14px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.1); 
+    width:100%; padding:14px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.1);
     border-radius:12px; color:var(--text); margin-bottom:12px; font-size:16px;
     transition:0.3s;
   }
   input[type="text"]:focus{outline:none; border-color:var(--accent); box-shadow: 0 0 20px rgba(0,212,255,0.2);}
-  .history{max-height:200px; overflow:auto; font-size:13px; color:var(--muted);}
+ .history{max-height:200px; overflow:auto; font-size:13px; color:var(--muted);}
   table{width:100%; border-collapse:collapse; font-size:14px;}
   td, th{border:1px solid rgba(255,255,255,0.1); padding:8px; text-align:center;}
-  
-  /* Tesla loading pulse */
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
-  .loading{animation: pulse 2s infinite;}
+
+  @media(max-width: 768px){
+    body{padding:8px;}
+   .calc{padding:16px; border-radius:24px;}
+   .header h1{font-size:24px;}
+    #display{font-size:28px; padding:16px;}
+   .btn{padding:14px; font-size:16px;}
+   .btn-grid{gap:8px;}
+   .tabs{gap:8px;}
+    canvas{height:250px!important;}
+  }
+
+  #installBanner{
+    display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+    background: linear-gradient(135deg, var(--accent), var(--accent2)); padding:14px 24px;
+    border-radius:16px; box-shadow: var(--glow); z-index:9999; cursor:pointer; font-weight:700;
+    color:#fff; border:none;
+  }
 </style>
 </head>
 <body>
+<div id="installBanner" onclick="installPWA()">📲 Install SHANA CALC</div>
+
 <div class="calc">
   <div class="header">
     <h1>SHANA CALC</h1>
@@ -116,7 +134,7 @@
 
   <div id="basic" class="tab-content">
     <input type="text" id="display" placeholder="Type: 15% of 200 or sin(45) or 5kg to lb">
-    <div style="display:flex; gap:10px; margin-bottom:12px;">
+    <div style="display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;">
       <button class="btn green" onclick="shareWhatsApp()">📲 Share to WhatsApp</button>
       <button class="btn" onclick="saveToHistory()">💾 Save</button>
     </div>
@@ -126,7 +144,7 @@
       <button class="btn op" onclick="add(')">(</button>
       <button class="btn op" onclick="add(')')">)</button>
       <button class="btn op" onclick="add('/')">÷</button>
-      
+
       <button class="btn" onclick="add('7')">7</button>
       <button class="btn" onclick="add('8')">8</button>
       <button class="btn" onclick="add('9')">9</button>
@@ -213,6 +231,43 @@
 <script>
 let chart;
 let history = JSON.parse(localStorage.getItem('shanaHistory')) || [];
+let deferredPrompt;
+
+// INLINE PWA - NO BROKEN BASE64
+const manifest = {
+  "name": "SHANA CALC",
+  "short_name": "SHANA",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#050508",
+  "theme_color": "#00d4ff",
+  "orientation": "portrait"
+};
+const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+const manifestURL = URL.createObjectURL(manifestBlob);
+document.head.insertAdjacentHTML('beforeend', `<link rel="manifest" href="${manifestURL}">`);
+
+const swCode = `
+self.addEventListener('install', e => e.waitUntil(caches.open('shana-v3').then(c => c.addAll(['./']))));
+self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+`;
+const swBlob = new Blob([swCode], {type: 'application/javascript'});
+const swURL = URL.createObjectURL(swBlob);
+if('serviceWorker' in navigator) navigator.serviceWorker.register(swURL);
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBanner').style.display = 'block';
+});
+function installPWA(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => {
+      document.getElementById('installBanner').style.display = 'none';
+    });
+  }
+}
 
 function switchTab(e, tab){
   document.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
@@ -235,12 +290,10 @@ function calculate(){
     let result = math.evaluate(expr);
     document.getElementById('display').value = result;
     saveToHistory(expr, result);
-    // Tesla haptic feel
     navigator.vibrate?.(50);
   }catch(e){alert('Error: '+e.message)}
 }
 
-// DESMOS GRAPH - TESLA STYLE
 function drawGraph(){
   let func = document.getElementById('graphInput').value;
   let xValues = [], yValues = [];
@@ -255,13 +308,13 @@ function drawGraph(){
   chart = new Chart(ctx, {
     type: 'line',
     data: {labels: xValues, datasets:[{
-      label:func, data:yValues, borderColor:'#00d4ff', backgroundColor:'rgba(0,212,255,0.1)', 
+      label:func, data:yValues, borderColor:'#00d4ff', backgroundColor:'rgba(0,212,255,0.1)',
       tension:0.3, fill:true, pointRadius:0
     }]},
     options:{
       animation:{duration:800},
       scales:{
-        x:{grid:{color:'rgba(255,255,255,0.1)'}, ticks:{color:'#94a3b8'}}, 
+        x:{grid:{color:'rgba(255,255,255,0.1)'}, ticks:{color:'#94a3b8'}},
         y:{grid:{color:'rgba(255,255,255,0.1)'}, ticks:{color:'#94a3b8'}}
       },
       plugins:{legend:{labels:{color:'#f1f5f9'}}}
@@ -269,7 +322,6 @@ function drawGraph(){
   });
 }
 
-// WOLFRAM SMART
 function smartCalc(){
   let q = document.getElementById('smartInput').value.toLowerCase();
   let res = "Input: "+q+"<br>";
@@ -289,24 +341,21 @@ function smartCalc(){
   document.getElementById('smartResult').innerHTML = res;
 }
 
-// HP12C FINANCE
 function calcLoan(){
   let P = parseFloat(document.getElementById('loanAmount').value);
   let r = parseFloat(document.getElementById('loanRate').value)/100/12;
   let n = parseFloat(document.getElementById('loanYears').value)*12;
   let payment = P * r / (1 - Math.pow(1+r, -n));
-  document.getElementById('loanResult').innerHTML = 
+  document.getElementById('loanResult').innerHTML =
   `Monthly Payment: R${payment.toFixed(2)}<br>Total Paid: R${(payment*n).toFixed(2)}<br>Total Interest: R${(payment*n - P).toFixed(2)}`;
 }
 
-// SYMBOLAB STEPS
 function showSteps(){
   let eq = document.getElementById('stepInput').value;
-  document.getElementById('stepResult').innerHTML = 
+  document.getElementById('stepResult').innerHTML =
   `Step 1: ${eq}<br>Step 2: Isolate variable<br>Step 3: Solve<br>Answer: x = 5`;
 }
 
-// MATRIX
 function buildMatrix(){
   let html = '';
   for(let i=0; i<3; i++){
@@ -328,26 +377,24 @@ function calcMatrix(){
       }
     }
     let det = math.det(m);
-    let inv = det === 0 ? "No inverse. Determinant = 0" : JSON.stringify(math.inv(m));
-    document.getElementById('matrixResult').innerHTML = 
+    let inv = det === 0? "No inverse. Determinant = 0" : JSON.stringify(math.inv(m));
+    document.getElementById('matrixResult').innerHTML =
     `Determinant: ${det}<br><br>Inverse:<br>${inv}`;
   }catch(e){
     document.getElementById('matrixResult').innerHTML = "Error: "+e.message;
   }
 }
 
-// STATS
 function calcStats(){
   let data = document.getElementById('statsInput').value.split(',').map(x=>parseFloat(x.trim())).filter(x=>!isNaN(x));
   if(data.length===0) return alert("Enter numbers separated by commas");
   let mean = math.mean(data);
   let median = math.median(data);
   let sd = math.std(data);
-  document.getElementById('statsResult').innerHTML = 
+  document.getElementById('statsResult').innerHTML =
   `Count: ${data.length}<br>Mean: ${mean.toFixed(2)}<br>Median: ${median}<br>Std Dev: ${sd.toFixed(2)}`;
 }
 
-// HISTORY + WHATSAPP
 function saveToHistory(expr, result){
   let entry = {expr: expr || document.getElementById('display').value, result: result, time: new Date().toLocaleTimeString()};
   history.unshift(entry);
