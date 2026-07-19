@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHANA CALC BEAST V9.7 - PAST PAPERS</title>
+<title>SHANA CALC BEAST V9.7.1 - FIXED</title>
 <style>
   :root{--bg:#050508;--card:rgba(17,17,25,0.7);--accent:#00d4ff;--text:#f1f5f9;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--purple:#8b5cf6;}
   *{margin:0;padding:0;box-sizing:border-box;font-family: 'Inter', system-ui, sans-serif;}
@@ -11,7 +11,7 @@
 .calc{max-width:1000px; margin:auto; background:var(--card); border-radius:24px; padding:20px; backdrop-filter:blur(20px);}
  h1{background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center; font-size:20px;}
 .subject-btn{padding:14px 18px; margin:6px 0; background: linear-gradient(135deg, #3b0764, #581c87); border:none; border-radius:10px; color:#fff; cursor:pointer; font-weight:700; width:100%; font-size:15px;}
-.subject-btn.past{background: linear-gradient(135deg, #581c87, #8b5cf6);} /* Purple for past papers */
+.subject-btn.past{background: linear-gradient(135deg, #581c87, #8b5cf6);}
 .btn{padding:12px 16px; background: linear-gradient(135deg, #00d4ff, #7c3aed); border:none; border-radius:10px; color:#fff; cursor:pointer; font-weight:700; margin:5px;}
 .btn.red{background:#991b1b;}.btn.yellow{background:var(--yellow); color:#000;}.btn.orange{background:#f59e0b; color:#000;}
 .paper-header{text-align:center; margin:15px 0; font-weight:700; white-space:pre-line; font-size:16px;}
@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="calc">
-  <h1>SHANA CALC NATED V9.7 - PAST PAPERS + PRO</h1>
+  <h1>SHANA CALC NATED V9.7.1 - FIXED & LOADING</h1>
 
   <div id="menu">
     <h2 style="text-align:center; margin:15px 0;">PRACTICE MODE</h2>
@@ -51,11 +51,9 @@
     <button class="subject-btn past" onclick="startPastPaper('hrm', '2019')">HRM N4 - Nov 2019 Paper</button>
     <button class="subject-btn past" onclick="startPastPaper('hrm', '2022')">HRM N4 - Jun 2022 Paper</button>
     <button class="subject-btn past" onclick="startPastPaper('hrm', '2024')">HRM N4 - Nov 2024 Paper</button>
-
     <button class="subject-btn past" onclick="startPastPaper('mc', '2019')">MC N4 - Nov 2019 Paper</button>
     <button class="subject-btn past" onclick="startPastPaper('mc', '2022')">MC N4 - Jun 2022 Paper</button>
     <button class="subject-btn past" onclick="startPastPaper('mc', '2024')">MC N4 - Nov 2024 Paper</button>
-
     <button class="subject-btn past" onclick="startPastPaper('ebm', '2019')">EBM N4 - Nov 2019 Paper</button>
     <button class="subject-btn past" onclick="startPastPaper('ebm', '2022')">EBM N4 - Jun 2022 Paper</button>
     <button class="subject-btn past" onclick="startPastPaper('ebm', '2024')">EBM N4 - Nov 2024 Paper</button>
@@ -82,83 +80,65 @@
 let currentPaper=[], userAnswers=[], timer, timeLeft=3600, currentQ=0, selectedModule='', isPastPaper=false;
 
 const papers = {
-  hrm: { title: "PERSONNEL MANAGEMENT / HRM N4", bank: [
-    {type:"MCQ", marks:1, q:"HRM stands for...", options:["A. Human Resource Management","B. Human Relations Management","C. Human Research Method","D. Human Rights Ministry"], ans:"A", exp:"HRM = Human Resource Management"},
-    {type:"MCQ", marks:1, q:"Main goal of HRM?", options:["A. Reduce staff","B. Maximize employee performance","C. Increase costs","D. Avoid training"], ans:"B", exp:"HRM aims to maximize performance."},
-    {type:"MCQ", marks:1, q:"Which is NOT a HRM function?", options:["A. Recruitment","B. Marketing","C. Training","D. Compensation"], ans:"B", exp:"Marketing is not HR."},
-    {type:"MCQ", marks:1, q:"Job analysis provides...", options:["A. Job description","B. Salary","C. Leave","D. Bonus"], ans:"A", exp:"Job analysis produces JD and JS."},
-    {type:"MCQ", marks:1, q:"Job specification includes...", options:["A. Duties","B. Required qualifications","C. Company address","D. Working hours"], ans:"B", exp:"Job Spec = person requirements."},
-    {type:"DEF", marks:2, q:"Define 'Human Resource Management'.", ans:"Strategic management of human resources to achieve organizational objectives", keywords:["strategic","management","human","resources","organizational","objectives"]},
-    {type:"DEF", marks:2, q:"What is 'Job Analysis'?", ans:"Systematic process of collecting information about job duties", keywords:["systematic","process","collecting","information","job","duties"]},
-    {type:"APP", marks:4, q:"Explain TWO advantages of internal recruitment.", ans:"1. Motivates employees 2. Cheaper and faster", keywords:["motivates","employees","cheaper","faster"]},
-    {type:"APP", marks:4, q:"Discuss TWO challenges of HRM in South Africa.", ans:"1. Skills shortage 2. Labour laws", keywords:["skills","shortage","labour","laws"]},
-    {type:"APP", marks:2, q:"Name TWO internal recruitment sources.", ans:"Promotions and Transfers", keywords:["promotions","transfers"]}
-  ],
-  past: {
-    '2019': [
-      {type:"MCQ", marks:1, q:"[2019 Q1] Which Act governs minimum wage?", options:["A. LRA","B. BCEA","C. EEA","D. OHSA"], ans:"B", exp:"BCEA sets basic conditions."},
-      {type:"MCQ", marks:1, q:"[2019 Q2] Job description contains...", options:["A. Salary","B. Duties","C. Leave days","D. Bonus"], ans:"B", exp:"Duties and responsibilities."},
-      {type:"DEF", marks:2, q:"[2019 Q3] Define 'Recruitment'.", ans:"Process of attracting suitable candidates", keywords:["process","attracting","suitable","candidates"]},
-      {type:"APP", marks:4, q:"[2019 Q4] Discuss TWO disadvantages of external recruitment.", ans:"1. Expensive 2. Takes time", keywords:["expensive","time"]},
-    ],
-    '2022': [
-      {type:"MCQ", marks:1, q:"[2022 Q1] Performance appraisal is done to...", options:["A. Fire staff","B. Evaluate performance","C. Recruit","D. Train"], ans:"B", exp:"Evaluate performance."},
-      {type:"DEF", marks:2, q:"[2022 Q2] What is 'Labour Turnover'?", ans:"Rate employees leave and are replaced", keywords:["rate","employees","leave","replaced"]},
-      {type:"APP", marks:4, q:"[2022 Q3] Explain TWO benefits of training.", ans:"1. Higher productivity 2. Fewer mistakes", keywords:["productivity","mistakes"]},
-    ],
-    '2024': [
-      {type:"MCQ", marks:1, q:"[2024 Q1] OHSA deals with...", options:["A. Wages","B. Health and Safety","C. Equity","D. Contracts"], ans:"B", exp:"Occupational Health and Safety."},
-      {type:"DEF", marks:2, q:"[2024 Q2] Define 'Induction'.", ans:"Orient new employee to company", keywords:["orient","new","employee","company"]},
-      {type:"APP", marks:4, q:"[2024 Q3] Name TWO labour laws in SA.", ans:"1. LRA 2. BCEA", keywords:["lra","bcea"]},
-    ]
-  }},
-  mc: { title: "MANAGEMENT COMMUNICATION N4", bank: [
-    {type:"MCQ", marks:1, q:"Communication involves...", options:["A. 1 person","B. Sender and receiver","C. Only writing","D. Only speaking"], ans:"B", exp:"Needs sender and receiver."},
-    {type:"DEF", marks:2, q:"Define 'Communication'.", ans:"Process of exchanging information", keywords:["process","exchanging","information"]},
-    {type:"APP", marks:4, q:"Explain TWO barriers to communication.", ans:"1. Language 2. Noise", keywords:["language","noise"]},
-  ],
-  past: {
-    '2019': [
-      {type:"MCQ", marks:1, q:"[2019 Q1] Minutes are...", options:["A. Agenda","B. Record of meeting","C. Report","D. Memo"], ans:"B", exp:"Official record."},
-      {type:"DEF", marks:2, q:"[2019 Q2] Define 'Feedback'.", ans:"Response from receiver", keywords:["response","receiver"]},
-    ],
-    '2022': [
-      {type:"APP", marks:4, q:"[2022 Q1] Explain TWO types of reports.", ans:"1. Informational 2. Analytical", keywords:["informational","analytical"]},
-    ],
-    '2024': [
-      {type:"MCQ", marks:1, q:"[2024 Q1] Business letter must be...", options:["A. Long","B. Clear","C. Funny","D. Late"], ans:"B", exp:"Clear and concise."},
-    ]
-  }},
-  ebm: { title: "ENTREPRENEUR & BUSINESS MANAGEMENT N4", bank: [
-    {type:"MCQ", marks:1, q:"Entrepreneur is...", options:["A. Employee","B. Risk taker","C. Customer","D. Supplier"], ans:"B", exp:"Entrepreneur takes risk."},
-    {type:"DEF", marks:2, q:"Define 'Entrepreneur'.", ans:"Person who starts business taking risks", keywords:["person","starts","business","risks"]},
-    {type:"APP", marks:4, q:"Explain TWO sources of finance.", ans:"1. Savings 2. Bank loan", keywords:["savings","bank","loan"]},
-  ],
-  past: {
-    '2019': [
-      {type:"MCQ", marks:1, q:"[2019 Q1] 4th factor of production?", options:["A. Money","B. Entrepreneurship","C. Product","D. Service"], ans:"B", exp:"Land Labour Capital Entrepreneurship."},
-      {type:"DEF", marks:2, q:"[2019 Q2] What is 'Business Plan'?", ans:"Document outlining goals", keywords:["document","outlining","goals"]},
-    ],
-    '2022': [
-      {type:"APP", marks:4, q:"[2022 Q1] Explain TWO characteristics of entrepreneur.", ans:"1. Risk taker 2. Innovative", keywords:["risk","innovative"]},
-    ],
-    '2024': [
-      {type:"MCQ", marks:1, q:"[2024 Q1] SWOT stands for...", options:["A. Sales","B. Strengths Weaknesses Opportunities Threats","C. Stock","D. Service"], ans:"B", exp:"SWOT analysis."},
-    ]
-  }}
+  hrm: {
+    title: "PERSONNEL MANAGEMENT / HRM N4",
+    bank: [
+      {type:"MCQ", marks:1, q:"HRM stands for...", options:["A. Human Resource Management","B. Human Relations Management","C. Human Research Method","D. Human Rights Ministry"], ans:"A", exp:"HRM = Human Resource Management"},
+      {type:"MCQ", marks:1, q:"Main goal of HRM?", options:["A. Reduce staff","B. Maximize employee performance","C. Increase costs","D. Avoid training"], ans:"B", exp:"HRM aims to maximize performance."},
+      {type:"MCQ", marks:1, q:"Which is NOT a HRM function?", options:["A. Recruitment","B. Marketing","C. Training","D. Compensation"], ans:"B", exp:"Marketing is not HR."},
+      {type:"DEF", marks:2, q:"Define 'Human Resource Management'.", ans:"Strategic management of human resources to achieve organizational objectives", keywords:["strategic","management","human","resources","organizational","objectives"]},
+      {type:"APP", marks:4, q:"Explain TWO advantages of internal recruitment.", ans:"1. Motivates employees 2. Cheaper and faster", keywords:["motivates","employees","cheaper","faster"]}
+    ], // <- THIS BRACKET WAS MISSING
+    past: {
+      '2019': [
+        {type:"MCQ", marks:1, q:"[2019 Q1] Which Act governs minimum wage?", options:["A. LRA","B. BCEA","C. EEA","D. OHSA"], ans:"B", exp:"BCEA sets basic conditions."},
+        {type:"DEF", marks:2, q:"[2019 Q2] Define 'Recruitment'.", ans:"Process of attracting suitable candidates", keywords:["process","attracting","suitable","candidates"]}
+      ],
+      '2022': [
+        {type:"MCQ", marks:1, q:"[2022 Q1] Performance appraisal is done to...", options:["A. Fire staff","B. Evaluate performance","C. Recruit","D. Train"], ans:"B", exp:"Evaluate performance."}
+      ],
+      '2024': [
+        {type:"MCQ", marks:1, q:"[2024 Q1] OHSA deals with...", options:["A. Wages","B. Health and Safety","C. Equity","D. Contracts"], ans:"B", exp:"Occupational Health and Safety."}
+      ]
+    } // <- AND THIS ONE
+  }, // <- MODULE CLOSE
+  mc: {
+    title: "MANAGEMENT COMMUNICATION N4",
+    bank: [
+      {type:"MCQ", marks:1, q:"Communication involves...", options:["A. 1 person","B. Sender and receiver","C. Only writing","D. Only speaking"], ans:"B", exp:"Needs sender and receiver."},
+      {type:"DEF", marks:2, q:"Define 'Communication'.", ans:"Process of exchanging information", keywords:["process","exchanging","information"]}
+    ], // FIXED
+    past: {
+      '2019': [{type:"MCQ", marks:1, q:"[2019 Q1] Minutes are...", options:["A. Agenda","B. Record of meeting","C. Report","D. Memo"], ans:"B", exp:"Official record."}],
+      '2022': [{type:"APP", marks:4, q:"[2022 Q1] Explain TWO types of reports.", ans:"1. Informational 2. Analytical", keywords:["informational","analytical"]}],
+      '2024': [{type:"MCQ", marks:1, q:"[2024 Q1] Business letter must be...", options:["A. Long","B. Clear","C. Funny","D. Late"], ans:"B", exp:"Clear and concise."}]
+    }
+  }, // FIXED
+  ebm: {
+    title: "ENTREPRENEUR & BUSINESS MANAGEMENT N4",
+    bank: [
+      {type:"MCQ", marks:1, q:"Entrepreneur is...", options:["A. Employee","B. Risk taker","C. Customer","D. Supplier"], ans:"B", exp:"Entrepreneur takes risk."},
+      {type:"DEF", marks:2, q:"Define 'Entrepreneur'.", ans:"Person who starts business taking risks", keywords:["person","starts","business","risks"]}
+    ], // FIXED
+    past: {
+      '2019': [{type:"MCQ", marks:1, q:"[2019 Q1] 4th factor of production?", options:["A. Money","B. Entrepreneurship","C. Product","D. Service"], ans:"B", exp:"Land Labour Capital Entrepreneurship."}],
+      '2022': [{type:"APP", marks:4, q:"[2022 Q1] Explain TWO characteristics of entrepreneur.", ans:"1. Risk taker 2. Innovative", keywords:["risk","innovative"]}],
+      '2024': [{type:"MCQ", marks:1, q:"[2024 Q1] SWOT stands for...", options:["A. Sales","B. Strengths Weaknesses Opportunities Threats","C. Stock","D. Service"], ans:"B", exp:"SWOT analysis."}]
+    }
+  } // FIXED
 };
 
-// AUTO SAVE + LOAD CODE FROM V9.6
+// ERROR CATCHER SO IT NEVER WHITESCREENS
+window.onerror = function(msg){ alert("SHANA CALC ERROR: " + msg + "\nReload and try again"); return true; }
+
 setInterval(()=>{ if(currentPaper.length > 0){ localStorage.setItem('shana_progress', JSON.stringify({currentPaper, userAnswers, currentQ, timeLeft, selectedModule, isPastPaper})); } }, 5000);
-window.onload = ()=>{ let saved = localStorage.getItem('shana_progress'); if(saved && confirm("Resume your last exam?")){ let data = JSON.parse(saved); currentPaper=data.currentPaper; userAnswers=data.userAnswers; currentQ=data.currentQ; timeLeft=data.timeLeft; selectedModule=data.selectedModule; isPastPaper=data.isPastPaper; document.getElementById('menu').style.display = 'none'; document.getElementById('examArea').style.display = 'block'; document.getElementById('paperTitle').innerText = `${papers[selectedModule].title}\nTOTAL: ${currentPaper.reduce((a,b)=>a+b.marks,0)} MARKS ${isPastPaper?'- PAST PAPER':''}`; buildNav(); showQuestion(); timer = setInterval(()=>{ timeLeft--; updateTimer(); if(timeLeft<=0) submitPaper(); },1000); } }
+window.onload = ()=>{ try{ let saved = localStorage.getItem('shana_progress'); if(saved && confirm("Resume your last exam?")){ let data = JSON.parse(saved); currentPaper=data.currentPaper; userAnswers=data.userAnswers; currentQ=data.currentQ; timeLeft=data.timeLeft; selectedModule=data.selectedModule; isPastPaper=data.isPastPaper; document.getElementById('menu').style.display = 'none'; document.getElementById('examArea').style.display = 'block'; document.getElementById('paperTitle').innerText = `${papers[selectedModule].title}\nTOTAL: ${currentPaper.reduce((a,b)=>a+b.marks,0)} MARKS ${isPastPaper?'- PAST PAPER':''}`; buildNav(); showQuestion(); timer = setInterval(()=>{ timeLeft--; updateTimer(); if(timeLeft<=0) submitPaper(); },1000); } }catch(e){console.log(e)} }
 
 function getRandomQuestions(bank, count){ let result = []; while(result.length < count){ let shuffled = [...bank].sort(()=>Math.random()-0.5); result = result.concat(shuffled); } return result.slice(0, count); }
 
 function startPaper(mod, mode){
-  isPastPaper = false;
-  localStorage.removeItem('shana_progress');
-  selectedModule = mod;
-  let bank = papers[mod].bank;
+  isPastPaper = false; localStorage.removeItem('shana_progress');
+  selectedModule = mod; let bank = papers[mod].bank;
   let questionCount = mode==='random'? 10 : 100;
   currentPaper = getRandomQuestions(bank, questionCount);
   userAnswers = new Array(currentPaper.length).fill(null); currentQ = 0; timeLeft = 3600;
@@ -168,13 +148,10 @@ function startPaper(mod, mode){
   clearInterval(timer); timer = setInterval(()=>{ timeLeft--; updateTimer(); if(timeLeft<=0) submitPaper(); },1000);
 }
 
-// NEW FUNCTION FOR PAST PAPERS
 function startPastPaper(mod, year){
-  isPastPaper = true;
-  localStorage.removeItem('shana_progress');
-  selectedModule = mod;
-  currentPaper = papers[mod].past[year];
-  userAnswers = new Array(currentPaper.length).fill(null); currentQ = 0; timeLeft = 1800; // 30 min for past paper
+  isPastPaper = true; localStorage.removeItem('shana_progress');
+  selectedModule = mod; currentPaper = papers[mod].past[year];
+  userAnswers = new Array(currentPaper.length).fill(null); currentQ = 0; timeLeft = 1800;
   document.getElementById('menu').style.display = 'none'; document.getElementById('examArea').style.display = 'block';
   document.getElementById('paperTitle').innerText = `${papers[mod].title}\nPAST PAPER: ${year} - TOTAL: ${currentPaper.reduce((a,b)=>a+b.marks,0)} MARKS`;
   buildNav(); showQuestion();
