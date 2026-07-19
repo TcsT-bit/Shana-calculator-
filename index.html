@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHANA CALC BEAST V9.7.2 - FIXED</title>
+<title>SHANA CALC BEAST V9.8 - WORKING</title>
 <style>
   :root{--bg:#050508;--card:rgba(17,17,25,0.7);--accent:#00d4ff;--text:#f1f5f9;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--purple:#8b5cf6;}
   *{margin:0;padding:0;box-sizing:border-box;font-family: 'Inter', system-ui, sans-serif;}
@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="calc">
-  <h1>SHANA CALC NATED V9.7.2 - FIXED</h1>
+  <h1>SHANA CALC NATED V9.8 - ALL WORKING</h1>
 
   <div id="menu">
     <h2 style="text-align:center; margin:15px 0;">PRACTICE MODE</h2>
@@ -47,16 +47,10 @@
     <button class="subject-btn" onclick="startPaper('ebm', 'random')">EBM N4 - Random 20 Marks</button>
     <button class="subject-btn" onclick="startPaper('ebm', 'full')">EBM N4 - Mock Exam 100 Qs</button>
 
-    <div class="section-divider">PAST EXAM PAPERS - DHET STYLE</div>
-    <button class="subject-btn past" onclick="startPastPaper('hrm', '2019')">HRM N4 - Nov 2019 Paper</button>
-    <button class="subject-btn past" onclick="startPastPaper('hrm', '2022')">HRM N4 - Jun 2022 Paper</button>
-    <button class="subject-btn past" onclick="startPastPaper('hrm', '2024')">HRM N4 - Nov 2024 Paper</button>
-    <button class="subject-btn past" onclick="startPastPaper('mc', '2019')">MC N4 - Nov 2019 Paper</button>
-    <button class="subject-btn past" onclick="startPastPaper('mc', '2022')">MC N4 - Jun 2022 Paper</button>
-    <button class="subject-btn past" onclick="startPastPaper('mc', '2024')">MC N4 - Nov 2024 Paper</button>
-    <button class="subject-btn past" onclick="startPastPaper('ebm', '2019')">EBM N4 - Nov 2019 Paper</button>
-    <button class="subject-btn past" onclick="startPastPaper('ebm', '2022')">EBM N4 - Jun 2022 Paper</button>
-    <button class="subject-btn past" onclick="startPastPaper('ebm', '2024')">EBM N4 - Nov 2024 Paper</button>
+    <div class="section-divider">PAST EXAM PAPERS</div>
+    <button class="subject-btn past" onclick="startPastPaper('hrm', '2019')">HRM N4 - Nov 2019</button>
+    <button class="subject-btn past" onclick="startPastPaper('mc', '2019')">MC N4 - Nov 2019</button>
+    <button class="subject-btn past" onclick="startPastPaper('ebm', '2019')">EBM N4 - Nov 2019</button>
   </div>
 
   <div id="examArea" style="display:none;">
@@ -80,46 +74,26 @@
 let currentPaper=[], userAnswers=[], timer, timeLeft=3600, currentQ=0, selectedModule='', isPastPaper=false;
 
 const papers = {
-  hrm: {
-    title: "PERSONNEL MANAGEMENT / HRM N4",
-    bank: [
-      {type:"MCQ", marks:1, q:"HRM stands for...", options:["A. Human Resource Management","B. Human Relations Management","C. Human Research Method","D. Human Rights Ministry"], ans:"A", exp:"HRM = Human Resource Management"},
-      {type:"MCQ", marks:1, q:"Main goal of HRM?", options:["A. Reduce staff","B. Maximize employee performance","C. Increase costs","D. Avoid training"], ans:"B", exp:"HRM aims to maximize performance."},
-      {type:"DEF", marks:2, q:"Define 'Human Resource Management'.", ans:"Strategic management of human resources to achieve organizational objectives", keywords:["strategic","management","human","resources","organizational","objectives"]},
-      {type:"APP", marks:4, q:"Explain TWO advantages of internal recruitment.", ans:"1. Motivates employees 2. Cheaper and faster", keywords:["motivates","employees","cheaper","faster"]}
-    ],
-    past: {
-      '2019': [{type:"MCQ", marks:1, q:"[2019 Q1] Which Act governs minimum wage?", options:["A. LRA","B. BCEA","C. EEA","D. OHSA"], ans:"B", exp:"BCEA sets basic conditions."}],
-      '2022': [{type:"MCQ", marks:1, q:"[2022 Q1] Performance appraisal is done to...", options:["A. Fire staff","B. Evaluate performance","C. Recruit","D. Train"], ans:"B", exp:"Evaluate performance."}],
-      '2024': [{type:"MCQ", marks:1, q:"[2024 Q1] OHSA deals with...", options:["A. Wages","B. Health and Safety","C. Equity","D. Contracts"], ans:"B", exp:"Occupational Health and Safety."}]
-    }
-  },
-  mc: {
-    title: "MANAGEMENT COMMUNICATION N4",
-    bank: [
-      {type:"MCQ", marks:1, q:"Communication involves...", options:["A. 1 person","B. Sender and receiver","C. Only writing","D. Only speaking"], ans:"B", exp:"Needs sender and receiver."}
-    ],
-    past: {
-      '2019': [{type:"MCQ", marks:1, q:"[2019 Q1] Minutes are...", options:["A. Agenda","B. Record of meeting","C. Report","D. Memo"], ans:"B", exp:"Official record."}],
-      '2022': [{type:"APP", marks:4, q:"[2022 Q1] Explain TWO types of reports.", ans:"1. Informational 2. Analytical", keywords:["informational","analytical"]}],
-      '2024': [{type:"MCQ", marks:1, q:"[2024 Q1] Business letter must be...", options:["A. Long","B. Clear","C. Funny","D. Late"], ans:"B", exp:"Clear and concise."}]
-    }
-  },
-  ebm: {
-    title: "ENTREPRENEUR & BUSINESS MANAGEMENT N4",
-    bank: [
-      {type:"MCQ", marks:1, q:"Entrepreneur is...", options:["A. Employee","B. Risk taker","C. Customer","D. Supplier"], ans:"B", exp:"Entrepreneur takes risk."}
-    ],
-    past: {
-      '2019': [{type:"MCQ", marks:1, q:"[2019 Q1] 4th factor of production?", options:["A. Money","B. Entrepreneurship","C. Product","D. Service"], ans:"B", exp:"Land Labour Capital Entrepreneurship."}],
-      '2022': [{type:"APP", marks:4, q:"[2022 Q1] Explain TWO characteristics of entrepreneur.", ans:"1. Risk taker 2. Innovative", keywords:["risk","innovative"]}],
-      '2024': [{type:"MCQ", marks:1, q:"[2024 Q1] SWOT stands for...", options:["A. Sales","B. Strengths Weaknesses Opportunities Threats","C. Stock","D. Service"], ans:"B", exp:"SWOT analysis."}]
-    }
-  }
+  hrm: { title: "PERSONNEL MANAGEMENT / HRM N4", bank: [
+    {type:"MCQ", marks:1, q:"HRM stands for...", options:["A. Human Resource Management","B. Human Relations Management","C. Human Research Method","D. Human Rights Ministry"], ans:"A", exp:"HRM = Human Resource Management"},
+    {type:"MCQ", marks:1, q:"Main goal of HRM?", options:["A. Reduce staff","B. Maximize employee performance","C. Increase costs","D. Avoid training"], ans:"B", exp:"HRM aims to maximize performance."},
+    {type:"DEF", marks:2, q:"Define 'Human Resource Management'.", ans:"Strategic management of human resources to achieve organizational objectives", keywords:["strategic","management","human","resources","organizational","objectives"]},
+    {type:"APP", marks:4, q:"Explain TWO advantages of internal recruitment.", ans:"1. Motivates employees 2. Cheaper and faster", keywords:["motivates","employees","cheaper","faster"]}
+  ],
+  past: {'2019': [{type:"MCQ", marks:1, q:"[2019 Q1] Which Act governs minimum wage?", options:["A. LRA","B. BCEA","C. EEA","D. OHSA"], ans:"B", exp:"BCEA sets basic conditions."}]} },
+  mc: { title: "MANAGEMENT COMMUNICATION N4", bank: [
+    {type:"MCQ", marks:1, q:"Communication involves...", options:["A. 1 person","B. Sender and receiver","C. Only writing","D. Only speaking"], ans:"B", exp:"Needs sender and receiver."}
+  ],
+  past: {'2019': [{type:"MCQ", marks:1, q:"[2019 Q1] Minutes are...", options:["A. Agenda","B. Record of meeting","C. Report","D. Memo"], ans:"B", exp:"Official record."}]} },
+  ebm: { title: "ENTREPRENEUR & BUSINESS MANAGEMENT N4", bank: [
+    {type:"MCQ", marks:1, q:"Entrepreneur is...", options:["A. Employee","B. Risk taker","C. Customer","D. Supplier"], ans:"B", exp:"Entrepreneur takes risk."}
+  ],
+  past: {'2019': [{type:"MCQ", marks:1, q:"[2019 Q1] 4th factor of production?", options:["A. Money","B. Entrepreneurship","C. Product","D. Service"], ans:"B", exp:"Land Labour Capital Entrepreneurship."}]} }
 };
 
+// AUTO SAVE
 setInterval(()=>{ if(currentPaper.length > 0){ localStorage.setItem('shana_progress', JSON.stringify({currentPaper, userAnswers, currentQ, timeLeft, selectedModule, isPastPaper})); } }, 5000);
-window.onload = ()=>{ try{ let saved = localStorage.getItem('shana_progress'); if(saved && confirm("Resume your last exam?")){ let data = JSON.parse(saved); currentPaper=data.currentPaper; userAnswers=data.userAnswers; currentQ=data.currentQ; timeLeft=data.timeLeft; selectedModule=data.selectedModule; isPastPaper=data.isPastPaper; document.getElementById('menu').style.display = 'none'; document.getElementById('examArea').style.display = 'block'; document.getElementById('paperTitle').innerText = `${papers[selectedModule].title}\nTOTAL: ${currentPaper.reduce((a,b)=>a+b.marks,0)} MARKS ${isPastPaper?'- PAST PAPER':''}`; buildNav(); showQuestion(); timer = setInterval(()=>{ timeLeft--; updateTimer(); if(timeLeft<=0) submitPaper(); },1000); }catch(e){console.log(e)} }
+window.onload = ()=>{ let saved = localStorage.getItem('shana_progress'); if(saved && confirm("Resume your last exam?")){ let data = JSON.parse(saved); currentPaper=data.currentPaper; userAnswers=data.userAnswers; currentQ=data.currentQ; timeLeft=data.timeLeft; selectedModule=data.selectedModule; isPastPaper=data.isPastPaper; document.getElementById('menu').style.display = 'none'; document.getElementById('examArea').style.display = 'block'; document.getElementById('paperTitle').innerText = `${papers[selectedModule].title}\nTOTAL: ${currentPaper.reduce((a,b)=>a+b.marks,0)} MARKS ${isPastPaper?'- PAST PAPER':''}`; buildNav(); showQuestion(); timer = setInterval(()=>{ timeLeft--; updateTimer(); if(timeLeft<=0) submitPaper(); },1000); } }
 
 function getRandomQuestions(bank, count){ let result = []; while(result.length < count){ let shuffled = [...bank].sort(()=>Math.random()-0.5); result = result.concat(shuffled); } return result.slice(0, count); }
 
@@ -160,19 +134,46 @@ function updateNav(){
         else btn.classList.add('done');
       }
     }
-  }); // FIXED: CLOSED THIS
+  });
   let progress = (userAnswers.filter(a=>a!==null).length/currentPaper.length)*100;
   document.getElementById('progressBar').style.width=progress+'%';
 }
-function showQuestion(){ let q = currentPaper[currentQ]; let html = `<div class="quiz-card">`; if(q.type==="MCQ") html += `<div class="section-title">SECTION A: MULTIPLE CHOICE</div>`; if(q.type==="DEF") html += `<div class="section-title">SECTION B: DEFINITIONS</div>`; if(q.type==="APP") html += `<div class="section-title">SECTION C: APPLICATION</div>`; html += `<p><b>Question ${currentQ+1} of ${currentPaper.length}.</b> ${q.q} [${q.marks}]</p>`; if(q.type==="MCQ"){ q.options.forEach(opt=>{ let letter = opt.charAt(0); let selected = userAnswers[currentQ]===letter?'style="border-color:var(--accent)"':''; html += `<div class="quiz-option" ${selected} onclick="checkMCQ(this, '${letter}')">${opt}</div>`; }); } else { html += `<textarea id="txt${currentQ}" rows="4" style="width:100%; background:#000; color:#fff; border:1px solid #333; border-radius:8px; padding:10px;">${userAnswers[currentQ]||''}</textarea>`; } html += `</div>`; document.getElementById('questionsArea').innerHTML = html; updateNav(); }
-function checkMCQ(el, choice){ userAnswers[currentQ] = choice; document.querySelectorAll('.quiz-option').forEach(o=>o.style.pointerEvents='none'); let correct = currentPaper[currentQ].ans; if(choice === correct){ el.classList.add('correct'); } else { el.classList.add('wrong'); document.querySelectorAll('.quiz-option').forEach(o=>{ if(o.textContent.startsWith(correct)) o.classList.add('correct'); }); } if(currentPaper[currentQ].exp){ document.querySelector('.quiz-card').innerHTML += `<div class="explanation"><b>Explanation:</b> ${currentPaper[currentQ].exp}</div>`; } updateNav(); setTimeout(()=>{ if(currentQ<currentPaper.length-1) nextQ(); }, 1500); }
+function showQuestion(){
+  let q = currentPaper[currentQ];
+  let html = `<div class="quiz-card">`;
+  if(q.type==="MCQ") html += `<div class="section-title">SECTION A: MULTIPLE CHOICE</div>`;
+  if(q.type==="DEF") html += `<div class="section-title">SECTION B: DEFINITIONS</div>`;
+  if(q.type==="APP") html += `<div class="section-title">SECTION C: APPLICATION</div>`;
+  html += `<p><b>Question ${currentQ+1} of ${currentPaper.length}.</b> ${q.q} [${q.marks}]</p>`;
+  if(q.type==="MCQ"){
+    q.options.forEach(opt=>{
+      let letter = opt.charAt(0);
+      let selected = userAnswers[currentQ]===letter?'style="border-color:var(--accent)"':'';
+      html += `<div class="quiz-option" ${selected} onclick="checkMCQ(this, '${letter}')">${opt}</div>`;
+    });
+  } else {
+    html += `<textarea id="txt${currentQ}" rows="4" style="width:100%; background:#000; color:#fff; border:1px solid #333; border-radius:8px; padding:10px;">${userAnswers[currentQ]||''}</textarea>`;
+  }
+  html += `</div>`;
+  document.getElementById('questionsArea').innerHTML = html;
+  updateNav();
+}
+function checkMCQ(el, choice){
+  userAnswers[currentQ] = choice;
+  document.querySelectorAll('.quiz-option').forEach(o=>o.style.pointerEvents='none');
+  let correct = currentPaper[currentQ].ans;
+  if(choice === correct){ el.classList.add('correct'); }
+  else { el.classList.add('wrong'); document.querySelectorAll('.quiz-option').forEach(o=>{ if(o.textContent.startsWith(correct)) o.classList.add('correct'); }); }
+  if(currentPaper[currentQ].exp){ document.querySelector('.quiz-card').innerHTML += `<div class="explanation"><b>Explanation:</b> ${currentPaper[currentQ].exp}</div>`; }
+  updateNav();
+  setTimeout(()=>{ if(currentQ<currentPaper.length-1) nextQ(); }, 1500);
+}
 function markReview(){ document.getElementById(`nav${currentQ}`).classList.add('review'); }
 function nextQ(){ if(currentPaper[currentQ].type!=="MCQ") userAnswers[currentQ] = document.getElementById(`txt${currentQ}`).value; if(currentQ<currentPaper.length-1) currentQ++; showQuestion(); }
 function prevQ(){ if(currentPaper[currentQ].type!=="MCQ") userAnswers[currentQ] = document.getElementById(`txt${currentQ}`).value; if(currentQ>0) currentQ--; showQuestion(); }
 function goToQ(i){ if(currentPaper[currentQ].type!=="MCQ") userAnswers[currentQ] = document.getElementById(`txt${currentQ}`).value; currentQ=i; showQuestion(); }
 function backToMenu(){ clearInterval(timer); localStorage.removeItem('shana_progress'); document.getElementById('examArea').style.display='none'; document.getElementById('menu').style.display='block'; }
 function gradeTextAnswer(userAns, keywords){ if(!userAns) return 0; let lower = userAns.toLowerCase(); let hits = keywords.filter(k=>lower.includes(k)).length; return Math.min(1, hits/keywords.length); }
-
 function submitPaper(){
   clearInterval(timer); localStorage.removeItem('shana_progress');
   if(currentPaper[currentQ].type!=="MCQ") userAnswers[currentQ] = document.getElementById(`txt${currentQ}`)?.value;
@@ -187,7 +188,7 @@ function submitPaper(){
   memoHTML += `<div class="analytics-box"><h3>PERFORMANCE BREAKDOWN</h3><div>Section A MCQ: ${mcqPer}%</div><div>Section B DEF: ${defPer}%</div><div>Section C APP: ${appPer}%</div><div style="margin-top:8px; color:var(--yellow)">⚠️ Focus more on: ${weakest}</div></div>`;
   currentPaper.forEach((q,i)=>{ let correctText = q.type==="MCQ"? q.options.find(o=>o.startsWith(q.ans)) : q.ans; memoHTML += `<div style="margin-bottom:15px;"><b>Q${i+1}.</b> ${q.q}<br><b>Your:</b> ${userAnswers[i] || 'No Answer'}<br><div style="color:var(--green)"><b>Memo:</b> ${correctText}</div></div>`; });
   document.getElementById('memoArea').innerHTML = memoHTML; document.getElementById('memoArea').style.display = 'block'; document.getElementById('timer').innerText = 'EXAM COMPLETED';
-} // FIXED: CLOSED THIS
+}
 </script>
 </body>
 </html>
