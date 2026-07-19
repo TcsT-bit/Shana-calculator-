@@ -3,159 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHANA CALC BEAST + NATED V4.9 REAL PAPERS</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script>
+<title>SHANA CALC BEAST V5.0 NATED DHET</title>
 <style>
-  :root{--bg: #050508;--card: rgba(17,17,25,0.6);--accent: #00d4ff;--accent2: #7c3aed;--text: #f1f5f9;}
+  :root{--bg:#050508;--card:rgba(17,17,25,0.7);--accent:#00d4ff;--text:#f1f5f9;--green:#10b981;--red:#ef4444;}
   *{margin:0;padding:0;box-sizing:border-box;font-family: 'Inter', system-ui, sans-serif;}
-  body{background: var(--bg); color:var(--text); padding:10px;}
- .calc{max-width:1000px; margin:auto; background:var(--card); border-radius:24px; padding:20px;}
- .subject-btn{padding:12px 20px; margin:5px; background: linear-gradient(135deg, #3b0764, #581c87); border:none; border-radius:12px; color:#fff; cursor:pointer; font-weight:700;}
- .btn{padding:12px; background:#1f2937; border:none; color:#fff; border-radius:10px; cursor:pointer; margin:5px;}
- .btn.red{background:#991b1b;}.btn.eq{background: linear-gradient(135deg, #00d4ff, #7c3aed);}
- .quiz-card{background:rgba(0,0,0,0.6); padding:18px; border-radius:14px; margin-bottom:12px;}
- .quiz-option{padding:12px; margin:6px 0; background:#1f2937; border-radius:8px; cursor:pointer;}
- .quiz-option.selected{border:2px solid #00d4ff;}
- .quiz-option.correct{background:#065f46; border:2px solid #10b981;}
- .quiz-option.wrong{background:#991b1b; border:2px solid #ef4444;}
- .timer{font-size:22px; font-weight:800; color:#00d4ff; text-align:center;}
- .memo-question{margin-bottom:15px; padding:12px; background:rgba(0,0,0,0.5); border-radius:10px;}
- .memo-question.a{color:#10b981;}.memo-question.your{color:#fbbf24;}
-  input{width:100%; padding:12px; background:#000; border:1px solid #333; color:#fff; border-radius:8px; margin:5px 0;}
+  body{background:var(--bg); color:var(--text); padding:10px;}
+.calc{max-width:900px; margin:auto; background:var(--card); border-radius:24px; padding:20px; backdrop-filter:blur(20px);}
+ h1{background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center;}
+.subject-btn{padding:12px 18px; margin:5px; background: linear-gradient(135deg, #3b0764, #581c87); border:none; border-radius:10px; color:#fff; cursor:pointer; font-weight:700;}
+.btn{padding:12px 20px; background: linear-gradient(135deg, #00d4ff, #7c3aed); border:none; border-radius:10px; color:#fff; cursor:pointer; font-weight:700; margin:10px 5px;}
+.btn.red{background:#991b1b;}
+.paper-header{text-align:center; margin:15px 0; font-weight:700;}
+.section-title{color:var(--accent); font-weight:800; margin-top:15px; margin-bottom:8px;}
+.quiz-card{background:rgba(0,0,0,0.5); padding:16px; border-radius:12px; margin-bottom:12px;}
+.quiz-option{padding:10px; margin:6px 0; background:#1f2937; border-radius:8px; cursor:pointer; border:2px solid transparent;}
+.quiz-option:hover{background:#374151;}
+.quiz-option.correct{background:var(--green)!important; border-color:var(--green);}
+.quiz-option.wrong{background:var(--red)!important; border-color:var(--red);}
+.timer{font-size:20px; font-weight:800; color:var(--accent); text-align:center;}
+.memo-section{margin-top:20px; padding:15px; background:#000; border-radius:12px;}
+.memo-q{margin-bottom:15px;}
+.memo-q.correct{color:var(--green); font-weight:700;}
 </style>
 </head>
 <body>
 <div class="calc">
-  <h1 style="background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">SHANA CALC NATED V4.9</h1>
-  
-  <div id="nated">
-    <h2>📚 NATED N4 EXAM CENTER</h2>
-    <div>
-      <button class="subject-btn" onclick="selectModule('mc')">Management Communication N4</button>
-      <button class="subject-btn" onclick="selectModule('hrm')">Personnel Management N4</button>
-      <button class="subject-btn" onclick="selectModule('ebm')">Entrepreneur & Business Mgmt N4</button>
-    </div>
-    <div id="moduleActions" style="display:none; margin-top:15px;">
-      <h3 id="selectedModuleName"></h3>
-      <button class="btn" onclick="startExam(60)">60 Min Exam - 30 Qs</button>
-      <button class="btn" onclick="startExam(30)">30 Min Test - 15 Qs</button>
-    </div>
-    <div class="timer" id="timer"></div>
-    <div id="quizArea"></div>
-    <button class="btn red" id="submitBtn" style="display:none; width:100%;" onclick="submitExam()">SUBMIT EXAM & SHOW MEMO</button>
-    <div id="scoreArea" style="display:none; background:#000; padding:15px; border-radius:12px; margin-top:15px;"></div>
+  <h1>SHANA CALC NATED V5.0</h1>
+
+  <div id="menu">
+    <h2 style="text-align:center; margin:15px 0;">Select Module</h2>
+    <button class="subject-btn" onclick="startPaper('hrm')">Personnel Management N4</button>
+    <button class="subject-btn" onclick="startPaper('mc')">Management Communication N4</button>
+    <button class="subject-btn" onclick="startPaper('ebm')">Entrepreneur & Business Mgmt N4</button>
   </div>
 
+  <div id="examArea" style="display:none;">
+    <div class="timer" id="timer">Time: 60:00</div>
+    <div id="paperTitle" class="paper-header"></div>
+    <div id="questionsArea"></div>
+    <button class="btn red" id="submitBtn" onclick="submitPaper()">SUBMIT PAPER</button>
+    <div id="memoArea" class="memo-section" style="display:none;"></div>
+  </div>
 </div>
 
 <script>
-let timerInterval, timeLeft=0, currentQuiz=[], userAnswers=[], score=0, selectedModule='mc';
+let currentPaper=[], userAnswers=[], timer, timeLeft=3600, currentQ=0, selectedModule='';
 
-// REAL EXAM STYLE QUESTION BANK - DHET N4 FORMAT
-const natedDB = {
-  mc: [
-    {q:"Define the term 'Communication'. [2]", a:"Communication is the process of exchanging information, ideas and feelings between two or more people in order to reach mutual understanding."},
-    {q:"List THREE barriers to effective communication in the workplace. [3]", a:"1. Physical noise 2. Language differences 3. Poor listening skills"},
-    {q:"What is the difference between verbal and non-verbal communication? [4]", a:"Verbal communication uses spoken or written words. Non-verbal communication uses body language, facial expressions, gestures and tone of voice."},
-    {q:"Name FOUR types of business reports. [4]", a:"1. Progress report 2. Incident report 3. Financial report 4. Recommendation report"},
-    {q:"Explain the importance of feedback in the communication process. [2]", a:"Feedback confirms whether the message was understood correctly and allows the sender to correct misunderstandings."},
-    {q:"What is an agenda? [2]", a:"An agenda is a list of items to be discussed at a meeting, sent to participants beforehand."},
-    {q:"List TWO types of meetings. [2]", a:"1. Formal meeting 2. Informal meeting"},
-    {q:"State THREE principles of effective business writing. [3]", a:"1. Clarity 2. Conciseness 3. Correctness"},
-    {q:"What is the purpose of minutes of a meeting? [2]", a:"To provide an official written record of what was discussed and decided at a meeting."},
-    {q:"Define 'grapevine' communication. [2]", a:"Grapevine is the informal communication network within an organization."}
-  ],
-  hrm: [
-    {q:"Define Personnel Management. [2]", a:"Personnel Management is the process of recruiting, selecting, training and managing employees to achieve organizational goals."},
-    {q:"List FOUR functions of the Human Resources department. [4]", a:"1. Recruitment and selection 2. Training and development 3. Compensation and benefits 4. Labour relations"},
-    {q:"Distinguish between training and development. [4]", a:"Training is short-term and job-specific. Development is long-term and prepares employees for future positions."},
-    {q:"Name THREE internal sources of recruitment. [3]", a:"1. Promotion 2. Transfer 3. Employee referrals"},
-    {q:"What is job analysis? [2]", a:"Job analysis is the process of collecting information about a job to determine its duties and required skills."},
-    {q:"What is the difference between a job description and job specification? [4]", a:"Job description lists duties and responsibilities. Job specification lists required qualifications and skills."},
-    {q:"List TWO methods of on-the-job training. [2]", a:"1. Coaching 2. Job rotation"},
-    {q:"What is performance appraisal? [2]", a:"Performance appraisal is the process of evaluating an employee's job performance over a specific period."},
-    {q:"Name TWO South African labour laws. [2]", a:"1. Labour Relations Act 2. Basic Conditions of Employment Act"},
-    {q:"What is employee motivation? [2]", a:"Employee motivation is the internal drive that causes employees to work towards achieving organizational goals."}
-  ],
-  ebm: [
-    {q:"Define the term 'Entrepreneur'. [2]", a:"An entrepreneur is a person who starts, organizes and manages a business venture and takes financial risks to make a profit."},
-    {q:"List FOUR characteristics of a successful entrepreneur. [4]", a:"1. Risk taker 2. Innovative 3. Self-motivated 4. Good decision maker"},
-    {q:"What is a business plan and why is it important? [4]", a:"A business plan is a written document outlining business goals and how to achieve them. It is important for getting funding and planning."},
-    {q:"Name THREE types of business ownership. [3]", a:"1. Sole Proprietor 2. Partnership 3. Private Company"},
-    {q:"What is market research? [2]", a:"Market research is the process of gathering information about customers, competitors and market trends."},
-    {q:"List FOUR factors of production. [4]", a:"1. Land 2. Labour 3. Capital 4. Entrepreneurship"},
-    {q:"What does SWOT stand for? [4]", a:"S-Strengths, W-Weaknesses, O-Opportunities, T-Threats"},
-    {q:"Define franchising. [2]", a:"Franchising is a business model where the franchisor sells the right to use its brand and business system to a franchisee."},
-    {q:"What is the break-even point? [2]", a:"The break-even point is where total revenue equals total costs, resulting in zero profit or loss."},
-    {q:"Name THREE sources of finance for a small business. [3]", a:"1. Bank loan 2. Personal savings 3. Investors"}
-  ]
+// REAL DHET FORMAT QUESTION BANK
+const papers = {
+  hrm: {
+    title: "PERSONNEL MANAGEMENT / HRM N4\nTOTAL: 20 MARKS",
+    questions: [
+      // SECTION A
+      {type:"MCQ", marks:1, q:"The process of attracting suitable candidates for a job is called...", options:["A. Selection","B. Recruitment","C. Induction","D. Training"], ans:"B"},
+      {type:"MCQ", marks:1, q:"Which document contains the duties and responsibilities of a job?", options:["A. Employment contract","B. Job specification","C. Job description","D. CV"], ans:"C"},
+      {type:"MCQ", marks:1, q:"The first step in the selection process is...", options:["A. Interview","B. Screening of applications","C. Medical test","D. Reference check"], ans:"B"},
+      {type:"MCQ", marks:1, q:"Training employees while they are doing their job is called...", options:["A. Off-the-job training","B. Induction","C. On-the-job training","D. Orientation"], ans:"C"},
+      // SECTION B
+      {type:"DEF", marks:2, q:"Define 'Human Resource Management'.", ans:"Human Resource Management is the process of recruiting, training, developing and managing employees to achieve organizational objectives."},
+      {type:"DEF", marks:2, q:"State TWO purposes of an employment interview.", ans:"1. To assess the candidate's suitability for the job 2. To provide information about the job and company to the candidate"},
+      {type:"DEF", marks:2, q:"What is 'Induction'?", ans:"Induction is the process of introducing a new employee to the organization, job and colleagues."},
+      // SECTION C
+      {type:"APP", marks:4, q:"Explain TWO differences between recruitment and selection.", ans:"1. Recruitment is attracting candidates, Selection is choosing the best candidate. 2. Recruitment increases the applicant pool, Selection reduces it."},
+      {type:"APP", marks:4, q:"Describe TWO benefits of training employees.", ans:"1. Increased productivity and efficiency 2. Improved quality of work and reduced errors"},
+      {type:"APP", marks:2, q:"Name TWO sources of recruitment.", ans:"1. Internal - Promotions 2. External - Job advertisements"}
+    ]
+  },
+  mc: {
+    title: "MANAGEMENT COMMUNICATION N4\nTOTAL: 20 MARKS",
+    questions: [
+      {type:"MCQ", marks:1, q:"The exchange of information between two or more people is called...", options:["A. Feedback","B. Noise","C. Communication","D. Channel"], ans:"C"},
+      {type:"MCQ", marks:1, q:"Which is an example of non-verbal communication?", options:["A. Email","B. Body language","C. Phone call","D. Memo"], ans:"B"},
+      {type:"MCQ", marks:1, q:"A list of items to be discussed at a meeting is called...", options:["A. Minutes","B. Agenda","C. Report","D. Notice"], ans:"B"},
+      {type:"MCQ", marks:1, q:"Which is a barrier to communication?", options:["A. Clarity","B. Noise","C. Feedback","D. Channel"], ans:"B"},
+      {type:"DEF", marks:2, q:"Define 'Feedback' in communication.", ans:"Feedback is the receiver's response to the sender's message which shows if the message was understood."},
+      {type:"DEF", marks:2, q:"What are 'Minutes' of a meeting?", ans:"Minutes are the official written record of what was discussed and decided at a meeting."},
+      {type:"DEF", marks:2, q:"State TWO principles of business writing.", ans:"1. Clarity 2. Conciseness"},
+      {type:"APP", marks:4, q:"Explain TWO types of business reports.", ans:"1. Progress report - reports on work done 2. Financial report - reports on money matters"},
+      {type:"APP", marks:4, q:"Describe TWO importance of meetings.", ans:"1. To make decisions 2. To share information"},
+      {type:"APP", marks:2, q:"Name TWO types of communication channels.", ans:"1. Verbal 2. Written"}
+    ]
+  },
+  ebm: {
+    title: "ENTREPRENEUR & BUSINESS MANAGEMENT N4\nTOTAL: 20 MARKS",
+    questions: [
+      {type:"MCQ", marks:1, q:"A person who starts a business and takes risks is called...", options:["A. Manager","B. Entrepreneur","C. Employee","D. Investor"], ans:"B"},
+      {type:"MCQ", marks:1, q:"Which is NOT a factor of production?", options:["A. Land","B. Labour","C. Capital","D. Product"], ans:"D"},
+      {type:"MCQ", marks:1, q:"A document outlining business goals is called...", options:["A. Invoice","B. Business plan","C. CV","D. Contract"], ans:"B"},
+      {type:"MCQ", marks:1, q:"Which is a type of business ownership?", options:["A. Salary","B. Sole Proprietor","C. Marketing","D. Production"], ans:"B"},
+      {type:"DEF", marks:2, q:"Define 'Market Research'.", ans:"Market research is gathering information about customers, competitors and market trends."},
+      {type:"DEF", marks:2, q:"What is 'Break-even point'?", ans:"Break-even point is where total revenue equals total costs."},
+      {type:"DEF", marks:2, q:"State TWO characteristics of an entrepreneur.", ans:"1. Risk taker 2. Innovative"},
+      {type:"APP", marks:4, q:"Explain TWO sources of business finance.", ans:"1. Bank loan 2. Personal savings"},
+      {type:"APP", marks:4, q:"Describe TWO factors to consider when choosing business location.", ans:"1. Near target market 2. Affordable rent"},
+      {type:"APP", marks:2, q:"Name TWO types of business.", ans:"1. Retail 2. Manufacturing"}
+    ]
+  }
 };
-// Expand to 100+ per module with variations
-for(let subject in natedDB){let base=[...natedDB[subject]]; for(let i=0;i<90;i++){natedDB[subject].push({q:`${base[i%10].q}`, a:base[i%10].a})}}
 
-function selectModule(mod){
+function startPaper(mod){
   selectedModule = mod;
-  const names = {mc:"Management Communication N4", hrm:"Personnel Management N4", ebm:"Entrepreneur & Business Management N4"};
-  document.getElementById('selectedModuleName').innerText = names[mod];
-  document.getElementById('moduleActions').style.display = 'block';
-}
+  currentPaper = papers[mod].questions;
+  userAnswers = new Array(currentPaper.length).fill(null);
+  currentQ = 0; timeLeft = 3600;
 
-function startExam(minutes){
-  clearInterval(timerInterval);
-  currentQuiz = natedDB[selectedModule].sort(()=>Math.random()-0.5).slice(0, minutes===60?30:15);
-  userAnswers = new Array(currentQuiz.length).fill(null);
-  score=0; timeLeft = minutes*60;
-
-  let html = '';
-  currentQuiz.forEach((q,i)=>{
-    let wrong1 = "Incorrect option related to topic";
-    let wrong2 = "Another common student mistake";
-    let wrong3 = "Option that is partially correct";
-    let options = [q.a, wrong1, wrong2, wrong3].sort(()=>Math.random()-0.5);
-    html += `<div class="quiz-card"><h4>Question ${i+1}</h4><p>${q.q}</p>`;
-    options.forEach(opt=>{ html += `<div class="quiz-option" onclick="selectAnswer(${i}, \`${opt}\`, this)">${opt}</div>`; });
-    html += `</div>`;
-  });
-  document.getElementById('quizArea').innerHTML = html;
+  document.getElementById('menu').style.display = 'none';
+  document.getElementById('examArea').style.display = 'block';
+  document.getElementById('paperTitle').innerText = papers[mod].title;
+  document.getElementById('memoArea').style.display = 'none';
   document.getElementById('submitBtn').style.display = 'block';
 
-  timerInterval = setInterval(()=>{
+  showQuestion();
+  timer = setInterval(()=>{
     timeLeft--;
     let m = Math.floor(timeLeft/60), s = timeLeft%60;
-    document.getElementById('timer').innerText = `Time Left: ${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-    if(timeLeft <= 0){ submitExam(); }
+    document.getElementById('timer').innerText = `Time: ${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    if(timeLeft<=0) submitPaper();
   },1000);
 }
 
-function selectAnswer(qIndex, answer, el){
-  userAnswers[qIndex] = answer;
-  el.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
+function showQuestion(){
+  if(currentQ >= currentPaper.length) return;
+  let q = currentPaper[currentQ];
+  let html = `<div class="quiz-card">`;
+
+  if(q.type==="MCQ" && currentQ===0) html += `<div class="section-title">SECTION A: MULTIPLE CHOICE [4 x 1 = 4]</div>`;
+  if(q.type==="DEF" && currentPaper[currentQ-1]?.type!=="DEF") html += `<div class="section-title">SECTION B: DEFINITIONS [6]</div>`;
+  if(q.type==="APP" && currentPaper[currentQ-1]?.type!=="APP") html += `<div class="section-title">SECTION C: APPLICATION [10]</div>`;
+
+  html += `<p><b>Question ${currentQ+1}.</b> ${q.q} [${q.marks}]</p>`;
+
+  if(q.type==="MCQ"){
+    q.options.forEach(opt=>{
+      html += `<div class="quiz-option" onclick="checkMCQ(this, '${opt.charAt(0)}')">${opt}</div>`;
+    });
+  } else {
+    html += `<textarea id="txt${currentQ}" rows="3" style="width:100%; background:#000; color:#fff; border:1px solid #333; border-radius:8px; padding:10px;" placeholder="Type your answer here..."></textarea>`;
+    html += `<button class="btn" onclick="saveTextAnswer()">Next Question</button>`;
+  }
+  html += `</div>`;
+  document.getElementById('questionsArea').innerHTML = html;
 }
 
-function submitExam(){
-  clearInterval(timerInterval);
-  document.getElementById('submitBtn').style.display = 'none';
-  score=0;
-  let memoHTML = '';
+function checkMCQ(el, choice){
+  document.querySelectorAll('.quiz-option').forEach(o=>o.style.pointerEvents='none');
+  userAnswers[currentQ] = choice;
 
-  currentQuiz.forEach((q,i)=>{
-    let isCorrect = userAnswers[i] === q.a;
-    if(isCorrect) score++;
-    memoHTML += `<div class="memo-question">
-      <div><b>Q${i+1}:</b> ${q.q}</div>
-      <div class="your"><b>Your Answer:</b> ${userAnswers[i] || 'No Answer'}</div>
-      <div class="a"><b>Memo:</b> ${q.a}</div>
-      <div><b>Result:</b> ${isCorrect? '✅ CORRECT' : '❌ INCORRECT'}</div>
+  let correct = currentPaper[currentQ].ans;
+  if(choice === correct){
+    el.classList.add('correct');
+  } else {
+    el.classList.add('wrong');
+    // also show correct
+    document.querySelectorAll('.quiz-option').forEach(o=>{ if(o.textContent.startsWith(correct)) o.classList.add('correct'); });
+  }
+
+  setTimeout(()=>{currentQ++; if(currentQ<currentPaper.length) showQuestion();}, 1000);
+}
+
+function saveTextAnswer(){
+  userAnswers[currentQ] = document.getElementById(`txt${currentQ}`).value;
+  currentQ++;
+  if(currentQ<currentPaper.length) showQuestion();
+}
+
+function submitPaper(){
+  clearInterval(timer);
+  document.getElementById('submitBtn').style.display = 'none';
+  document.getElementById('questionsArea').innerHTML = '';
+
+  let score=0, total=0, memoHTML=`<h2>MEMORANDUM + RESULTS</h2>`;
+
+  currentPaper.forEach((q,i)=>{
+    total += q.marks;
+    let userAns = userAnswers[i];
+    let isCorrect = q.type==="MCQ"? userAns===q.ans : userAns && userAns.length>3;
+    if(isCorrect) score += q.marks;
+
+    memoHTML += `<div class="memo-q">
+      <b>Q${i+1}. [${q.marks}]</b> ${q.q}<br>
+      <b>Your Answer:</b> ${userAns || 'No Answer'}<br>
+      <div class="correct"><b>Memo:</b> ${q.type==="MCQ"? q.ans : q.ans}</div>
+      <b>Marks:</b> ${isCorrect? q.marks : 0}/${q.marks}
     </div>`;
   });
 
-  let percent = Math.round((score/currentQuiz.length)*100);
-  memoHTML = `<h2>FINAL SCORE: ${score}/${currentQuiz.length} = ${percent}%</h2><h3>${percent>=50?'PASS':'FAIL - Study more'}</h3><hr>` + memoHTML;
+  let percent = Math.round((score/total)*100);
+  memoHTML = `<h2>FINAL: ${score}/${total} = ${percent}% - ${percent>=50?'PASS':'FAIL'}</h2>` + memoHTML;
 
-  document.getElementById('scoreArea').innerHTML = memoHTML;
-  document.getElementById('scoreArea').style.display = 'block';
-  document.getElementById('quizArea').innerHTML = '';
+  document.getElementById('memoArea').innerHTML = memoHTML;
+  document.getElementById('memoArea').style.display = 'block';
   document.getElementById('timer').innerText = 'EXAM COMPLETED';
 }
 </script>
