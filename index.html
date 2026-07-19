@@ -3,52 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHANA CALC - God Tier v2.1</title>
+<title>SHANA CALC - Tesla UI</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script>
 <style>
   :root{
-    --bg: #0a0a0f;
-    --card: #111119;
-    --accent: #7c3aed;
-    --accent2: #06b6d4;
-    --text: #e5e7eb;
-    --muted: #9ca3af;
-    --btn: #1f2937;
-    --btn-hover: #374151;
+    --bg: #050508;
+    --card: rgba(17,17,25,0.6);
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --btn: rgba(31,41,55,0.7);
+    --btn-hover: rgba(55,65,81,0.9);
+    --glow: 0 0 20px rgba(0,212,255,0.4);
   }
-  *{margin:0;padding:0;box-sizing:border-box;font-family: 'Segoe UI', system-ui, sans-serif;}
-  body{background: radial-gradient(1200px 800px at 80% -10%, #7c3aed33, transparent), var(--bg); color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;}
-  .calc{width:100%; max-width:1200px; background:var(--card); border:1px solid #222; border-radius:24px; padding:20px; box-shadow: 0 0 40px #7c3aed22;}
-  .header{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
-  .header h1{background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:28px; font-weight:800;}
-  .tabs{display:flex; gap:8px; flex-wrap:wrap;}
-  .tab{padding:8px 14px; background:var(--btn); border-radius:10px; cursor:pointer; border:1px solid #333; transition:0.2s;}
-  .tab.active{background:var(--accent); border-color:var(--accent);}
-  .panel{background:#0d0d12; border:1px solid #222; border-radius:16px; padding:16px;}
-  #display{width:100%; background:#000; color:var(--text); font-size:32px; padding:16px; border-radius:12px; border:1px solid #333; text-align:right; margin-bottom:12px;}
-  .btn-grid{display:grid; grid-template-columns: repeat(5,1fr); gap:8px;}
-  .btn{padding:14px; background:var(--btn); border:none; color:var(--text); border-radius:10px; font-size:16px; cursor:pointer; transition:0.15s;}
-  .btn:hover{background:var(--btn-hover); transform: translateY(-1px);}
-  .btn.op{background:#3b0764;}
-  .btn.eq{background:var(--accent); font-weight:700;}
-  .btn.green{background:#065f46;}
-  canvas{background:#000; border-radius:12px; width:100% !important; height:300px !important;}
-  .steps{background:#000; padding:12px; border-radius:10px; font-family:monospace; font-size:14px; max-height:300px; overflow:auto; color:#22c55e;}
-  input[type="text"]{width:100%; padding:12px; background:#000; border:1px solid #333; border-radius:10px; color:var(--text); margin-bottom:10px;}
-  .history{max-height:200px; overflow:auto; font-size:12px; color:var(--muted);}
+  *{margin:0;padding:0;box-sizing:border-box;font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;}
+  body{
+    background: radial-gradient(1200px 800px at 80% -10%, #00d4ff22, transparent), 
+                radial-gradient(800px 600px at 20% 110%, #7c3aed22, transparent),
+                var(--bg); 
+    color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
+    overflow-x:hidden;
+  }
+  .calc{
+    width:100%; max-width:1300px; background:var(--card); 
+    border:1px solid rgba(255,255,255,0.1); border-radius:32px; padding:24px; 
+    backdrop-filter: blur(20px); box-shadow: var(--glow), 0 20px 60px rgba(0,0,0,0.5);
+    animation: fadeIn 0.6s ease;
+  }
+  @keyframes fadeIn{ from{opacity:0; transform: translateY(20px);} to{opacity:1; transform: translateY(0);} }
+  
+  .header{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;}
+  .header h1{
+    background: linear-gradient(90deg, var(--accent), var(--accent2)); 
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; 
+    font-size:32px; font-weight:900; letter-spacing:-1px;
+    text-shadow: 0 0 30px rgba(0,212,255,0.3);
+  }
+  .tabs{display:flex; gap:10px; flex-wrap:wrap;}
+  .tab{
+    padding:10px 18px; background:var(--btn); border-radius:14px; cursor:pointer; 
+    border:1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; font-weight:600;
+    backdrop-filter: blur(10px);
+  }
+  .tab:hover{transform: translateY(-2px); box-shadow: var(--glow);}
+  .tab.active{
+    background: linear-gradient(135deg, var(--accent), var(--accent2)); 
+    border-color:var(--accent); box-shadow: var(--glow);
+  }
+  
+  .panel{
+    background:rgba(13,13,18,0.7); border:1px solid rgba(255,255,255,0.1); 
+    border-radius:20px; padding:20px; backdrop-filter: blur(10px);
+  }
+  #display{
+    width:100%; background:rgba(0,0,0,0.8); color:var(--text); font-size:40px; 
+    padding:20px; border-radius:16px; border:1px solid rgba(0,212,255,0.3); 
+    text-align:right; margin-bottom:16px; font-weight:700;
+    box-shadow: inset 0 0 20px rgba(0,212,255,0.1); transition:0.3s;
+  }
+  #display:focus{outline:none; border-color:var(--accent); box-shadow: 0 0 30px rgba(0,212,255,0.3);}
+  
+  .btn-grid{display:grid; grid-template-columns: repeat(5,1fr); gap:10px;}
+  .btn{
+    padding:16px; background:var(--btn); border:none; color:var(--text); 
+    border-radius:14px; font-size:18px; cursor:pointer; transition: all 0.2s ease;
+    border:1px solid rgba(255,255,255,0.05); font-weight:600;
+    backdrop-filter: blur(10px);
+  }
+  .btn:hover{background:var(--btn-hover); transform: translateY(-3px) scale(1.02); box-shadow: var(--glow);}
+  .btn:active{transform: scale(0.95);}
+  .btn.op{background: linear-gradient(135deg, #3b0764, #581c87);}
+  .btn.eq{background: linear-gradient(135deg, var(--accent), var(--accent2)); font-weight:800; box-shadow: var(--glow);}
+  .btn.green{background: linear-gradient(135deg, #065f46, #047857);}
+  
+  canvas{background:rgba(0,0,0,0.8); border-radius:16px; width:100% !important; height:350px !important; border:1px solid rgba(0,212,255,0.2);}
+  .steps{
+    background:rgba(0,0,0,0.8); padding:16px; border-radius:14px; font-family:'Fira Code', monospace; 
+    font-size:14px; max-height:300px; overflow:auto; color:#22c55e; border:1px solid rgba(34,197,94,0.3);
+  }
+  input[type="text"]{
+    width:100%; padding:14px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.1); 
+    border-radius:12px; color:var(--text); margin-bottom:12px; font-size:16px;
+    transition:0.3s;
+  }
+  input[type="text"]:focus{outline:none; border-color:var(--accent); box-shadow: 0 0 20px rgba(0,212,255,0.2);}
+  .history{max-height:200px; overflow:auto; font-size:13px; color:var(--muted);}
   table{width:100%; border-collapse:collapse; font-size:14px;}
-  td, th{border:1px solid #333; padding:6px; text-align:center;}
+  td, th{border:1px solid rgba(255,255,255,0.1); padding:8px; text-align:center;}
+  
+  /* Tesla loading pulse */
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+  .loading{animation: pulse 2s infinite;}
 </style>
 </head>
 <body>
 <div class="calc">
   <div class="header">
-    <h1>SHANA CALC v2.1</h1>
+    <h1>SHANA CALC</h1>
     <div class="tabs">
       <div class="tab active" onclick="switchTab(event, 'basic')">Basic</div>
       <div class="tab" onclick="switchTab(event, 'graph')">Graph</div>
-      <div class="tab" onclick="switchTab(event, 'smart')">Smart</div>
+      <div class="tab" onclick="switchTab(event, 'smart')">Smart AI</div>
       <div class="tab" onclick="switchTab(event, 'finance')">Finance</div>
       <div class="tab" onclick="switchTab(event, 'steps')">Steps</div>
       <div class="tab" onclick="switchTab(event, 'matrix')">Matrix</div>
@@ -59,7 +116,7 @@
 
   <div id="basic" class="tab-content">
     <input type="text" id="display" placeholder="Type: 15% of 200 or sin(45) or 5kg to lb">
-    <div style="display:flex; gap:8px; margin-bottom:10px;">
+    <div style="display:flex; gap:10px; margin-bottom:12px;">
       <button class="btn green" onclick="shareWhatsApp()">📲 Share to WhatsApp</button>
       <button class="btn" onclick="saveToHistory()">💾 Save</button>
     </div>
@@ -157,7 +214,7 @@
 let chart;
 let history = JSON.parse(localStorage.getItem('shanaHistory')) || [];
 
-function switchTab(e, tab){ // FIX 1: pass event
+function switchTab(e, tab){
   document.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(tab).style.display='block';
@@ -178,29 +235,41 @@ function calculate(){
     let result = math.evaluate(expr);
     document.getElementById('display').value = result;
     saveToHistory(expr, result);
+    // Tesla haptic feel
+    navigator.vibrate?.(50);
   }catch(e){alert('Error: '+e.message)}
 }
 
-// DESMOS GRAPH
+// DESMOS GRAPH - TESLA STYLE
 function drawGraph(){
   let func = document.getElementById('graphInput').value;
   let xValues = [], yValues = [];
-  for(let x=-10; x<=10; x+=0.2){
+  for(let x=-10; x<=10; x+=0.1){
     try{
       let y = math.evaluate(func, {x:x});
-      if(isFinite(y)){ xValues.push(x); yValues.push(y); }
+      if(isFinite(y) && Math.abs(y) < 1000){ xValues.push(x); yValues.push(y); }
     }catch{}
   }
   if(chart) chart.destroy();
   let ctx = document.getElementById('graphCanvas');
   chart = new Chart(ctx, {
     type: 'line',
-    data: {labels: xValues, datasets:[{label:func, data:yValues, borderColor:'#7c3aed', tension:0.1}]},
-    options:{scales:{x:{grid:{color:'#333'}}, y:{grid:{color:'#333'}}} }
+    data: {labels: xValues, datasets:[{
+      label:func, data:yValues, borderColor:'#00d4ff', backgroundColor:'rgba(0,212,255,0.1)', 
+      tension:0.3, fill:true, pointRadius:0
+    }]},
+    options:{
+      animation:{duration:800},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.1)'}, ticks:{color:'#94a3b8'}}, 
+        y:{grid:{color:'rgba(255,255,255,0.1)'}, ticks:{color:'#94a3b8'}}
+      },
+      plugins:{legend:{labels:{color:'#f1f5f9'}}}
+    }
   });
 }
 
-// WOLFRAM SMART - FIX 2
+// WOLFRAM SMART
 function smartCalc(){
   let q = document.getElementById('smartInput').value.toLowerCase();
   let res = "Input: "+q+"<br>";
@@ -237,13 +306,13 @@ function showSteps(){
   `Step 1: ${eq}<br>Step 2: Isolate variable<br>Step 3: Solve<br>Answer: x = 5`;
 }
 
-// MATRIX - FIX 3
+// MATRIX
 function buildMatrix(){
   let html = '';
   for(let i=0; i<3; i++){
     html += '<tr>';
     for(let j=0; j<3; j++){
-      html += `<td><input type="number" id="m${i}${j}" value="0" style="width:60px; background:#000; color:#fff; border:1px solid #333;"></td>`;
+      html += `<td><input type="number" id="m${i}${j}" value="0" style="width:60px; background:rgba(0,0,0,0.8); color:#fff; border:1px solid rgba(255,255,255,0.1);"></td>`;
     }
     html += '</tr>';
   }
