@@ -43,17 +43,22 @@
     font-size:32px; font-weight:900; letter-spacing:-1px;
     text-shadow: 0 0 30px rgba(0,212,255,0.3);
   }
-.tabs{display:flex; gap:10px; flex-wrap:wrap; overflow-x:auto; padding-bottom:5px;}
-.tab{
-    padding:10px 18px; background:var(--btn); border-radius:14px; cursor:pointer;
-    border:1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; font-weight:600;
-    backdrop-filter: blur(10px); white-space:nowrap; flex-shrink:0;
-  }
-.tab:hover{transform: translateY(-2px); box-shadow: var(--glow);}
-.tab.active{
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-color:var(--accent); box-shadow: var(--glow);
-  }
+
+/* NEW: DROPDOWN TABS FOR MOBILE SPACE */
+.tab-wrapper{display:flex; gap:10px; align-items:center; width:100%;}
+.tab-select{
+  flex:1; padding:12px 16px; background:var(--btn); border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px; color:var(--text); font-weight:600; font-size:16px;
+  backdrop-filter: blur(10px); cursor:pointer;
+}
+.tab-arrow{
+  padding:12px 16px; background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius:14px; cursor:pointer; font-weight:800; box-shadow: var(--glow);
+  user-select: none; -webkit-user-select: none;
+}
+
+.tabs{display:none; gap:10px; flex-wrap:wrap; overflow-x:auto; padding-bottom:5px;} /* hidden by default */
+.tabs.show{display:flex;}
 
 .panel{
     background:rgba(13,13,18,0.7); border:1px solid rgba(255,255,255,0.1);
@@ -73,6 +78,7 @@
     border-radius:14px; font-size:16px; cursor:pointer; transition: all 0.2s ease;
     border:1px solid rgba(255,255,255,0.05); font-weight:600;
     backdrop-filter: blur(10px); touch-action: manipulation;
+    user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; /* NO HIGHLIGHT */
   }
 .btn:hover{background:var(--btn-hover); transform: translateY(-3px) scale(1.02); box-shadow: var(--glow);}
 .btn:active{transform: scale(0.95);}
@@ -98,12 +104,11 @@
 
   @media(max-width: 768px){
     body{padding:8px;}
-  .calc{padding:16px; border-radius:24px;}
-  .header h1{font-size:24px;}
+ .calc{padding:16px; border-radius:24px;}
+ .header h1{font-size:24px;}
     #display{font-size:28px; padding:16px;}
-  .btn{padding:12px; font-size:14px;}
-  .btn-grid{gap:6px; grid-template-columns: repeat(5,1fr);} /* 5 cols on mobile */
-  .tabs{gap:8px;}
+ .btn{padding:12px; font-size:14px;}
+ .btn-grid{gap:6px; grid-template-columns: repeat(5,1fr);} /* 5 cols on mobile */
     canvas{height:250px!important;}
   }
 
@@ -121,7 +126,20 @@
 <div class="calc">
   <div class="header">
     <h1>SHANA CALC</h1>
-    <div class="tabs">
+    <div class="tab-wrapper">
+      <select class="tab-select" id="tabSelect" onchange="switchTabFromSelect(this.value)">
+        <option value="basic">Basic</option>
+        <option value="graph">Graph</option>
+        <option value="smart">Smart AI</option>
+        <option value="finance">Finance</option>
+        <option value="steps">Steps</option>
+        <option value="matrix">Matrix</option>
+        <option value="stats">Stats</option>
+        <option value="history">History</option>
+      </select>
+      <div class="tab-arrow" onclick="toggleTabs()">▼</div>
+    </div>
+    <div class="tabs" id="tabsRow">
       <div class="tab active" onclick="switchTab(event, 'basic')">Basic</div>
       <div class="tab" onclick="switchTab(event, 'graph')">Graph</div>
       <div class="tab" onclick="switchTab(event, 'smart')">Smart AI</div>
@@ -186,8 +204,8 @@
 
       <button class="btn" onclick="add('0')">0</button>
       <button class="btn" onclick="add('.')">.</button>
-      <button class="btn" colspan="2" style="grid-column: span 2;" onclick="add('00')">00</button>
-      <button class="btn eq" colspan="2" style="grid-column: span 2;" onclick="calculate()">=</button>
+      <button class="btn" style="grid-column: span 2;" onclick="add('00')">00</button>
+      <button class="btn eq" style="grid-column: span 2;" onclick="calculate()">=</button>
     </div>
   </div>
 
@@ -296,11 +314,25 @@ function toggleDegRad(){
   document.getElementById('degRad').innerText = isDeg? 'DEG' : 'RAD';
 }
 
+function toggleTabs(){
+  document.getElementById('tabsRow').classList.toggle('show');
+}
+
+function switchTabFromSelect(tab){
+  document.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
+  document.getElementById(tab).style.display='block';
+  document.getElementById('tabSelect').value = tab;
+  if(tab==='matrix') buildMatrix();
+  if(tab==='history') loadHistory();
+}
+
 function switchTab(e, tab){
   document.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(tab).style.display='block';
   e.target.classList.add('active');
+  document.getElementById('tabSelect').value = tab;
+  document.getElementById('tabsRow').classList.remove('show');
   if(tab==='matrix') buildMatrix();
   if(tab==='history') loadHistory();
 }
@@ -315,19 +347,15 @@ function del(){let d=document.getElementById('display'); d.value = d.value.slice
 function calculate(){
   try{
     let expr = document.getElementById('display').value;
-    // Unit conversions
     expr = expr.replace(/(\d+)\s*kg\s*to\s*lb/gi, (_,n)=>`${n}*2.20462`);
     expr = expr.replace(/(\d+)%\s*of\s*(\d+)/gi, (_,a,b)=>`${b}*${a}/100`);
     expr = expr.replace(/ans/gi, lastAns);
 
-    // Handle DEG/RAD for trig
-    let scope = {deg: isDeg};
     if(isDeg){
       expr = expr.replace(/sin\(/g,'sin(pi/180*').replace(/cos\(/g,'cos(pi/180*').replace(/tan\(/g,'tan(pi/180*');
-      expr = expr.replace(/asin\(/g,'asin(').replace(/acos\(/g,'acos(').replace(/atan\(/g,'atan(');
     }
 
-    let result = math.evaluate(expr, scope);
+    let result = math.evaluate(expr);
     lastAns = result;
     document.getElementById('display').value = result;
     saveToHistory(expr, result);
@@ -363,7 +391,6 @@ function drawGraph(){
   });
 }
 
-// FIXED SMART AI - uses math.derivative correctly
 function smartCalc(){
   let q = document.getElementById('smartInput').value.toLowerCase();
   let res = "Input: "+q+"<br>";
@@ -375,7 +402,7 @@ function smartCalc(){
       res += `d/dx(${expr}) = ${d.toString()}`;
     }
     else if(q.includes('integral')){
-      res += `∫ ${q.replace('integral','')} dx = Symbolic integral not fully supported. Try WolframAlpha for full CAS.`;
+      res += `∫ ${q.replace('integral','')} dx = Symbolic integral not fully supported.`;
     }
     else if(q.includes('to')){
       res += `Result: ${math.evaluate(q)}`;
@@ -396,23 +423,17 @@ function calcLoan(){
   `Monthly Payment: R${payment.toFixed(2)}<br>Total Paid: R${(payment*n).toFixed(2)}<br>Total Interest: R${(payment*n - P).toFixed(2)}`;
 }
 
-// REAL STEP SOLVER for linear equations
 function showSteps(){
   let eq = document.getElementById('stepInput').value;
   let res = `Equation: ${eq}<br>`;
   try{
     let parts = eq.split('=');
     if(parts.length === 2){
-      let left = parts[0].trim();
-      let right = parts[1].trim();
-      res += `Step 1: ${left} = ${right}<br>`;
-      res += `Step 2: Move constants to RHS<br>`;
-      let solution = math.solve? math.solve(eq, 'x') : "x = " + ((math.evaluate(right) - math.evaluate(left.replace('x','0')))/math.evaluate(left.replace(/[^0-9.]/g,''))) ;
-      res += `Step 3: Solve for x<br>Answer: ${solution}`;
+      res += `Step 1: ${eq}<br>Step 2: Isolate x<br>Answer: x = ${(math.evaluate(parts[1]) - math.evaluate(parts[0].replace('x','0')))/math.evaluate(parts[0].replace(/[^0-9.]/g,''))}`;
     } else {
       res += `Answer: ${math.evaluate(eq)}`;
     }
-  }catch(e){ res += "Could not solve. Use simple linear form: ax + b = c" }
+  }catch(e){ res += "Use form: ax + b = c" }
   document.getElementById('stepResult').innerHTML = res;
 }
 
