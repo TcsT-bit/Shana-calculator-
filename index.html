@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHANA CALC - God Tier</title>
+<title>SHANA CALC - God Tier v2.1</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script>
 <style>
@@ -25,8 +25,6 @@
   .tabs{display:flex; gap:8px; flex-wrap:wrap;}
   .tab{padding:8px 14px; background:var(--btn); border-radius:10px; cursor:pointer; border:1px solid #333; transition:0.2s;}
   .tab.active{background:var(--accent); border-color:var(--accent);}
-  .grid{display:grid; grid-template-columns: 1fr 1fr; gap:20px;}
-  @media(max-width:900px){.grid{grid-template-columns:1fr;}}
   .panel{background:#0d0d12; border:1px solid #222; border-radius:16px; padding:16px;}
   #display{width:100%; background:#000; color:var(--text); font-size:32px; padding:16px; border-radius:12px; border:1px solid #333; text-align:right; margin-bottom:12px;}
   .btn-grid{display:grid; grid-template-columns: repeat(5,1fr); gap:8px;}
@@ -46,16 +44,16 @@
 <body>
 <div class="calc">
   <div class="header">
-    <h1>SHANA CALC</h1>
+    <h1>SHANA CALC v2.1</h1>
     <div class="tabs">
-      <div class="tab active" onclick="switchTab('basic')">Basic</div>
-      <div class="tab" onclick="switchTab('graph')">Graph</div>
-      <div class="tab" onclick="switchTab('smart')">Smart</div>
-      <div class="tab" onclick="switchTab('finance')">Finance</div>
-      <div class="tab" onclick="switchTab('steps')">Steps</div>
-      <div class="tab" onclick="switchTab('matrix')">Matrix</div>
-      <div class="tab" onclick="switchTab('stats')">Stats</div>
-      <div class="tab" onclick="switchTab('history')">History</div>
+      <div class="tab active" onclick="switchTab(event, 'basic')">Basic</div>
+      <div class="tab" onclick="switchTab(event, 'graph')">Graph</div>
+      <div class="tab" onclick="switchTab(event, 'smart')">Smart</div>
+      <div class="tab" onclick="switchTab(event, 'finance')">Finance</div>
+      <div class="tab" onclick="switchTab(event, 'steps')">Steps</div>
+      <div class="tab" onclick="switchTab(event, 'matrix')">Matrix</div>
+      <div class="tab" onclick="switchTab(event, 'stats')">Stats</div>
+      <div class="tab" onclick="switchTab(event, 'history')">History</div>
     </div>
   </div>
 
@@ -105,7 +103,7 @@
   </div>
 
   <div id="smart" class="tab-content" style="display:none;">
-    <input type="text" id="smartInput" placeholder="Ask anything: integral of x^2, loan 5000 5% 5 years, 10kg to pounds">
+    <input type="text" id="smartInput" placeholder="Ask: integral x^2, derivative x^3, 10kg to pounds">
     <button class="btn eq" onclick="smartCalc()">Solve</button>
     <div id="smartResult" class="steps"></div>
   </div>
@@ -127,7 +125,6 @@
     <div id="stepResult" class="steps"></div>
   </div>
 
-  <!-- NEW 1: MATRIX - CASIO FX-991EX STYLE -->
   <div id="matrix" class="tab-content" style="display:none;">
     <div class="panel">
       <h3>Matrix Calculator 3x3</h3>
@@ -138,7 +135,6 @@
     </div>
   </div>
 
-  <!-- NEW 2: STATS - CASIO FX-991EX STYLE -->
   <div id="stats" class="tab-content" style="display:none;">
     <div class="panel">
       <h3>Statistics Calculator</h3>
@@ -148,7 +144,6 @@
     </div>
   </div>
 
-  <!-- NEW 3: HISTORY -->
   <div id="history" class="tab-content" style="display:none;">
     <div class="panel">
       <h3>Calculation History</h3>
@@ -162,11 +157,11 @@
 let chart;
 let history = JSON.parse(localStorage.getItem('shanaHistory')) || [];
 
-function switchTab(tab){
+function switchTab(e, tab){ // FIX 1: pass event
   document.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(tab).style.display='block';
-  event.target.classList.add('active');
+  e.target.classList.add('active');
   if(tab==='matrix') buildMatrix();
   if(tab==='history') loadHistory();
 }
@@ -190,10 +185,10 @@ function calculate(){
 function drawGraph(){
   let func = document.getElementById('graphInput').value;
   let xValues = [], yValues = [];
-  for(let x=-10; x<=10; x+=0.1){
+  for(let x=-10; x<=10; x+=0.2){
     try{
       let y = math.evaluate(func, {x:x});
-      xValues.push(x); yValues.push(y);
+      if(isFinite(y)){ xValues.push(x); yValues.push(y); }
     }catch{}
   }
   if(chart) chart.destroy();
@@ -205,12 +200,23 @@ function drawGraph(){
   });
 }
 
-// WOLFRAM SMART
+// WOLFRAM SMART - FIX 2
 function smartCalc(){
   let q = document.getElementById('smartInput').value.toLowerCase();
-  let res = "I understood: "+q+"<br>";
-  if(q.includes('integral')) res += "∫ x^n dx = x^(n+1)/(n+1) + C";
-  if(q.includes('derivative')) res += "d/dx = "+math.derivative('x^2','x');
+  let res = "Input: "+q+"<br>";
+  try{
+    if(q.includes('integral')){
+      let expr = q.replace('integral','').trim();
+      res += `∫ ${expr} dx = Not implemented fully. Use derivative for now.`;
+    }
+    if(q.includes('derivative')){
+      let expr = q.replace('derivative','').trim();
+      res += `d/dx(${expr}) = ${math.derivative(expr, 'x').toString()}`;
+    }
+    if(q.includes('to')){
+      res += `Result: ${math.evaluate(q)}`;
+    }
+  }catch(e){ res += "Error: "+e.message }
   document.getElementById('smartResult').innerHTML = res;
 }
 
@@ -231,7 +237,7 @@ function showSteps(){
   `Step 1: ${eq}<br>Step 2: Isolate variable<br>Step 3: Solve<br>Answer: x = 5`;
 }
 
-// NEW 1: MATRIX 3x3
+// MATRIX - FIX 3
 function buildMatrix(){
   let html = '';
   for(let i=0; i<3; i++){
@@ -244,22 +250,27 @@ function buildMatrix(){
   document.getElementById('matrixTable').innerHTML = html;
 }
 function calcMatrix(){
-  let m = [];
-  for(let i=0; i<3; i++){
-    m[i] = [];
-    for(let j=0; j<3; j++){
-      m[i][j] = parseFloat(document.getElementById(`m${i}${j}`).value);
+  try{
+    let m = [];
+    for(let i=0; i<3; i++){
+      m[i] = [];
+      for(let j=0; j<3; j++){
+        m[i][j] = parseFloat(document.getElementById(`m${i}${j}`).value) || 0;
+      }
     }
+    let det = math.det(m);
+    let inv = det === 0 ? "No inverse. Determinant = 0" : JSON.stringify(math.inv(m));
+    document.getElementById('matrixResult').innerHTML = 
+    `Determinant: ${det}<br><br>Inverse:<br>${inv}`;
+  }catch(e){
+    document.getElementById('matrixResult').innerHTML = "Error: "+e.message;
   }
-  let det = math.det(m);
-  let inv = math.inv(m);
-  document.getElementById('matrixResult').innerHTML = 
-  `Determinant: ${det}<br><br>Inverse:<br>${JSON.stringify(inv)}`;
 }
 
-// NEW 2: STATS
+// STATS
 function calcStats(){
-  let data = document.getElementById('statsInput').value.split(',').map(Number);
+  let data = document.getElementById('statsInput').value.split(',').map(x=>parseFloat(x.trim())).filter(x=>!isNaN(x));
+  if(data.length===0) return alert("Enter numbers separated by commas");
   let mean = math.mean(data);
   let median = math.median(data);
   let sd = math.std(data);
@@ -267,7 +278,7 @@ function calcStats(){
   `Count: ${data.length}<br>Mean: ${mean.toFixed(2)}<br>Median: ${median}<br>Std Dev: ${sd.toFixed(2)}`;
 }
 
-// NEW 3: HISTORY + WHATSAPP
+// HISTORY + WHATSAPP
 function saveToHistory(expr, result){
   let entry = {expr: expr || document.getElementById('display').value, result: result, time: new Date().toLocaleTimeString()};
   history.unshift(entry);
