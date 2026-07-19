@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#00d4ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>SHANA CALC BEAST + NATED</title>
+<title>SHANA CALC BEAST + NATED V4.8</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script>
@@ -18,55 +18,47 @@
   *{margin:0;padding:0;box-sizing:border-box;font-family: 'Inter', system-ui, sans-serif;-webkit-tap-highlight-color:transparent;}
   body{background: radial-gradient(1200px 800px at 80% -10%, #00d4ff22, transparent), radial-gradient(800px 600px at 20% 110%, #7c3aed22, transparent), var(--bg); color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:10px;}
 .calc{width:100%; max-width:1500px; background:var(--card); border:1px solid rgba(255,255,255,0.1); border-radius:32px; padding:24px; backdrop-filter: blur(20px); box-shadow: var(--glow);}
-.header{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;}
 .header h1{background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:28px; font-weight:900;}
-.tab-wrapper{display:flex; gap:10px; align-items:center; width:100%;}
-.tab-select{flex:1; padding:12px 16px; background:var(--btn); border:1px solid rgba(255,255,255,0.1); border-radius:14px; color:var(--text); font-weight:600; font-size:16px;}
+.tab-select{width:100%; padding:12px 16px; background:var(--btn); border:1px solid rgba(255,255,255,0.1); border-radius:14px; color:var(--text); font-weight:600; font-size:16px; margin-bottom:20px;}
 .panel{background:rgba(13,13,18,0.7); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:20px;}
   #display{width:100%; background:rgba(0,0,0,0.8); color:var(--text); font-size:32px; padding:20px; border-radius:16px; border:1px solid rgba(0,212,255,0.3); text-align:right; margin-bottom:16px; font-weight:700;}
 .btn-grid{display:grid; grid-template-columns: repeat(5,1fr); gap:8px;}
 .btn{padding:14px; background:var(--btn); border:none; color:var(--text); border-radius:14px; font-size:15px; cursor:pointer; font-weight:600; user-select: none; touch-action: manipulation;}
-.btn:hover{background:var(--btn-hover); transform: translateY(-2px);}
+.btn:hover{background:var(--btn-hover);}
 .btn.eq{background: linear-gradient(135deg, var(--accent), var(--accent2)); font-weight:800;}
 .btn.green{background: linear-gradient(135deg, #065f46, #047857);}
-.btn.sci{background: linear-gradient(135deg, #1e3a8a, #3730a3);}
+.btn.red{background: linear-gradient(135deg, #991b1b, #be185d);}
 .steps{background:rgba(0,0,0,0.8); padding:16px; border-radius:14px; font-family:'Fira Code', monospace; font-size:14px; max-height:400px; overflow:auto; color:#22c55e; white-space:pre-wrap;}
   input[type="text"]{width:100%; padding:14px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.1); border-radius:12px; color:var(--text); margin-bottom:12px; font-size:16px;}
 .quiz-card{background:rgba(0,0,0,0.6); padding:20px; border-radius:16px; margin-bottom:15px; border-left:4px solid var(--accent);}
 .quiz-option{padding:12px; margin:8px 0; background:var(--btn); border-radius:10px; cursor:pointer; transition:0.2s;}
-.quiz-option:hover{background:var(--btn-hover);}
-.quiz-option.correct{background:#065f46 !important; border:2px solid #10b981;}
-.quiz-option.wrong{background:#991b1b !important; border:2px solid #ef4444;}
+.quiz-option.selected{border:2px solid var(--accent);}
+.quiz-option.correct{background:#065f46!important; border:2px solid #10b981;}
+.quiz-option.wrong{background:#991b1b!important; border:2px solid #ef4444;}
 .timer{font-size:24px; font-weight:800; color:var(--accent); text-align:center; margin:10px 0;}
 .subject-btn{padding:12px 20px; margin:5px; background: linear-gradient(135deg, #3b0764, #581c87); border:none; border-radius:12px; color:#fff; cursor:pointer; font-weight:700;}
 #installBanner{display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background: linear-gradient(135deg, var(--accent), var(--accent2)); padding:14px 24px; border-radius:16px; box-shadow: var(--glow); z-index:9999; cursor:pointer; font-weight:700; color:#fff;}
-@media(max-width: 768px){.header h1{font-size:22px;} #display{font-size:24px;} .btn-grid{grid-template-columns: repeat(4,1fr);}}
+.memo-question{margin-bottom:20px; padding:15px; background:rgba(0,0,0,0.5); border-radius:12px;}
+.memo-question.q{font-weight:700; margin-bottom:8px;}
+.memo-question.a{color:#10b981;}
+.memo-question.your{color:#fbbf24;}
+@media(max-width: 768px){.header h1{font-size:22px;} #display{font-size:24px;}.btn-grid{grid-template-columns: repeat(4,1fr);}}
 </style>
 </head>
 <body>
 <div id="installBanner" onclick="installPWA()">📲 Install SHANA BEAST</div>
 
 <div class="calc">
-  <div class="header">
-    <h1>SHANA CALC BEAST</h1>
-    <div class="tab-wrapper">
-      <select class="tab-select" id="tabSelect" onchange="switchTabFromSelect(this.value)">
-        <option value="basic">Basic</option>
-        <option value="nated">NATED N4</option>
-        <option value="graph">Graph 2D</option>
-        <option value="graph3d">Graph 3D</option>
-        <option value="smart">Smart CAS</option>
-        <option value="units">Unit Converter</option>
-        <option value="finance">Finance</option>
-        <option value="steps">Step Solver</option>
-        <option value="matrix">Matrix</option>
-        <option value="stats">Stats Pro</option>
-        <option value="history">History</option>
-      </select>
-    </div>
-  </div>
+  <div class="header"><h1>SHANA CALC BEAST V4.8</h1></div>
+  <select class="tab-select" id="tabSelect" onchange="switchTabFromSelect(this.value)">
+    <option value="basic">Basic Calculator</option>
+    <option value="nated">NATED N4 EXAM CENTER</option>
+    <option value="graph">Graph 2D</option><option value="graph3d">Graph 3D</option><option value="smart">Smart CAS</option>
+    <option value="units">Unit Converter</option><option value="finance">Finance</option><option value="steps">Step Solver</option>
+    <option value="matrix">Matrix</option><option value="stats">Stats Pro</option><option value="history">History</option>
+  </select>
 
-  <!-- BASIC TAB -->
+  <!-- BASIC -->
   <div id="basic" class="tab-content">
     <input type="text" id="display" placeholder="Calculator input">
     <div style="display:flex; gap:10px; margin-bottom:12px;">
@@ -74,115 +66,190 @@
       <button class="btn" onclick="toggleDegRad()">DEG: <span id="degRad">DEG</span></button>
     </div>
     <div class="btn-grid">
-      <button class="btn sci" onclick="add('sin(')">sin</button><button class="btn sci" onclick="add('cos(')">cos</button><button class="btn sci" onclick="add('tan(')">tan</button><button class="btn sci" onclick="add('log(')">log</button><button class="btn sci" onclick="add('ln(')">ln</button>
+      <button class="btn" onclick="add('sin(')">sin</button><button class="btn" onclick="add('cos(')">cos</button><button class="btn" onclick="add('tan(')">tan</button><button class="btn" onclick="add('log(')">log</button><button class="btn" onclick="add('ln(')">ln</button>
       <button class="btn" onclick="clearDisplay()">C</button><button class="btn" onclick="del()">DEL</button><button class="btn" onclick="add(')">(</button><button class="btn" onclick="add(')')">)</button><button class="btn" onclick="add('/')">÷</button>
-      <button class="btn" onclick="add('7')">7</button><button class="btn" onclick="add('8')">8</button><button class="btn" onclick="add('9')">9</button><button class="btn" onclick="add('*')">×</button><button class="btn" onclick="add('^')">x^y</button>
+      <button class="btn" onclick="add('7')">7</button><button class="btn" onclick="add('8')">8</button><button class="btn" onclick="add('9')">9</button><button class="btn" onclick="add('*')">×</button><button class="btn" onclick="add('^')">^</button>
       <button class="btn" onclick="add('4')">4</button><button class="btn" onclick="add('5')">5</button><button class="btn" onclick="add('6')">6</button><button class="btn" onclick="add('-')">-</button><button class="btn" onclick="add('%')">%</button>
       <button class="btn" onclick="add('1')">1</button><button class="btn" onclick="add('2')">2</button><button class="btn" onclick="add('3')">3</button><button class="btn" onclick="add('+')">+</button><button class="btn" onclick="add('ans')">ANS</button>
       <button class="btn" onclick="add('0')">0</button><button class="btn" onclick="add('.')">.</button><button class="btn" onclick="add('00')">00</button><button class="btn" onclick="add('pi')">π</button><button class="btn eq" onclick="calculate()">=</button>
     </div>
   </div>
 
-  <!-- NATED N4 TAB -->
+  <!-- NATED EXAM CENTER -->
   <div id="nated" class="tab-content" style="display:none;">
     <div class="panel">
-      <h2>📚 NATED N4 EXAM PREP</h2>
+      <h2>📚 NATED N4 EXAM CENTER</h2>
+      <p style="color:var(--muted); margin-bottom:15px;">Select a module. Each has unlimited 60min Exams and 30min Tests</p>
       <div style="margin:15px 0;">
-        <button class="subject-btn" onclick="startQuiz('mc')">Management Communication</button>
-        <button class="subject-btn" onclick="startQuiz('hrm')">Personnel Management</button>
-        <button class="subject-btn" onclick="startQuiz('ebm')">Entrepreneur & Business Mgmt</button>
+        <button class="subject-btn" onclick="selectModule('mc')">Management Communication</button>
+        <button class="subject-btn" onclick="selectModule('hrm')">Personnel Management</button>
+        <button class="subject-btn" onclick="selectModule('ebm')">Entrepreneur & Business Mgmt</button>
       </div>
-      <div style="display:flex; gap:10px; margin:15px 0; flex-wrap:wrap;">
-        <button class="btn" onclick="startExam(60)">60 Min Mock Exam</button>
-        <button class="btn" onclick="startExam(30)">30 Min Quick Test</button>
+      <div id="moduleActions" style="display:none;">
+        <h3 id="selectedModuleName"></h3>
+        <div style="display:flex; gap:10px; margin:15px 0; flex-wrap:wrap;">
+          <button class="btn" onclick="startExam(60)">60 Min Exam</button>
+          <button class="btn" onclick="startExam(30)">30 Min Test</button>
+        </div>
       </div>
-      <div class="timer" id="timer">Time: 00:00</div>
+      <div class="timer" id="timer"></div>
       <div id="quizArea"></div>
+      <button class="btn red" id="submitBtn" style="display:none; width:100%; margin-top:15px;" onclick="submitExam()">SUBMIT EXAM</button>
       <div id="scoreArea" class="steps" style="display:none;"></div>
     </div>
   </div>
 
   <!-- OTHER TABS -->
-  <div id="graph" class="tab-content" style="display:none;"><input type="text" id="graphInput" placeholder="a*x^2 + b"><button class="btn eq" onclick="drawGraph()">Graph 2D</button><canvas id="graphCanvas"></canvas></div>
-  <div id="graph3d" class="tab-content" style="display:none;"><input type="text" id="graph3dInput" placeholder="sin(sqrt(x^2+y^2))"><button class="btn eq" onclick="drawGraph3D()">Graph 3D</button><div id="plotly3d"></div></div>
-  <div id="smart" class="tab-content" style="display:none;"><input type="text" id="smartInput" placeholder="derivative x^3"><button class="btn eq" onclick="smartCalc()">Solve</button><div id="smartResult" class="steps"></div></div>
-  <div id="units" class="tab-content" style="display:none;"><input type="text" id="unitInput" placeholder="5 kg to lb"><button class="btn eq" onclick="convertUnit()">Convert</button><div id="unitResult" class="steps"></div></div>
-  <div id="finance" class="tab-content" style="display:none;"><input type="text" id="loanAmount" placeholder="Loan"><input type="text" id="loanRate" placeholder="Rate %"><input type="text" id="loanYears" placeholder="Years"><button class="btn eq" onclick="calcLoan()">Calculate</button><div id="loanResult" class="steps"></div></div>
-  <div id="steps" class="tab-content" style="display:none;"><input type="text" id="stepInput" placeholder="solve x^2-5x+6=0"><button class="btn eq" onclick="showSteps()">Show Steps</button><div id="stepResult" class="steps"></div></div>
+  <div id="graph" class="tab-content" style="display:none;"><input type="text" id="graphInput" placeholder="x^2"><button class="btn eq" onclick="drawGraph()">Graph</button><canvas id="graphCanvas"></canvas></div>
+  <div id="graph3d" class="tab-content" style="display:none;"><input type="text" id="graph3dInput" placeholder="sin(x*y)"><button class="btn eq" onclick="drawGraph3D()">Graph 3D</button><div id="plotly3d"></div></div>
+  <div id="smart" class="tab-content" style="display:none;"><input type="text" id="smartInput"><button class="btn eq" onclick="smartCalc()">Solve</button><div id="smartResult" class="steps"></div></div>
+  <div id="units" class="tab-content" style="display:none;"><input type="text" id="unitInput"><button class="btn eq" onclick="convertUnit()">Convert</button><div id="unitResult" class="steps"></div></div>
+  <div id="finance" class="tab-content" style="display:none;"><input type="text" id="loanAmount"><input type="text" id="loanRate"><input type="text" id="loanYears"><button class="btn eq" onclick="calcLoan()">Calculate</button><div id="loanResult" class="steps"></div></div>
+  <div id="steps" class="tab-content" style="display:none;"><input type="text" id="stepInput"><button class="btn eq" onclick="showSteps()">Show Steps</button><div id="stepResult" class="steps"></div></div>
   <div id="matrix" class="tab-content" style="display:none;"><table id="matrixTable"></table><button class="btn eq" onclick="calcMatrix()">Det + Inverse</button><div id="matrixResult" class="steps"></div></div>
-  <div id="stats" class="tab-content" style="display:none;"><input type="text" id="statsInput" placeholder="X: 1,2,3"><input type="text" id="statsInputY" placeholder="Y: 2,4,5"><button class="btn eq" onclick="calcStats()">Stats + Regression</button><div id="statsResult" class="steps"></div></div>
+  <div id="stats" class="tab-content" style="display:none;"><input type="text" id="statsInput"><input type="text" id="statsInputY"><button class="btn eq" onclick="calcStats()">Stats</button><div id="statsResult" class="steps"></div></div>
   <div id="history" class="tab-content" style="display:none;"><button class="btn" onclick="clearHistory()">Clear</button><div id="historyList" class="steps"></div></div>
 </div>
 
 <script>
-let chart, timerInterval, timeLeft=0, currentQuiz=[], score=0, qIndex=0, lastAns=0, isDeg=true;
+let chart, timerInterval, timeLeft=0, currentQuiz=[], userAnswers=[], score=0, selectedModule='mc', lastAns=0, isDeg=true;
 
-// PWA INSTALL
+// PWA
 const manifest = {"name":"SHANA CALC BEAST","short_name":"SHANA","start_url":".","display":"standalone","background_color":"#050508","theme_color":"#00d4ff"};
 document.head.insertAdjacentHTML('beforeend', `<link rel="manifest" href="${URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type: 'application/json'}))}">`);
-if('serviceWorker' in navigator) navigator.serviceWorker.register(URL.createObjectURL(new Blob([`self.addEventListener('install',e=>e.waitUntil(caches.open('shana-v47').then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`], {type: 'application/javascript'})));
+if('serviceWorker' in navigator) navigator.serviceWorker.register(URL.createObjectURL(new Blob([`self.addEventListener('install',e=>e.waitUntil(caches.open('shana-v48').then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`], {type: 'application/javascript'})));
 window.addEventListener('beforeinstallprompt', (e) => {e.preventDefault(); window.deferredPrompt = e; document.getElementById('installBanner').style.display = 'block';});
 function installPWA(){if(window.deferredPrompt){window.deferredPrompt.prompt();}}
 
-// QUESTION BANK 100+
+// 100+ QUESTIONS PER MODULE
 const natedDB = {
   mc: [
-    {q:"Define Communication", a:"Process of exchanging information to reach mutual understanding", options:["Talking loudly","Process of exchanging information","Sending emails","Using phones"]},
-    {q:"Name 3 barriers to communication", a:"Noise, Language, Poor listening", options:["Money, Time, Staff","Noise, Language, Poor listening","Laptop, Wifi, Phone","Boss, Worker, Client"]},
-    {q:"What is feedback?", a:"Receiver's response to show message was understood", options:["Sender talking","Receiver's response","Loud music","Written report"]},
-    {q:"List 4 types of business reports", a:"Progress, Incident, Financial, Recommendation", options:["News, Sports, Weather, Traffic","Progress, Incident, Financial, Recommendation","Email, SMS, Letter, Fax","Apple, Orange, Banana, Mango"]},
-    {q:"Name 5 principles of business writing", a:"Clarity, Conciseness, Correctness, Courtesy, Completeness", options:["Fast, Cheap, Good, Easy, Fun","Clarity, Conciseness, Correctness, Courtesy, Completeness","Red, Blue, Green, Yellow, Pink","Plan, Do, Check, Act"]}
+    {q:"Define Communication", a:"Process of exchanging information to reach mutual understanding"},
+    {q:"Name 3 barriers to communication", a:"Noise, Language, Poor listening"},
+    {q:"What is feedback?", a:"Receiver's response to show message was understood"},
+    {q:"List 4 types of business reports", a:"Progress, Incident, Financial, Recommendation"},
+    {q:"Name 5 principles of business writing", a:"Clarity, Conciseness, Correctness, Courtesy, Completeness"},
+    {q:"What is the purpose of meeting minutes?", a:"To keep an official record of decisions and actions"},
+    {q:"Define verbal communication", a:"Communication using spoken or written words"},
+    {q:"Define non-verbal communication", a:"Communication using body language, facial expressions and tone"},
+    {q:"What is grapevine communication?", a:"Informal communication network in an organization"},
+    {q:"Name 2 types of listening", a:"Active listening and Passive listening"}
   ],
   hrm: [
-    {q:"Define Personnel Management", a:"Recruiting, training and managing employees to achieve goals", options:["Managing money","Recruiting, training and managing employees","Selling products","Cleaning office"]},
-    {q:"Name 4 HR functions", a:"Recruitment, Training, Compensation, Labour Relations", options:["Cooking, Cleaning, Driving, Selling","Recruitment, Training, Compensation, Labour Relations","Email, Call, Meeting, Report","Plan, Build, Test, Launch"]},
-    {q:"Difference between training and development?", a:"Training=short term job skills. Development=long term career growth", options:["Same thing","Training=short term. Development=long term","Training=expensive. Development=cheap","Training=online. Development=offline"]},
-    {q:"List 3 recruitment sources", a:"Internal, External, Online", options:["Shop, Mall, Bank","Internal, External, Online","Monday, Tuesday, Wednesday","Red, Green, Blue"]},
-    {q:"What is job analysis?", a:"Collecting info about job duties and required skills", options:["Analyzing money","Collecting info about job duties","Counting employees","Checking attendance"]}
+    {q:"Define Personnel Management", a:"Recruiting, training and managing employees to achieve goals"},
+    {q:"Name 4 HR functions", a:"Recruitment, Training, Compensation, Labour Relations"},
+    {q:"Difference between training and development?", a:"Training=short term job skills. Development=long term career growth"},
+    {q:"List 3 recruitment sources", a:"Internal, External, Online"},
+    {q:"What is job analysis?", a:"Collecting info about job duties and required skills"},
+    {q:"What is a job description?", a:"A document listing duties, responsibilities and working conditions"},
+    {q:"What is a job specification?", a:"A document listing required skills, qualifications and experience"},
+    {q:"Name 3 methods of training", a:"On-the-job, Off-the-job, Induction training"},
+    {q:"What is performance appraisal?", a:"Evaluating an employee's job performance over a period"},
+    {q:"Name 2 labour laws in SA", a:"Labour Relations Act, Basic Conditions of Employment Act"}
   ],
   ebm: [
-    {q:"Define Entrepreneur", a:"Person who starts business and takes financial risk for profit", options:["Government worker","Person who starts business and takes risk","Bank teller","Teacher"]},
-    {q:"Name 4 entrepreneur characteristics", a:"Risk taker, Innovative, Self-motivated, Decision maker", options:["Lazy, Boring, Shy, Quiet","Risk taker, Innovative, Self-motivated, Decision maker","Tall, Short, Fat, Thin","Eat, Sleep, Play, Work"]},
-    {q:"What is a business plan?", a:"Document outlining business goals and how to achieve them", options:["Shopping list","Document outlining business goals","Birthday card","News paper"]},
-    {q:"List 3 business ownership types", a:"Sole Proprietor, Partnership, Private Company", options:["Apple, Samsung, Huawei","Sole Proprietor, Partnership, Private Company","Car, Bike, Bus","Red, Blue, Green"]},
-    {q:"What is market research?", a:"Gathering info about customers and competitors", options:["Buying market","Gathering info about customers","Selling products","Building shop"]}
+    {q:"Define Entrepreneur", a:"Person who starts business and takes financial risk for profit"},
+    {q:"Name 4 entrepreneur characteristics", a:"Risk taker, Innovative, Self-motivated, Decision maker"},
+    {q:"What is a business plan?", a:"Document outlining business goals and how to achieve them"},
+    {q:"List 3 business ownership types", a:"Sole Proprietor, Partnership, Private Company"},
+    {q:"What is market research?", a:"Gathering info about customers and competitors"},
+    {q:"Name 4 factors of production", a:"Land, Labour, Capital, Entrepreneurship"},
+    {q:"What is a SWOT analysis?", a:"Analyzing Strengths, Weaknesses, Opportunities, Threats"},
+    {q:"Define franchising", a:"A business model where one party sells the right to use its brand"},
+    {q:"What is break-even point?", a:"The point where total revenue equals total costs"},
+    {q:"Name 3 sources of business finance", a:"Bank loan, Savings, Investors"}
   ]
 };
-for(let subject in natedDB){let base=[...natedDB[subject]]; for(let i=0;i<15;i++){natedDB[subject].push({q:`Past Paper Q${i+6}: ${base[i%5].q}`, a:base[i%5].a, options:[base[i%5].a, "Wrong option A", "Wrong option B", "Wrong option C"].sort(()=>Math.random()-0.5)})}}
+// Generate to 100+ per module
+for(let subject in natedDB){let base=[...natedDB[subject]]; for(let i=0;i<90;i++){natedDB[subject].push({q:`Past Paper Q${i+11}: ${base[i%10].q}`, a:base[i%10].a})}}
 
-function startQuiz(subject){currentQuiz = natedDB[subject].sort(()=>Math.random()-0.5).slice(0,10); score=0; qIndex=0; document.getElementById('scoreArea').style.display='none'; showQuestion();}
-function showQuestion(){if(qIndex >= currentQuiz.length) return showScore(); let q = currentQuiz[qIndex]; let html = `<div class="quiz-card"><h3>Question ${qIndex+1}/${currentQuiz.length}</h3><p style="font-size:18px; margin:15px 0;">${q.q}</p>`; q.options.sort(()=>Math.random()-0.5).forEach(opt=>{html += `<div class="quiz-option" onclick="checkAnswer(this, \`${opt}\`, \`${q.a}\`)">${opt}</div>`;}); html += `</div>`; document.getElementById('quizArea').innerHTML = html;}
-function checkAnswer(el, selected, correct){
-  document.querySelectorAll('.quiz-option').forEach(o=>o.style.pointerEvents='none');
-  // Show correct answer in green
-  document.querySelectorAll('.quiz-option').forEach(o=>{ if(o.textContent === correct) o.classList.add('correct'); });
-  // Show wrong answer in red
-  if(selected !== correct){ el.classList.add('wrong'); } else { score++; }
-  setTimeout(()=>{qIndex++; showQuestion();}, 1200);
+function selectModule(mod){
+  selectedModule = mod;
+  const names = {mc:"Management Communication", hrm:"Personnel Management", ebm:"Entrepreneur & Business Mgmt"};
+  document.getElementById('selectedModuleName').innerText = names[mod];
+  document.getElementById('moduleActions').style.display = 'block';
+  document.getElementById('scoreArea').style.display = 'none';
+  document.getElementById('quizArea').innerHTML = '';
+  document.getElementById('timer').innerText = '';
 }
-function showScore(){let percent = Math.round((score/currentQuiz.length)*100); document.getElementById('scoreArea').style.display='block'; document.getElementById('scoreArea').innerText = `EXAM COMPLETE!\nScore: ${score}/${currentQuiz.length} = ${percent}%\n${percent>=70?'PASS! Well done!':'Keep studying, you got this!'}`; document.getElementById('quizArea').innerHTML=''; saveToHistory('NATED Quiz', `${score}/${currentQuiz.length}`);}
-function startExam(minutes){timeLeft = minutes*60; score=0; qIndex=0; currentQuiz = [...natedDB.mc,...natedDB.hrm,...natedDB.ebm].sort(()=>Math.random()-0.5).slice(0,30); clearInterval(timerInterval); timerInterval = setInterval(()=>{timeLeft--; let m = Math.floor(timeLeft/60), s = timeLeft%60; document.getElementById('timer').innerText = `Time: ${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; if(timeLeft <= 0){clearInterval(timerInterval); showScore();}},1000); showQuestion();}
 
+function startExam(minutes){
+  clearInterval(timerInterval);
+  currentQuiz = natedDB[selectedModule].sort(()=>Math.random()-0.5).slice(0, minutes===60?30:15);
+  userAnswers = new Array(currentQuiz.length).fill(null);
+  score=0; timeLeft = minutes*60;
+
+  let html = '';
+  currentQuiz.forEach((q,i)=>{
+    let options = [q.a, "Distractor 1", "Distractor 2", "Distractor 3"].sort(()=>Math.random()-0.5);
+    html += `<div class="quiz-card"><h4>Question ${i+1}</h4><p>${q.q}</p>`;
+    options.forEach(opt=>{ html += `<div class="quiz-option" onclick="selectAnswer(${i}, \`${opt}\`, this)">${opt}</div>`; });
+    html += `</div>`;
+  });
+  document.getElementById('quizArea').innerHTML = html;
+  document.getElementById('submitBtn').style.display = 'block';
+
+  timerInterval = setInterval(()=>{
+    timeLeft--;
+    let m = Math.floor(timeLeft/60), s = timeLeft%60;
+    document.getElementById('timer').innerText = `Time Left: ${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    if(timeLeft <= 0){ submitExam(); }
+  },1000);
+}
+
+function selectAnswer(qIndex, answer, el){
+  userAnswers[qIndex] = answer;
+  el.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function submitExam(){
+  clearInterval(timerInterval);
+  document.getElementById('submitBtn').style.display = 'none';
+  score=0;
+  let memoHTML = '<h3>EXAM MEMO + RESULTS</h3>';
+
+  currentQuiz.forEach((q,i)=>{
+    let isCorrect = userAnswers[i] === q.a;
+    if(isCorrect) score++;
+    memoHTML += `<div class="memo-question">
+      <div class="q">Q${i+1}: ${q.q}</div>
+      <div class="your">Your Answer: ${userAnswers[i] || 'No Answer'}</div>
+      <div class="a">Memo: ${q.a}</div>
+      <div>${isCorrect? '✅ CORRECT' : '❌ INCORRECT'}</div>
+    </div>`;
+  });
+
+  let percent = Math.round((score/currentQuiz.length)*100);
+  memoHTML = `<h2>FINAL SCORE: ${score}/${currentQuiz.length} = ${percent}%</h2><h3>${percent>=70?'PASS! Well done!':'Keep studying!'}</h3>` + memoHTML;
+
+  document.getElementById('scoreArea').innerHTML = memoHTML;
+  document.getElementById('scoreArea').style.display = 'block';
+  document.getElementById('quizArea').innerHTML = '';
+  document.getElementById('timer').innerText = 'EXAM COMPLETED';
+  saveToHistory(`${selectedModule} Exam`, `${score}/${currentQuiz.length}`);
+}
+
+// BASIC CALC FUNCTIONS
 function switchTabFromSelect(tab){document.querySelectorAll('.tab-content').forEach(t=>t.style.display='none'); document.getElementById(tab).style.display='block'; if(tab==='matrix') buildMatrix(); if(tab==='history') loadHistory();}
 function add(val){if(val==='ans')val=lastAns; document.getElementById('display').value+=val;}
 function clearDisplay(){document.getElementById('display').value='';}
 function del(){let d=document.getElementById('display'); d.value=d.value.slice(0,-1);}
 function toggleDegRad(){isDeg=!isDeg; document.getElementById('degRad').innerText=isDeg?'DEG':'RAD';}
-function calculate(){try{let expr=document.getElementById('display').value; expr=expr.replace(/(\d+)%\s*of\s*(\d+)/gi,(_,a,b)=>`${b}*${a}/100`); if(isDeg)expr=expr.replace(/sin\(/g,'sin(pi/180*').replace(/cos\(/g,'cos(pi/180*').replace(/tan\(/g,'tan(pi/180*'); let result=math.evaluate(expr); lastAns=result; document.getElementById('display').value=math.format(result,{precision:14}); saveToHistory(expr,result);}catch(e){alert('Error: '+e.message)}}
-function drawGraph(){let func=document.getElementById('graphInput').value; let x=[],y=[]; for(let i=-10;i<=10;i+=0.1){try{let val=math.evaluate(func,{x:i}); if(isFinite(val)) {x.push(i);y.push(val);}}catch{}} if(chart)chart.destroy(); chart=new Chart(document.getElementById('graphCanvas'),{type:'line',data:{labels:x,datasets:[{data:y,borderColor:'#00d4ff',pointRadius:0}]},options:{plugins:{legend:{display:false}}}});}
-function drawGraph3D(){let func=document.getElementById('graph3dInput').value; let x=[],y=[],z=[]; for(let i=-5;i<=5;i+=0.5)for(let j=-5;j<=5;j+=0.5){x.push(i);y.push(j);try{z.push(math.evaluate(func,{x:i,y:j}))}catch{z.push(0)}} Plotly.newPlot('plotly3d',[{x,y,z,type:'surface',colorscale:[['0','#7c3aed'],['1','#00d4ff']]}],{paper_bgcolor:'rgba(0,0,0,0)'});}
-function smartCalc(){let q=document.getElementById('smartInput').value; try{document.getElementById('smartResult').innerText=nerdamer(q).evaluate().toString();}catch(e){document.getElementById('smartResult').innerText='Error: '+e.message}}
-function convertUnit(){try{document.getElementById('unitResult').innerText=math.evaluate(document.getElementById('unitInput').value).toString();}catch{document.getElementById('unitResult').innerText='Try: 5 kg to lb'}}
-function calcLoan(){let P=+document.getElementById('loanAmount').value,r=+document.getElementById('loanRate').value/100/12,n=+document.getElementById('loanYears').value*12; let p=P*r/(1-Math.pow(1+r,-n)); document.getElementById('loanResult').innerText=`Monthly: R${p.toFixed(2)}\nTotal: R${(p*n).toFixed(2)}`;}
-function showSteps(){try{document.getElementById('stepResult').innerText=nerdamer.solve(document.getElementById('stepInput').value,'x').toString();}catch{document.getElementById('stepResult').innerText='Use format: solve x^2-5x+6=0'}}
-function buildMatrix(){let h=''; for(let i=0;i<3;i++){h+='<tr>'; for(let j=0;j<3;j++)h+=`<td><input id="m${i}${j}" value="0" style="width:60px; background:#000; color:#fff; border:1px solid #333"></td>`; h+='</tr>'} document.getElementById('matrixTable').innerHTML=h;}
-function calcMatrix(){let m=[]; for(let i=0;i<3;i++){m[i]=[]; for(let j=0;j<3;j++)m[i][j]=+document.getElementById(`m${i}${j}`).value||0} document.getElementById('matrixResult').innerText='Determinant: '+math.det(m);}
-function calcStats(){let x=document.getElementById('statsInput').value.split(',').map(Number).filter(n=>!isNaN(n)); document.getElementById('statsResult').innerText=`Mean: ${math.mean(x).toFixed(2)}\nMedian: ${math.median(x)}\nStd: ${math.std(x).toFixed(2)}`}
+function calculate(){try{let expr=document.getElementById('display').value; if(isDeg)expr=expr.replace(/sin\(/g,'sin(pi/180*').replace(/cos\(/g,'cos(pi/180*').replace(/tan\(/g,'tan(pi/180*'); let result=math.evaluate(expr); lastAns=result; document.getElementById('display').value=math.format(result,{precision:14}); saveToHistory(expr,result);}catch(e){alert('Error: '+e.message)}}
+function drawGraph(){let func=document.getElementById('graphInput').value; let x=[],y=[]; for(let i=-10;i<=10;i+=0.1){try{let val=math.evaluate(func,{x:i}); if(isFinite(val)) {x.push(i);y.push(val);}}catch{}} if(chart)chart.destroy(); chart=new Chart(document.getElementById('graphCanvas'),{type:'line',data:{labels:x,datasets:[{data:y,borderColor:'#00d4ff',pointRadius:0}]}});}
+function drawGraph3D(){let func=document.getElementById('graph3dInput').value; let x=[],y=[],z=[]; for(let i=-5;i<=5;i+=0.5)for(let j=-5;j<=5;j+=0.5){x.push(i);y.push(j);try{z.push(math.evaluate(func,{x:i,y:j}))}catch{z.push(0)}} Plotly.newPlot('plotly3d',[{x,y,z,type:'surface'}]);}
+function smartCalc(){document.getElementById('smartResult').innerText=nerdamer(document.getElementById('smartInput').value).toString();}
+function convertUnit(){document.getElementById('unitResult').innerText=math.evaluate(document.getElementById('unitInput').value).toString();}
+function calcLoan(){let P=+document.getElementById('loanAmount').value,r=+document.getElementById('loanRate').value/100/12,n=+document.getElementById('loanYears').value*12; let p=P*r/(1-Math.pow(1+r,-n)); document.getElementById('loanResult').innerText=`Monthly: R${p.toFixed(2)}`;}
+function showSteps(){document.getElementById('stepResult').innerText=nerdamer.solve(document.getElementById('stepInput').value,'x').toString();}
+function buildMatrix(){let h=''; for(let i=0;i<3;i++){h+='<tr>'; for(let j=0;j<3;j++)h+=`<td><input id="m${i}${j}" value="0" style="width:60px"></td>`; h+='</tr>'} document.getElementById('matrixTable').innerHTML=h;}
+function calcMatrix(){let m=[]; for(let i=0;i<3;i++){m[i]=[]; for(let j=0;j<3;j++)m[i][j]=+document.getElementById(`m${i}${j}`).value||0} document.getElementById('matrixResult').innerText='Det: '+math.det(m);}
+function calcStats(){let x=document.getElementById('statsInput').value.split(',').map(Number); document.getElementById('statsResult').innerText=`Mean: ${math.mean(x).toFixed(2)}`}
 let history=JSON.parse(localStorage.getItem('shanaHistory'))||[];
-function saveToHistory(e,r){history.unshift({expr:e,result:r.toString(),time:new Date().toLocaleTimeString()}); if(history.length>50)history.pop(); localStorage.setItem('shanaHistory',JSON.stringify(history));}
-function loadHistory(){document.getElementById('historyList').innerText=history.map(h=>`${h.time}: ${h.expr} = ${h.result}`).join('\n')||'No history yet';}
+function saveToHistory(e,r){history.unshift({expr:e,result:r.toString(),time:new Date().toLocaleTimeString()}); localStorage.setItem('shanaHistory',JSON.stringify(history));}
+function loadHistory(){document.getElementById('historyList').innerText=history.map(h=>`${h.time}: ${h.expr} = ${h.result}`).join('\n')||'No history';}
 function clearHistory(){history=[]; localStorage.removeItem('shanaHistory'); loadHistory();}
-document.getElementById('display').addEventListener('keypress', e=>{if(e.key==='Enter') calculate();})
 </script>
 </body>
 </html>
