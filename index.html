@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHANA CALC BEAST V5.1 NATED PRO</title>
+<title>SHANA CALC BEAST V5.2 NATED PRO</title>
 <style>
   :root{--bg:#050508;--card:rgba(17,17,25,0.7);--accent:#00d4ff;--text:#f1f5f9;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;}
   *{margin:0;padding:0;box-sizing:border-box;font-family: 'Inter', system-ui, sans-serif;}
@@ -32,7 +32,7 @@
 </head>
 <body>
 <div class="calc">
-  <h1>SHANA CALC NATED V5.1 PRO</h1>
+  <h1>SHANA CALC NATED V5.2 PRO</h1>
 
   <div id="menu">
     <h2 style="text-align:center; margin:15px 0;">Select Module</h2>
@@ -59,6 +59,7 @@
 <script>
 let currentPaper=[], userAnswers=[], timer, timeLeft=3600, currentQ=0, selectedModule='';
 
+// FIXED: Define all 3 separately first
 const papers = {
   hrm: {
     title: "PERSONNEL MANAGEMENT / HRM N4\nTOTAL: 20 MARKS",
@@ -75,12 +76,37 @@ const papers = {
       {type:"APP", marks:2, q:"Name TWO sources of recruitment.", ans:"1. Internal - Promotions 2. External - Job advertisements", keywords:["internal","external"]}
     ]
   },
-  mc: { /* same structure */ title:"MANAGEMENT COMMUNICATION N4\nTOTAL: 20 MARKS", questions: papers.hrm.questions },
-  ebm: { /* same structure */ title:"ENTREPRENEUR & BUSINESS MANAGEMENT N4\nTOTAL: 20 MARKS", questions: papers.hrm.questions }
+  mc: {
+    title: "MANAGEMENT COMMUNICATION N4\nTOTAL: 20 MARKS",
+    questions: [
+      {type:"MCQ", marks:1, q:"The exchange of information between two or more people is called...", options:["A. Feedback","B. Noise","C. Communication","D. Channel"], ans:"C"},
+      {type:"MCQ", marks:1, q:"Which is an example of non-verbal communication?", options:["A. Email","B. Body language","C. Phone call","D. Memo"], ans:"B"},
+      {type:"MCQ", marks:1, q:"A list of items to be discussed at a meeting is called...", options:["A. Minutes","B. Agenda","C. Report","D. Notice"], ans:"B"},
+      {type:"MCQ", marks:1, q:"Which is a barrier to communication?", options:["A. Clarity","B. Noise","C. Feedback","D. Channel"], ans:"B"},
+      {type:"DEF", marks:2, q:"Define 'Feedback' in communication.", ans:"Feedback is the receiver's response to the sender's message which shows if the message was understood.", keywords:["receiver","response","message","understood"]},
+      {type:"DEF", marks:2, q:"What are 'Minutes' of a meeting?", ans:"Minutes are the official written record of what was discussed and decided at a meeting.", keywords:["official","written","record","discussed","decided"]},
+      {type:"DEF", marks:2, q:"State TWO principles of business writing.", ans:"1. Clarity 2. Conciseness", keywords:["clarity","conciseness"]},
+      {type:"APP", marks:4, q:"Explain TWO types of business reports.", ans:"1. Progress report - reports on work done 2. Financial report - reports on money matters", keywords:["progress","financial","report"]},
+      {type:"APP", marks:4, q:"Describe TWO importance of meetings.", ans:"1. To make decisions 2. To share information", keywords:["decisions","information","share"]},
+      {type:"APP", marks:2, q:"Name TWO types of communication channels.", ans:"1. Verbal 2. Written", keywords:["verbal","written"]}
+    ]
+  },
+  ebm: {
+    title: "ENTREPRENEUR & BUSINESS MANAGEMENT N4\nTOTAL: 20 MARKS",
+    questions: [
+      {type:"MCQ", marks:1, q:"A person who starts a business and takes risks is called...", options:["A. Manager","B. Entrepreneur","C. Employee","D. Investor"], ans:"B"},
+      {type:"MCQ", marks:1, q:"Which is NOT a factor of production?", options:["A. Land","B. Labour","C. Capital","D. Product"], ans:"D"},
+      {type:"MCQ", marks:1, q:"A document outlining business goals is called...", options:["A. Invoice","B. Business plan","C. CV","D. Contract"], ans:"B"},
+      {type:"MCQ", marks:1, q:"Which is a type of business ownership?", options:["A. Salary","B. Sole Proprietor","C. Marketing","D. Production"], ans:"B"},
+      {type:"DEF", marks:2, q:"Define 'Market Research'.", ans:"Market research is gathering information about customers, competitors and market trends.", keywords:["gathering","information","customers","competitors","market"]},
+      {type:"DEF", marks:2, q:"What is 'Break-even point'?", ans:"Break-even point is where total revenue equals total costs.", keywords:["revenue","costs","equals"]},
+      {type:"DEF", marks:2, q:"State TWO characteristics of an entrepreneur.", ans:"1. Risk taker 2. Innovative", keywords:["risk","innovative"]},
+      {type:"APP", marks:4, q:"Explain TWO sources of business finance.", ans:"1. Bank loan 2. Personal savings", keywords:["bank","loan","savings"]},
+      {type:"APP", marks:4, q:"Describe TWO factors to consider when choosing business location.", ans:"1. Near target market 2. Affordable rent", keywords:["market","rent","location"]},
+      {type:"APP", marks:2, q:"Name TWO types of business.", ans:"1. Retail 2. Manufacturing", keywords:["retail","manufacturing"]}
+    ]
+  }
 };
-// copy hrm to others for demo
-papers.mc.questions = JSON.parse(JSON.stringify(papers.hrm.questions));
-papers.ebm.questions = JSON.parse(JSON.stringify(papers.hrm.questions));
 
 function startPaper(mod){
   selectedModule = mod;
@@ -148,8 +174,14 @@ function showQuestion(){
 
 function checkMCQ(el, choice){
   userAnswers[currentQ] = choice;
-  el.style.borderColor='var(--accent)';
-  setTimeout(()=>{ if(currentQ<currentPaper.length-1) nextQ(); }, 600);
+  document.querySelectorAll('.quiz-option').forEach(o=>o.style.pointerEvents='none');
+  let correct = currentPaper[currentQ].ans;
+  if(choice === correct){ el.classList.add('correct'); } 
+  else {
+    el.classList.add('wrong');
+    document.querySelectorAll('.quiz-option').forEach(o=>{ if(o.textContent.startsWith(correct)) o.classList.add('correct'); });
+  }
+  setTimeout(()=>{ if(currentQ<currentPaper.length-1) nextQ(); }, 800);
 }
 
 function nextQ(){
@@ -179,7 +211,7 @@ function gradeTextAnswer(userAns, keywords){
   if(!userAns) return 0;
   let lower = userAns.toLowerCase();
   let hits = keywords.filter(k=>lower.includes(k)).length;
-  return Math.min(1, hits/keywords.length); // 0 to 1 score
+  return Math.min(1, hits/keywords.length);
 }
 
 function submitPaper(){
@@ -208,7 +240,7 @@ function submitPaper(){
 
     let correctText = q.type==="MCQ"? q.options.find(o=>o.startsWith(q.ans)) : q.ans;
 
-    memoHTML += `<div class="memo-q">
+    memoHTML += `<div class="memo-q" style="margin-bottom:15px;">
       <b>Q${i+1}. [${q.marks}]</b> ${q.q}<br>
       <b>Your Answer:</b> ${userAns || 'No Answer'}<br>
       <div style="color:var(--green)"><b>Correct Answer:</b> ${correctText}</div>
@@ -217,7 +249,7 @@ function submitPaper(){
   });
 
   let percent = Math.round((score/total)*100);
-  memoHTML = `<h2>FINAL: ${score}/${total} = ${percent}% - ${percent>=50?'PASS':'FAIL'}</h2>` + memoHTML;
+  memoHTML = `<h2>FINAL: ${score}/${total} = ${percent}% - ${percent>=50?'PASS':'FAIL'}</h2><hr>` + memoHTML;
 
   document.getElementById('memoArea').innerHTML = memoHTML;
   document.getElementById('memoArea').style.display = 'block';
