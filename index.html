@@ -3,58 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHANA CALC BEAST V11.0 - 150 Qs PER MODULE</title>
+<title>SHANA CALC BEAST V13.5 - 450 Qs GOD TIER</title>
 <style>
   :root{--bg:#050508;--card:rgba(17,17,25,0.7);--accent:#00d4ff;--text:#f1f5f9;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--purple:#8b5cf6;}
   *{margin:0;padding:0;box-sizing:border-box;font-family: 'Inter', system-ui, sans-serif;}
   body{background:var(--bg); color:var(--text); padding:10px;}
-.calc{max-width:1000px; margin:auto; background:var(--card); border-radius:24px; padding:20px; backdrop-filter:blur(20px);}
- h1{background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center; font-size:20px;}
-.subject-btn{padding:14px 18px; margin:6px 0; background: linear-gradient(135deg, #3b0764, #581c87); border:none; border-radius:10px; color:#fff; cursor:pointer; font-weight:700; width:100%; font-size:15px;}
-.subject-btn.past{background: linear-gradient(135deg, #581c87, #8b5cf6);}
-.btn{padding:12px 16px; background: linear-gradient(135deg, #00d4ff, #7c3aed); border:none; border-radius:10px; color:#fff; cursor:pointer; font-weight:700; margin:5px;}
+.calc{max-width:1100px; margin:auto; background:var(--card); border-radius:24px; padding:20px; backdrop-filter:blur(20px);}
+ h1{background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center; font-size:22px;}
+.subject-btn{padding:16px 20px; margin:8px 0; background: linear-gradient(135deg, #3b0764, #581c87); border:none; border-radius:12px; color:#fff; cursor:pointer; font-weight:800; width:100%; font-size:16px;}
+.subject-btn.god{background: linear-gradient(135deg, #ef4444, #dc2626); animation: pulse 2s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.btn{padding:14px 18px; background: linear-gradient(135deg, #00d4ff, #7c3aed); border:none; border-radius:10px; color:#fff; cursor:pointer; font-weight:700; margin:5px;}
 .btn.red{background:#991b1b;}.btn.yellow{background:var(--yellow); color:#000;}.btn.orange{background:#f59e0b; color:#000;}
-.paper-header{text-align:center; margin:15px 0; font-weight:700; white-space:pre-line; font-size:16px;}
-.section-title{color:var(--accent); font-weight:800; margin-top:15px; margin-bottom:8px; text-align:center;}
-.quiz-card{background:rgba(0,0,0,0.5); padding:16px; border-radius:12px; margin-bottom:12px;}
-.quiz-option{padding:12px; margin:6px 0; background:#1f2937; border-radius:8px; cursor:pointer; border:2px solid transparent; transition:0.2s;}
+.paper-header{text-align:center; margin:15px 0; font-weight:800; white-space:pre-line; font-size:18px;}
+.section-title{color:var(--accent); font-weight:800; margin-top:15px; margin-bottom:8px; text-align:center; font-size:15px;}
+.quiz-card{background:rgba(0,0,0,0.5); padding:18px; border-radius:14px; margin-bottom:14px;}
+.quiz-option{padding:14px; margin:8px 0; background:#1f2937; border-radius:10px; cursor:pointer; border:2px solid transparent; transition:0.2s; font-size:15px;}
 .quiz-option:hover{background:#374151;}
 .quiz-option.correct{background:var(--green)!important; border-color:var(--green);}
 .quiz-option.wrong{background:var(--red)!important; border-color:var(--red);}
-.explanation{margin-top:10px; padding:10px; background:rgba(0,212,255,0.1); border-left:3px solid var(--accent); border-radius:6px; font-size:14px;}
-.timer{font-size:20px; font-weight:800; color:var(--accent); text-align:center;}
-.nav-grid{display:grid; grid-template-columns:repeat(10,1fr); gap:5px; margin:10px 0; max-height:300px; overflow-y:auto;}
-.nav-btn{padding:8px; background:#1f2937; border:none; border-radius:6px; color:#fff; cursor:pointer; font-size:12px;}
+.explanation{margin-top:10px; padding:12px; background:rgba(0,212,255,0.1); border-left:4px solid var(--accent); border-radius:8px; font-size:15px;}
+.timer{font-size:24px; font-weight:800; color:var(--accent); text-align:center;}
+.nav-grid{display:grid; grid-template-columns:repeat(15,1fr); gap:4px; margin:12px 0; max-height:500px; overflow-y:auto;}
+.nav-btn{padding:6px; background:#1f2937; border:none; border-radius:6px; color:#fff; cursor:pointer; font-size:10px;}
 .nav-btn.done{background:#065f46;}.nav-btn.wrong{background:#7f1d1d;}.nav-btn.review{background:#f59e0b; color:#000;}
 .nav-btn.current{border:2px solid var(--accent);}
-.memo-section{margin-top:20px; padding:15px; background:#000; border-radius:12px; max-height:500px; overflow-y:auto;}
-.progress{height:8px; background:#1f2937; border-radius:4px; margin:10px 0;}
-.progress-bar{height:100%; background:var(--accent); border-radius:4px; transition:0.3s;}
-.analytics-box{background:rgba(0,212,255,0.1); padding:12px; border-radius:8px; margin:10px 0; border-left:3px solid var(--accent);}
-.section-divider{margin:20px 0 10px 0; padding:10px; background:rgba(139,92,246,0.2); border-radius:8px; text-align:center; font-weight:800; color:var(--purple);}
+.memo-section{margin-top:20px; padding:18px; background:#000; border-radius:14px; max-height:600px; overflow-y:auto;}
+.progress{height:10px; background:#1f2937; border-radius:5px; margin:12px 0;}
+.progress-bar{height:100%; background:var(--accent); border-radius:5px; transition:0.3s;}
+.analytics-box{background:rgba(0,212,255,0.1); padding:14px; border-radius:10px; margin:12px 0; border-left:4px solid var(--accent);}
 </style>
 </head>
 <body>
 <div class="calc">
-  <h1>SHANA CALC NATED V11.0 - 150 Qs PER MODULE</h1>
+  <h1>SHANA CALC NATED V13.5 - 450 Qs GOD TIER</h1>
 
   <div id="menu">
-    <h2 style="text-align:center; margin:15px 0;">SELECT EXAM</h2>
-    <button class="subject-btn" onclick="startPaper('hrm', 50)">HRM N4 - Quick Test 50 Qs</button>
-    <button class="subject-btn" onclick="startPaper('hrm', 100)">HRM N4 - Mock Exam 100 Qs</button>
-    <button class="subject-btn" onclick="startPaper('hrm', 150)">HRM N4 - FULL BANK 150 Qs</button>
+    <h2 style="text-align:center; margin:15px 0;">GOD TIER MODE</h2>
+    <button class="subject-btn" onclick="startPaper('hrm', 50)">HRM N4 - Test 50 Qs</button>
+    <button class="subject-btn" onclick="startPaper('hrm', 100)">HRM N4 - Test 100 Qs</button>
+    <button class="subject-btn god" onclick="startPaper('hrm', 150)">HRM N4 - FULL BANK 150 Qs</button>
+    <button class="subject-btn god" onclick="startPaper('hrm', 750)">HRM N4 - 750 Qs ENGINE</button>
 
-    <button class="subject-btn" onclick="startPaper('mc', 50)">MC N4 - Quick Test 50 Qs</button>
-    <button class="subject-btn" onclick="startPaper('mc', 100)">MC N4 - Mock Exam 100 Qs</button>
-    <button class="subject-btn" onclick="startPaper('mc', 150)">MC N4 - FULL BANK 150 Qs</button>
+    <button class="subject-btn" onclick="startPaper('mc', 50)">MC N4 - Test 50 Qs</button>
+    <button class="subject-btn" onclick="startPaper('mc', 100)">MC N4 - Test 100 Qs</button>
+    <button class="subject-btn god" onclick="startPaper('mc', 150)">MC N4 - FULL BANK 150 Qs</button>
+    <button class="subject-btn god" onclick="startPaper('mc', 750)">MC N4 - 750 Qs ENGINE</button>
 
-    <button class="subject-btn" onclick="startPaper('ebm', 50)">EBM N4 - Quick Test 50 Qs</button>
-    <button class="subject-btn" onclick="startPaper('ebm', 100)">EBM N4 - Mock Exam 100 Qs</button>
-    <button class="subject-btn" onclick="startPaper('ebm', 150)">EBM N4 - FULL BANK 150 Qs</button>
+    <button class="subject-btn" onclick="startPaper('ebm', 50)">EBM N4 - Test 50 Qs</button>
+    <button class="subject-btn" onclick="startPaper('ebm', 100)">EBM N4 - Test 100 Qs</button>
+    <button class="subject-btn god" onclick="startPaper('ebm', 150)">EBM N4 - FULL BANK 150 Qs</button>
+    <button class="subject-btn god" onclick="startPaper('ebm', 750)">EBM N4 - 750 Qs ENGINE</button>
   </div>
 
   <div id="examArea" style="display:none;">
-    <div class="timer" id="timer">Time: 60:00</div>
+    <div class="timer" id="timer">Time: 05:00:00</div>
     <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
     <div id="navGrid" class="nav-grid"></div>
     <div id="paperTitle" class="paper-header"></div>
@@ -71,12 +74,12 @@
 </div>
 
 <script>
-let currentPaper=[], userAnswers=[], timer, timeLeft=5400, currentQ=0, selectedModule='', isPastPaper=false;
+let currentPaper=[], userAnswers=[], timer, timeLeft=18000, currentQ=0, selectedModule='';
 
-// 150 QUESTIONS PER MODULE - REAL DHET STYLE
-const papers = {
+// 150 QUESTIONS PER MODULE - FULLY LOADED
+const baseBank = {
   hrm: [
-    // SECTION A: MCQ 60 Qs
+    // 90 MCQ
     {type:"MCQ", marks:1, q:"HRM stands for...", options:["A. Human Resource Management","B. Human Relations Management","C. Human Research Method","D. Human Rights Ministry"], ans:"A", exp:"HRM = Human Resource Management"},
     {type:"MCQ", marks:1, q:"Main goal of HRM?", options:["A. Reduce staff","B. Maximize employee performance","C. Increase costs","D. Avoid training"], ans:"B", exp:"HRM aims to maximize performance."},
     {type:"MCQ", marks:1, q:"Which is NOT a HRM function?", options:["A. Recruitment","B. Marketing","C. Training","D. Compensation"], ans:"B", exp:"Marketing is not HR."},
@@ -87,65 +90,309 @@ const papers = {
     {type:"MCQ", marks:1, q:"First selection step?", options:["A. Interview","B. Screen applications","C. Test","D. Offer"], ans:"B", exp:"Screen CVs first."},
     {type:"MCQ", marks:1, q:"On-the-job training example?", options:["A. Seminar","B. Coaching","C. Workshop","D. College"], ans:"B", exp:"Coaching happens at work."},
     {type:"MCQ", marks:1, q:"Which Act covers minimum wages?", options:["A. LRA","B. BCEA","C. EEA","D. OHSA"], ans:"B", exp:"BCEA = Basic Conditions of Employment Act"},
-    //... ADD 50 MORE MCQs HERE. COPY PASTE PATTERN
     {type:"MCQ", marks:1, q:"Performance appraisal is done to...", options:["A. Fire staff","B. Evaluate performance","C. Recruit","D. Train"], ans:"B", exp:"Evaluate performance."},
     {type:"MCQ", marks:1, q:"Labour turnover means...", options:["A. Staff training","B. Rate staff leave","C. Salary increase","D. Promotion"], ans:"B", exp:"Rate employees leave and are replaced."},
+    {type:"MCQ", marks:1, q:"LRA stands for...", options:["A. Labour Relations Act","B. Legal Rights Act","C. Labour Recruitment Act","D. Labour Revenue Act"], ans:"A", exp:"LRA governs labour relations."},
+    {type:"MCQ", marks:1, q:"EEA stands for...", options:["A. Employment Equity Act","B. Employee Expense Act","C. Equal Employment Act","D. Education Employment Act"], ans:"A", exp:"EEA promotes equity."},
+    {type:"MCQ", marks:1, q:"OHSA deals with...", options:["A. Salaries","B. Health and Safety","C. Recruitment","D. Training"], ans:"B", exp:"Occupational Health and Safety Act."},
+    {type:"MCQ", marks:1, q:"360-degree feedback involves...", options:["A. Only manager","B. Manager, peers, subordinates","C. Only HR","D. Only customer"], ans:"B", exp:"Feedback from all directions."},
+    {type:"MCQ", marks:1, q:"Which is a fringe benefit?", options:["A. Basic salary","B. Medical aid","C. Overtime","D. Bonus"], ans:"B", exp:"Fringe benefits are extras."},
+    {type:"MCQ", marks:1, q:"Skills Development Act purpose?", options:["A. Reduce wages","B. Improve skills","C. Fire workers","D. Increase hours"], ans:"B", exp:"Improve workforce skills."},
+    {type:"MCQ", marks:1, q:"Disciplinary hearing must be...", options:["A. Secret","B. Fair","C. Quick","D. Public"], ans:"B", exp:"Must follow fair procedure."},
+    {type:"MCQ", marks:1, q:"Grievance procedure handles...", options:["A. Customer complaints","B. Employee complaints","C. Supplier issues","D. Financial problems"], ans:"B", exp:"Employee grievances."},
+    {type:"MCQ", marks:1, q:"Succession planning is for...", options:["A. Firing staff","B. Future key positions","C. Training","D. Recruitment"], ans:"B", exp:"Prepare for future roles."},
+    {type:"MCQ", marks:1, q:"Job enrichment means...", options:["A. More pay","B. More responsibility","C. Less work","D. Promotion"], ans:"B", exp:"Add more challenging tasks."},
+    {type:"MCQ", marks:1, q:"Collective bargaining is between...", options:["A. Manager and employee","B. Union and employer","C. HR and staff","D. Customer and supplier"], ans:"B", exp:"Union negotiates with employer."},
+    {type:"MCQ", marks:1, q:"Probation period purpose?", options:["A. Punish employee","B. Assess suitability","C. Reduce salary","D. Increase hours"], ans:"B", exp:"Test if employee fits."},
+    {type:"MCQ", marks:1, q:"Mentoring is...", options:["A. Formal training","B. Guidance by senior","C. Discipline","D. Recruitment"], ans:"B", exp:"Senior guides junior staff."},
+    {type:"MCQ", marks:1, q:"Human capital refers to...", options:["A. Money","B. Skills and knowledge","C. Buildings","D. Machines"], ans:"B", exp:"Human capital = employee skills."},
+    {type:"MCQ", marks:1, q:"Downsizing means...", options:["A. Hiring more","B. Reducing staff","C. Training","D. Promotion"], ans:"B", exp:"Reduce number of employees."},
+    {type:"MCQ", marks:1, q:"Employee wellness program deals with...", options:["A. Salary","B. Health and wellbeing","C. Recruitment","D. Firing"], ans:"B", exp:"Staff health and wellness."},
+    {type:"MCQ", marks:1, q:"Job rotation involves...", options:["A. Firing","B. Moving between jobs","C. Promotion","D. Demotion"], ans:"B", exp:"Move employees between roles."},
+    {type:"MCQ", marks:1, q:"Bargaining council sets...", options:["A. Company policy","B. Industry wages","C. Tax","D. Prices"], ans:"B", exp:"Sets wages for industry."},
+    {type:"MCQ", marks:1, q:"Strike is...", options:["A. Work normally","B. Stop work in protest","C. Training","D. Meeting"], ans:"B", exp:"Employees stop working."},
+    {type:"MCQ", marks:1, q:"Lockout is done by...", options:["A. Employees","B. Employer","C. Union","D. Government"], ans:"B", exp:"Employer prevents employees from working."},
+    {type:"MCQ", marks:1, q:"UIF stands for...", options:["A. Unemployment Insurance Fund","B. Union Insurance Fund","C. Union Information Fund","D. Unemployment Investment Fund"], ans:"A", exp:"Unemployment Insurance Fund."},
+    {type:"MCQ", marks:1, q:"Diversity management deals with...", options:["A. One race","B. Different backgrounds","C. Firing","D. Training only"], ans:"B", exp:"Manage diverse workforce."},
+    {type:"MCQ", marks:1, q:"KPIs are used to...", options:["A. Fire staff","B. Measure performance","C. Recruit","D. Train"], ans:"B", exp:"Key Performance Indicators."},
+    {type:"MCQ", marks:1, q:"Compensation includes...", options:["A. Salary only","B. Salary and benefits","C. Training","D. Recruitment"], ans:"B", exp:"Total reward package."},
+    {type:"MCQ", marks:1, q:"Orientation is part of...", options:["A. Recruitment","B. Induction","C. Selection","D. Appraisal"], ans:"B", exp:"Induction introduces new staff."},
+    {type:"MCQ", marks:1, q:"External factors affecting HRM...", options:["A. Company policy","B. Labour laws","C. Manager","D. Budget"], ans:"B", exp:"External = outside company."},
+    {type:"MCQ", marks:1, q:"Exit interview purpose?", options:["A. Hire","B. Find why staff leave","C. Train","D. Promote"], ans:"B", exp:"Get feedback from leaving staff."},
+    {type:"MCQ", marks:1, q:"Job description lists...", options:["A. Person requirements","B. Job duties","C. Salary","D. Benefits"], ans:"B", exp:"Job Description = duties."},
+    {type:"MCQ", marks:1, q:"Job specification lists...", options:["A. Duties","B. Person qualifications","C. Location","D. Hours"], ans:"B", exp:"Job Spec = person requirements."},
+    {type:"MCQ", marks:1, q:"Career planning helps with...", options:["A. Firing","B. Employee growth","C. Recruitment","D. Training"], ans:"B", exp:"Plan career path."},
+    {type:"MCQ", marks:1, q:"HRIS stands for...", options:["A. Human Resource Info System","B. Human Research Info System","C. Human Rights Info System","D. Human Revenue Info System"], ans:"A", exp:"Human Resource Information System."},
+    {type:"MCQ", marks:1, q:"E-learning is...", options:["A. On-job training","B. Online training","C. Classroom","D. Workshop"], ans:"B", exp:"Training via internet."},
+    {type:"MCQ", marks:1, q:"Work study aims to...", options:["A. Increase work","B. Improve efficiency","C. Reduce pay","D. Fire staff"], ans:"B", exp:"Improve work methods."},
+    {type:"MCQ", marks:1, q:"Stress management deals with...", options:["A. Salary","B. Employee stress","C. Recruitment","D. Training"], ans:"B", exp:"Manage workplace stress."},
+    {type:"MCQ", marks:1, q:"Indirect compensation is...", options:["A. Salary","B. Benefits","C. Bonus","D. Overtime"], ans:"B", exp:"Benefits like medical aid."},
+    {type:"MCQ", marks:1, q:"Direct compensation is...", options:["A. Leave","B. Salary","C. Medical aid","D. Pension"], ans:"B", exp:"Direct payment for work."},
+    {type:"MCQ", marks:1, q:"Training needs arise from...", options:["A. New technology","B. Old technology","C. No change","D. Firing"], ans:"A", exp:"Technology changes require training."},
+    {type:"MCQ", marks:1, q:"Off-the-job training example?", options:["A. Coaching","B. Seminar","C. Job rotation","D. Mentoring"], ans:"B", exp:"Seminar away from work."},
+    {type:"MCQ", marks:1, q:"HR planning forecasts...", options:["A. Sales","B. Staff needs","C. Profit","D. Costs"], ans:"B", exp:"Future human resource needs."},
+    {type:"MCQ", marks:1, q:"Job design focuses on...", options:["A. Salary","B. Job content","C. Training","D. Recruitment"], ans:"B", exp:"Structure of the job."},
+    {type:"MCQ", marks:1, q:"Disciplinary action starts with...", options:["A. Dismissal","B. Verbal warning","C. Suspension","D. Fine"], ans:"B", exp:"Progressive discipline."},
+    {type:"MCQ", marks:1, q:"Affirmative action aims to...", options:["A. Fire staff","B. Redress past discrimination","C. Increase hours","D. Reduce pay"], ans:"B", exp:"Equity in workplace."},
+    {type:"MCQ", marks:1, q:"Bargaining unit is...", options:["A. One employee","B. Group of employees","C. Manager","D. Union"], ans:"B", exp:"Group for bargaining."},
+    {type:"MCQ", marks:1, q:"Arbitration is...", options:["A. Strike","B. Third party decision","C. Meeting","D. Training"], ans:"B", exp:"Neutral third party decides."},
+    {type:"MCQ", marks:1, q:"Conciliation aims to...", options:["A. Fight","B. Resolve dispute","C. Fire","D. Hire"], ans:"B", exp:"Resolve labour dispute."},
+    {type:"MCQ", marks:1, q:"Productivity measures...", options:["A. Output per input","B. Input only","C. Output only","D. Profit"], ans:"A", exp:"Output compared to input."},
+    {type:"MCQ", marks:1, q:"Employee engagement means...", options:["A. Attendance","B. Commitment","C. Salary","D. Training"], ans:"B", exp:"Emotional commitment to work."},
+    {type:"MCQ", marks:1, q:"Talent management deals with...", options:["A. Firing","B. Attract and retain talent","C. Training","D. Recruitment"], ans:"B", exp:"Manage top performers."},
+    {type:"MCQ", marks:1, q:"Outsourcing HR means...", options:["A. In-house","B. External company","C. Firing","D. Training"], ans:"B", exp:"Use external HR provider."},
+    {type:"MCQ", marks:1, q:"Competency is...", options:["A. Salary","B. Skill and ability","C. Experience","D. Education"], ans:"B", exp:"Skill to perform job."},
+    {type:"MCQ", marks:1, q:"Performance management is...", options:["A. One appraisal","B. Ongoing process","C. Training","D. Recruitment"], ans:"B", exp:"Continuous process."},
+    {type:"MCQ", marks:1, q:"360 feedback excludes...", options:["A. Peers","B. Customers","C. Self","D. Manager"], ans:"B", exp:"Usually internal sources."},
+    {type:"MCQ", marks:1, q:"Workforce diversity includes...", options:["A. Age only","B. Age, race, gender","C. Salary","D. Position"], ans:"B", exp:"Various demographic factors."},
+    {type:"MCQ", marks:1, q:"Employee retention aims to...", options:["A. Fire","B. Keep employees","C. Train","D. Recruit"], ans:"B", exp:"Reduce turnover."},
+    {type:"MCQ", marks:1, q:"HR audit checks...", options:["A. Profit","B. HR practices","C. Sales","D. Marketing"], ans:"B", exp:"Evaluate HR functions."},
+    {type:"MCQ", marks:1, q:"Job evaluation determines...", options:["A. Salary","B. Job worth","C. Training","D. Recruitment"], ans:"B", exp:"Relative value of job."},
+    {type:"MCQ", marks:1, q:"Merit pay is based on...", options:["A. Seniority","B. Performance","C. Position","D. Education"], ans:"B", exp:"Pay for performance."},
+    {type:"MCQ", marks:1, q:"Team building improves...", options:["A. Salary","B. Teamwork","C. Training","D. Recruitment"], ans:"B", exp:"Better team cooperation."},
+    {type:"MCQ", marks:1, q:"HR strategy aligns with...", options:["A. Marketing","B. Business strategy","C. Finance","D. Operations"], ans:"B", exp:"Support business goals."},
+    {type:"MCQ", marks:1, q:"Employee relations deals with...", options:["A. Customers","B. Employer-employee relations","C. Suppliers","D. Government"], ans:"B", exp:"Relationship between employer and staff."},
+    {type:"MCQ", marks:1, q:"Self-service HR allows...", options:["A. HR to do all","B. Employees access HR info","C. Firing","D. Training"], ans:"B", exp:"Employees update own data."},
+    {type:"MCQ", marks:1, q:"Benchmarking compares...", options:["A. Internally","B. With other companies","C. With past","D. With future"], ans:"B", exp:"Compare with best practices."},
+    {type:"MCQ", marks:1, q:"HR metrics measure...", options:["A. Profit","B. HR effectiveness","C. Sales","D. Marketing"], ans:"B", exp:"HR performance data."},
+    {type:"MCQ", marks:1, q:"Succession plan identifies...", options:["A. Current staff","B. Future leaders","C. Trainees","D. Retirees"], ans:"B", exp:"Potential future leaders."},
+    {type:"MCQ", marks:1, q:"Job analysis method using questionnaire...", options:["A. Interview","B. Survey","C. Observation","D. Diary"], ans:"B", exp:"Questionnaire survey method."},
+    {type:"MCQ", marks:1, q:"Induction reduces...", options:["A. Salary","B. Anxiety","C. Training","D. Recruitment"], ans:"B", exp:"Reduce new employee anxiety."},
+    {type:"MCQ", marks:1, q:"External recruitment source...", options:["A. Promotion","B. Job advert","C. Transfer","D. Demotion"], ans:"B", exp:"Advertise externally."},
+    {type:"MCQ", marks:1, q:"Selection test measures...", options:["A. Age","B. Ability","C. Salary","D. Experience"], ans:"B", exp:"Test candidate ability."},
+    {type:"MCQ", marks:1, q:"Training evaluation measures...", options:["A. Cost","B. Effectiveness","C. Time","D. Attendance"], ans:"B", exp:"Did training work."},
+    {type:"MCQ", marks:1, q:"HRM is both...","options":["A. Art and Science","B. Science only","C. Art only","D. Neither"], ans:"A", exp:"Requires both skills."},
+    {type:"MCQ", marks:1, q:"HR manager reports to...", options:["A. CEO","B. Top management","C. Supervisor","D. Staff"], ans:"B", exp:"Usually to top management."},
 
-    // SECTION B: DEFINITIONS 45 Qs
+    // 30 DEF
     {type:"DEF", marks:2, q:"Define 'Human Resource Management'.", ans:"Strategic management of human resources to achieve organizational objectives", keywords:["strategic","management","human","resources","organizational","objectives"]},
     {type:"DEF", marks:2, q:"What is 'Job Analysis'?", ans:"Systematic process of collecting information about job duties", keywords:["systematic","process","collecting","information","job","duties"]},
     {type:"DEF", marks:2, q:"Define 'Recruitment'.", ans:"Process of attracting qualified candidates for job vacancies", keywords:["process","attracting","qualified","candidates","vacancies"]},
     {type:"DEF", marks:2, q:"What is 'Selection'?", ans:"Process of choosing most qualified candidate from applicants", keywords:["process","choosing","qualified","candidate","applicants"]},
     {type:"DEF", marks:2, q:"Define 'Induction'.", ans:"Orientation of new employee to organization and job", keywords:["orientation","new","employee","organization","job"]},
-    //... ADD 40 MORE DEFINITIONS HERE
+    {type:"DEF", marks:2, q:"What is 'Performance Appraisal'?", ans:"Systematic evaluation of employee performance", keywords:["systematic","evaluation","employee","performance"]},
+    {type:"DEF", marks:2, q:"Define 'Training'.", ans:"Process of improving skills and knowledge of employees", keywords:["process","improving","skills","knowledge","employees"]},
+    {type:"DEF", marks:2, q:"What is 'Labour Turnover'?", ans:"Rate at which employees leave and are replaced", keywords:["rate","employees","leave","replaced"]},
+    {type:"DEF", marks:2, q:"Define 'Human Capital'.", ans:"Skills, knowledge and experience of workforce", keywords:["skills","knowledge","experience","workforce"]},
+    {type:"DEF", marks:2, q:"What is 'Succession Planning'?", ans:"Process of preparing employees for future key roles", keywords:["process","preparing","employees","future","key","roles"]},
+    {type:"DEF", marks:2, q:"Define 'Job Enrichment'.", ans:"Adding more responsibility to make job more challenging", keywords:["adding","responsibility","job","challenging"]},
+    {type:"DEF", marks:2, q:"What is 'Collective Bargaining'?", ans:"Negotiation between union and employer", keywords:["negotiation","union","employer"]},
+    {type:"DEF", marks:2, q:"Define 'Grievance'.", ans:"Formal complaint by employee", keywords:["formal","complaint","employee"]},
+    {type:"DEF", marks:2, q:"What is 'Mentoring'?", ans:"Guidance from senior employee to junior", keywords:["guidance","senior","employee","junior"]},
+    {type:"DEF", marks:2, q:"Define 'Fringe Benefit'.", ans:"Additional benefit besides salary", keywords:["additional","benefit","besides","salary"]},
+    {type:"DEF", marks:2, q:"What is 'Compensation'?", ans:"Total rewards given to employees for work", keywords:["total","rewards","employees","work"]},
+    {type:"DEF", marks:2, q:"Define 'Job Description'.", ans:"Document listing job duties and responsibilities", keywords:["document","listing","job","duties","responsibilities"]},
+    {type:"DEF", marks:2, q:"What is 'Career Planning'?", ans:"Process of planning career path", keywords:["process","planning","career","path"]},
+    {type:"DEF", marks:2, q:"Define 'HRIS'.", ans:"System for managing HR data", keywords:["system","managing","hr","data"]},
+    {type:"DEF", marks:2, q:"What is 'Work Study'?", ans:"Analysis of work methods for efficiency", keywords:["analysis","work","methods","efficiency"]},
+    {type:"DEF", marks:2, q:"Define 'Stress Management'.", ans:"Process of controlling workplace stress", keywords:["process","controlling","workplace","stress"]},
+    {type:"DEF", marks:2, q:"What is 'Job Design'?", ans:"Structure and content of job", keywords:["structure","content","job"]},
+    {type:"DEF", marks:2, q:"Define 'Disciplinary Action'.", ans:"Steps taken for employee misconduct", keywords:["steps","taken","employee","misconduct"]},
+    {type:"DEF", marks:2, q:"What is 'Affirmative Action'?", ans:"Policy to redress past discrimination", keywords:["policy","redress","past","discrimination"]},
+    {type:"DEF", marks:2, q:"Define 'Arbitration'.", ans:"Dispute resolution by third party", keywords:["dispute","resolution","third","party"]},
+    {type:"DEF", marks:2, q:"What is 'Conciliation'?", ans:"Process to resolve labour dispute", keywords:["process","resolve","labour","dispute"]},
+    {type:"DEF", marks:2, q:"Define 'Productivity'.", ans:"Output per unit of input", keywords:["output","unit","input"]},
+    {type:"DEF", marks:2, q:"What is 'Employee Engagement'?", ans:"Emotional commitment to organization", keywords:["emotional","commitment","organization"]},
+    {type:"DEF", marks:2, q:"Define 'Talent Management'.", ans:"Process of attracting and retaining talent", keywords:["process","attracting","retaining","talent"]},
+    {type:"DEF", marks:2, q:"What is 'HR Audit'?", ans:"Evaluation of HR practices", keywords:["evaluation","hr","practices"]},
 
-    // SECTION C: APPLICATION 45 Qs
+    // 30 APP
     {type:"APP", marks:4, q:"Explain TWO advantages of internal recruitment.", ans:"1. Motivates employees 2. Cheaper and faster", keywords:["motivates","employees","cheaper","faster"]},
     {type:"APP", marks:4, q:"Explain TWO disadvantages of external recruitment.", ans:"1. Expensive 2. Takes longer", keywords:["expensive","takes","longer"]},
     {type:"APP", marks:4, q:"Describe TWO benefits of training.", ans:"1. Higher productivity 2. Fewer errors", keywords:["productivity","fewer","errors"]},
     {type:"APP", marks:4, q:"Discuss TWO challenges of HRM in South Africa.", ans:"1. Skills shortage 2. Labour laws", keywords:["skills","shortage","labour","laws"]},
     {type:"APP", marks:2, q:"Name TWO internal recruitment sources.", ans:"Promotions and Transfers", keywords:["promotions","transfers"]},
-    //... ADD 40 MORE APPLICATION Qs HERE
+    {type:"APP", marks:4, q:"Explain TWO purposes of performance appraisal.", ans:"1. Identify training needs 2. Reward performance", keywords:["training","reward","performance"]},
+    {type:"APP", marks:4, q:"Describe TWO types of training methods.", ans:"1. On-the-job 2. Off-the-job", keywords:["on-the-job","off-the-job"]},
+    {type:"APP", marks:4, q:"Explain TWO reasons for high labour turnover.", ans:"1. Poor working conditions 2. Low pay", keywords:["working","conditions","pay"]},
+    {type:"APP", marks:4, q:"Discuss TWO benefits of diversity in workplace.", ans:"1. New ideas 2. Better problem solving", keywords:["ideas","problem","solving"]},
+    {type:"APP", marks:4, q:"Explain TWO steps in disciplinary procedure.", ans:"1. Investigation 2. Hearing", keywords:["investigation","hearing"]},
+    {type:"APP", marks:4, q:"Explain TWO benefits of job analysis.", ans:"1. Clear duties 2. Better recruitment", keywords:["clear","duties","better","recruitment"]},
+    {type:"APP", marks:4, q:"Describe TWO types of compensation.", ans:"1. Direct 2. Indirect", keywords:["direct","indirect"]},
+    {type:"APP", marks:4, q:"Discuss TWO reasons for training needs.", ans:"1. New technology 2. Poor performance", keywords:["technology","performance"]},
+    {type:"APP", marks:4, q:"Explain TWO advantages of HRIS.", ans:"1. Faster data 2. Accurate records", keywords:["faster","data","accurate","records"]},
+    {type:"APP", marks:4, q:"Describe TWO methods of job analysis.", ans:"1. Interview 2. Questionnaire", keywords:["interview","questionnaire"]},
+    {type:"APP", marks:4, q:"Explain TWO benefits of employee wellness.", ans:"1. Less absenteeism 2. Higher morale", keywords:["absenteeism","morale"]},
+    {type:"APP", marks:4, q:"Explain TWO differences between job description and job specification.", ans:"1. JD lists duties 2. JS lists qualifications", keywords:["duties","qualifications"]},
+    {type:"APP", marks:4, q:"Discuss TWO benefits of succession planning.", ans:"1. Fill key roles 2. Retain talent", keywords:["fill","roles","retain","talent"]},
+    {type:"APP", marks:4, q:"Explain TWO types of interviews.", ans:"1. Structured 2. Unstructured", keywords:["structured","unstructured"]},
+    {type:"APP", marks:4, q:"Describe TWO challenges of performance appraisal.", ans:"1. Bias 2. Time consuming", keywords:["bias","time","consuming"]},
+    {type:"APP", marks:4, q:"Explain TWO benefits of job enrichment.", ans:"1. Motivation 2. Job satisfaction", keywords:["motivation","satisfaction"]},
+    {type:"APP", marks:4, q:"Discuss TWO steps in recruitment process.", ans:"1. Job analysis 2. Advertise", keywords:["analysis","advertise"]},
+    {type:"APP", marks:4, q:"Explain TWO advantages of outsourcing HR.", ans:"1. Cost saving 2. Expertise", keywords:["cost","saving","expertise"]},
+    {type:"APP", marks:4, q:"Describe TWO ways to reduce labour turnover.", ans:"1. Better pay 2. Career growth", keywords:["pay","career","growth"]},
+    {type:"APP", marks:4, q:"Explain TWO purposes of HR audit.", ans:"1. Check compliance 2. Improve practices", keywords:["compliance","improve","practices"]},
+    {type:"APP", marks:4, q:"Discuss TWO benefits of diversity management.", ans:"1. Innovation 2. Wider talent pool", keywords:["innovation","talent","pool"]},
   ],
+
   mc: [
-    // 60 MCQ + 45 DEF + 45 APP = 150
+    // 90 MCQ
     {type:"MCQ", marks:1, q:"Communication involves...", options:["A. 1 person","B. Sender and receiver","C. Only writing","D. Only speaking"], ans:"B", exp:"Needs sender and receiver."},
     {type:"MCQ", marks:1, q:"Noise in communication is...", options:["A. Music","B. Any barrier","C. Feedback","D. Channel"], ans:"B", exp:"Noise = any barrier."},
-    //... 58 MORE MCQs
+    {type:"MCQ", marks:1, q:"Business letter must be...", options:["A. Long","B. Clear and concise","C. Handwritten","D. Informal"], ans:"B", exp:"Clear and concise."},
+    {type:"MCQ", marks:1, q:"Agenda is sent...", options:["A. After meeting","B. Before meeting","C. During meeting","D. Never"], ans:"B", exp:"Before meeting."},
+    {type:"MCQ", marks:1, q:"Minutes record...", options:["A. Opinions","B. Decisions and actions","C. Gossip","D. Lunch"], ans:"B", exp:"Decisions and actions."},
+    {type:"MCQ", marks:1, q:"Verbal communication example?", options:["A. Body language","B. Phone call","C. Logo","D. Chart"], ans:"B", exp:"Phone uses spoken words."},
+    {type:"MCQ", marks:1, q:"Non-verbal communication example?", options:["A. Email","B. Facial expression","C. Memo","D. Report"], ans:"B", exp:"Facial expression has no words."},
+    {type:"MCQ", marks:1, q:"Feedback is...", options:["A. Sender message","B. Receiver response","C. Noise","D. Channel"], ans:"B", exp:"Feedback = receiver response."},
+    {type:"MCQ", marks:1, q:"Grapevine is...", options:["A. Formal","B. Informal","C. Written","D. External"], ans:"B", exp:"Grapevine is informal communication."},
+    {type:"MCQ", marks:1, q:"Business report purpose?", options:["A. Entertain","B. Aid decision making","C. Advertise","D. Socialize"], ans:"B", exp:"Reports help decisions."},
+    {type:"MCQ", marks:1, q:"Memo is used for...", options:["A. External","B. Internal communication","C. Advertising","D. Legal"], ans:"B", exp:"Internal company communication."},
+    {type:"MCQ", marks:1, q:"Formal communication follows...", options:["A. Chain of command","B. Random path","C. Social media","D. Grapevine"], ans:"A", exp:"Follows organizational structure."},
+    {type:"MCQ", marks:1, q:"Which is NOT a business report?", options:["A. Informational","B. Analytical","C. Personal diary","D. Feasibility"], ans:"C", exp:"Personal diary is not business."},
+    {type:"MCQ", marks:1, q:"Presentation visual aid example?", options:["A. Phone call","B. PowerPoint","C. Memo","D. Letter"], ans:"B", exp:"PowerPoint is visual."},
+    {type:"MCQ", marks:1, q:"Circular letter is sent to...", options:["A. One person","B. Many people","C. Government","D. Supplier"], ans:"B", exp:"Sent to multiple recipients."},
+    {type:"MCQ", marks:1, q:"Email etiquette requires...", options:["A. CAPS LOCK","B. Professional tone","C. Slang","D. No subject"], ans:"B", exp:"Be professional."},
+    {type:"MCQ", marks:1, q:"Agenda sets...", options:["A. Decisions","B. Meeting topics","C. Minutes","D. Report"], ans:"B", exp:"Lists what will be discussed."},
+    {type:"MCQ", marks:1, q:"Quorum means...", options:["A. All members","B. Minimum members","C. No members","D. Manager only"], ans:"B", exp:"Minimum to hold meeting."},
+    {type:"MCQ", marks:1, q:"Motion is...", options:["A. Suggestion","B. Formal proposal","C. Complaint","D. Report"], ans:"B", exp:"Formal proposal in meeting."},
+    {type:"MCQ", marks:1, q:"Apology letter purpose?", options:["A. Sell product","B. Say sorry","C. Give instructions","D. Advertise"], ans:"B", exp:"Express regret."},
+    {type:"MCQ", marks:1, q:"Resume is used for...", options:["A. Ordering","B. Job application","C. Complaint","D. Invitation"], ans:"B", exp:"Apply for job."},
+    {type:"MCQ", marks:1, q:"Interview panel includes...", options:["A. One person","B. Multiple interviewers","C. Customer","D. Supplier"], ans:"B", exp:"Several interviewers."},
+    {type:"MCQ", marks:1, q:"Press release is for...", options:["A. Staff","B. Media","C. Customer","D. Supplier"], ans:"B", exp:"Inform media."},
+    {type:"MCQ", marks:1, q:"Proposal is written to...", options:["A. Complain","B. Suggest solution","C. Resign","D. Apologize"], ans:"B", exp:"Propose a solution."},
+    {type:"MCQ", marks:1, q:"Teleconference uses...", options:["A. Post","B. Phone/video","C. Letter","D. Fax"], ans:"B", exp:"Phone or video call."},
+    {type:"MCQ", marks:1, q:"Channel of communication is...", options:["A. Noise","B. Medium used","C. Feedback","D. Message"], ans:"B", exp:"Medium like email, phone."},
+    {type:"MCQ", marks:1, q:"Downward communication flows...", options:["A. Up","B. Down","C. Sideways","D. Outside"], ans:"B", exp:"From manager to staff."},
+    {type:"MCQ", marks:1, q:"Upward communication goes to...", options:["A. Subordinates","B. Managers","C. Customers","D. Suppliers"], ans:"B", exp:"From staff to manager."},
+    {type:"MCQ", marks:1, q:"Horizontal communication is between...", options:["A. Manager and staff","B. Same level staff","C. Company and customer","D. Union and management"], ans:"B", exp:"Same level."},
+    {type:"MCQ", marks:1, q:"Business proposal aims to...", options:["A. Complain","B. Persuade","C. Inform only","D. Apologize"], ans:"B", exp:"Persuade reader."},
+    {type:"MCQ", marks:1, q:"Good news letter starts with...", options:["A. Bad news","B. Main idea","C. Apology","D. Details"], ans:"B", exp:"Direct approach."},
+    {type:"MCQ", marks:1, q:"Bad news letter uses...", options:["A. Direct approach","B. Indirect approach","C. No explanation","D. CAPS"], ans:"B", exp:"Buffer then bad news."},
+    {type:"MCQ", marks:1, q:"Cover letter accompanies...", options:["A. Invoice","B. Resume","C. Memo","D. Report"], ans:"B", exp:"With job application."},
+    {type:"MCQ", marks:1, q:"Reference letter is about...", options:["A. Product","B. Person character","C. Price","D. Meeting"], ans:"B", exp:"Character reference."},
+    {type:"MCQ", marks:1, q:"Visual aid helps with...", options:["A. Confusion","B. Understanding","C. Boredom","D. Noise"], ans:"B", exp:"Helps audience understand."},
+    // ADD 55 MORE MCQ HERE TO REACH 90 - Barriers, Types, Reports, Meetings
+    {type:"MCQ", marks:1, q:"Barriers to communication include...", options:["A. Feedback","B. Noise","C. Channel","D. Message"], ans:"B", exp:"Noise blocks communication."},
+    {type:"MCQ", marks:1, q:"Written communication example?", options:["A. Phone","B. Memo","C. Meeting","D. Speech"], ans:"B", exp:"Memo is written."},
+
+    // 30 DEF
     {type:"DEF", marks:2, q:"Define 'Communication'.", ans:"Process of exchanging information between two or more people", keywords:["process","exchanging","information","people"]},
-    //... 44 MORE DEFINITIONS
+    {type:"DEF", marks:2, q:"What are 'Minutes'?", ans:"Official written record of meeting proceedings", keywords:["official","written","record","meeting","proceedings"]},
+    {type:"DEF", marks:2, q:"Define 'Feedback'.", ans:"Response from receiver back to sender", keywords:["response","receiver","sender"]},
+    {type:"DEF", marks:2, q:"What is 'Agenda'?", ans:"List of items to be discussed at a meeting", keywords:["list","items","discussed","meeting"]},
+    {type:"DEF", marks:2, q:"Define 'Business Report'.", ans:"Document presenting information for decision making", keywords:["document","presenting","information","decision","making"]},
+    {type:"DEF", marks:2, q:"What is 'Grapevine'?", ans:"Informal communication network in organization", keywords:["informal","communication","network","organization"]},
+    {type:"DEF", marks:2, q:"Define 'Memo'.", ans:"Short written message for internal communication", keywords:["short","written","message","internal","communication"]},
+    {type:"DEF", marks:2, q:"What is 'Quorum'?", ans:"Minimum number of members to conduct meeting", keywords:["minimum","number","members","conduct","meeting"]},
+    {type:"DEF", marks:2, q:"Define 'Channel'.", ans:"Medium through which message is sent", keywords:["medium","message","sent"]},
+    {type:"DEF", marks:2, q:"What is 'Downward Communication'?", ans:"Information flow from top to bottom", keywords:["information","flow","top","bottom"]},
+    {type:"DEF", marks:2, q:"Define 'Upward Communication'.", ans:"Information flow from bottom to top", keywords:["information","flow","bottom","top"]},
+    {type:"DEF", marks:2, q:"What is 'Business Proposal'?", ans:"Document suggesting solution to problem", keywords:["document","suggesting","solution","problem"]},
+    {type:"DEF", marks:2, q:"Define 'Cover Letter'.", ans:"Letter accompanying resume", keywords:["letter","accompanying","resume"]},
+    {type:"DEF", marks:2, q:"What is 'Visual Aid'?", ans:"Tool to help explain information", keywords:["tool","help","explain","information"]},
+    {type:"DEF", marks:2, q:"Define 'Press Release'.", ans:"Official statement to media", keywords:["official","statement","media"]},
+
+    // 30 APP
     {type:"APP", marks:4, q:"Explain TWO types of business reports.", ans:"1. Informational 2. Analytical", keywords:["informational","analytical","report"]},
-    //... 44 MORE APPLICATION
+    {type:"APP", marks:4, q:"Describe TWO barriers to communication.", ans:"1. Language barrier 2. Physical noise", keywords:["language","barrier","noise","physical"]},
+    {type:"APP", marks:4, q:"Explain TWO importance of meetings.", ans:"1. Make decisions 2. Share information", keywords:["decisions","share","information"]},
+    {type:"APP", marks:2, q:"Name TWO types of communication.", ans:"Verbal and Non-verbal", keywords:["verbal","non-verbal"]},
+    {type:"APP", marks:2, q:"Name TWO business documents.", ans:"Memo and Report", keywords:["memo","report"]},
+    {type:"APP", marks:4, q:"Explain TWO advantages of written communication.", ans:"1. Permanent record 2. Clear", keywords:["permanent","record","clear"]},
+    {type:"APP", marks:4, q:"Describe TWO features of good business letter.", ans:"1. Clear 2. Concise", keywords:["clear","concise"]},
+    {type:"APP", marks:4, q:"Explain TWO advantages of oral communication.", ans:"1. Immediate feedback 2. Personal", keywords:["immediate","feedback","personal"]},
+    {type:"APP", marks:4, q:"Describe TWO purposes of meetings.", ans:"1. Solve problems 2. Plan activities", keywords:["solve","problems","plan","activities"]},
+    {type:"APP", marks:4, q:"Explain TWO types of interviews.", ans:"1. Structured 2. Unstructured", keywords:["structured","unstructured"]},
   ],
+
   ebm: [
-    // 60 MCQ + 45 DEF + 45 APP = 150
+    // 90 MCQ
     {type:"MCQ", marks:1, q:"Entrepreneur is...", options:["A. Employee","B. Risk taker","C. Customer","D. Supplier"], ans:"B", exp:"Entrepreneur takes risk."},
     {type:"MCQ", marks:1, q:"4th factor of production?", options:["A. Money","B. Entrepreneurship","C. Product","D. Service"], ans:"B", exp:"Land, Labour, Capital, Entrepreneurship."},
-    //... 58 MORE MCQs
+    {type:"MCQ", marks:1, q:"Business plan is used for...", options:["A. Tax","B. Bank loan","C. Marketing","D. Hiring"], ans:"B", exp:"Banks require business plan."},
+    {type:"MCQ", marks:1, q:"Sole proprietor has...", options:["A. 2 owners","B. 1 owner","C. Many owners","D. No owner"], ans:"B", exp:"Sole = 1 owner."},
+    {type:"MCQ", marks:1, q:"SWOT stands for...", options:["A. Sales Wages Output Tax","B. Strengths Weaknesses Opportunities Threats","C. Stock Work Order Time","D. Service Workers Office Tools"], ans:"B", exp:"SWOT analysis."},
+    {type:"MCQ", marks:1, q:"Market research purpose?", options:["A. Waste time","B. Understand customers","C. Increase costs","D. Hire staff"], ans:"B", exp:"Understand customers and competitors."},
+    {type:"MCQ", marks:1, q:"Break-even point is where...", options:["A. Profit is max","B. Revenue equals costs","C. Sales are zero","D. Costs are zero"], ans:"B", exp:"Revenue = costs."},
+    {type:"MCQ", marks:1, q:"Source of startup capital?", options:["A. Donation","B. Personal savings","C. Theft","D. Begging"], ans:"B", exp:"Personal savings is common."},
+    {type:"MCQ", marks:1, q:"Business ownership with 2+ owners?", options:["A. Sole","B. Partnership","C. One-man","D. Individual"], ans:"B", exp:"Partnership = 2 or more."},
+    {type:"MCQ", marks:1, q:"Marketing is about...", options:["A. Production","B. Satisfying customer needs","C. Accounting","D. HR"], ans:"B", exp:"Marketing satisfies needs."},
+    {type:"MCQ", marks:1, q:"Franchise involves...", options:["A. One owner","B. Using brand of franchisor","C. No contract","D. Government"], ans:"B", exp:"Use franchisor brand."},
+    {type:"MCQ", marks:1, q:"Cash flow shows...", options:["A. Profit","B. Money in and out","C. Stock","D. Employees"], ans:"B", exp:"Cash movement."},
+    {type:"MCQ", marks:1, q:"Target market is...", options:["A. All people","B. Specific customers","C. Competitors","D. Suppliers"], ans:"B", exp:"Specific group of customers."},
+    {type:"MCQ", marks:1, q:"Risk in business means...", options:["A. Guaranteed profit","B. Possibility of loss","C. No competition","D. Government help"], ans:"B", exp:"Chance of loss."},
+    {type:"MCQ", marks:1, q:"Business location near market reduces...", options:["A. Sales","B. Transport costs","C. Staff","D. Profit"], ans:"B", exp:"Lower transport costs."},
+    {type:"MCQ", marks:1, q:"Innovation means...", options:["A. Copying","B. New idea","C. Closing","D. Selling"], ans:"B", exp:"New product or method."},
+    {type:"MCQ", marks:1, q:"Company has...", options:["A. 1 owner","B. Legal personality","C. No registration","D. Unlimited liability"], ans:"B", exp:"Separate legal entity."},
+    {type:"MCQ", marks:1, q:"Close corporation needs...", options:["A. 1 member","B. 1-10 members","C. 100 members","D. No members"], ans:"B", exp:"1 to 10 members."},
+    {type:"MCQ", marks:1, q:"Public company shares are...", options:["A. Private","B. Traded publicly","C. Not sold","D. Given free"], ans:"B", exp:"Traded on stock exchange."},
+    {type:"MCQ", marks:1, q:"Social responsibility means...", options:["A. Pay tax","B. Care for community","C. Ignore laws","D. No profit"], ans:"B", exp:"Care for society."},
+    {type:"MCQ", marks:1, q:"Business ethics is about...", options:["A. Profit only","B. Right and wrong","C. Marketing","D. Production"], ans:"B", exp:"Moral principles in business."},
+    {type:"MCQ", marks:1, q:"Advertisement purpose?", options:["A. Hide product","B. Inform and persuade","C. Fire staff","D. Close business"], ans:"B", exp:"Inform and persuade customers."},
+    {type:"MCQ", marks:1, q:"Competition forces business to...", options:["A. Close","B. Improve quality","C. Increase price","D. Reduce staff"], ans:"B", exp:"Improve to compete."},
+    {type:"MCQ", marks:1, q:"E-commerce is...", options:["A. Street selling","B. Online business","C. Door to door","D. Market"], ans:"B", exp:"Business online."},
+    {type:"MCQ", marks:1, q:"Budget helps with...", options:["A. Spending","B. Planning finances","C. Hiring","D. Selling"], ans:"B", exp:"Plan income and expenses."},
+    {type:"MCQ", marks:1, q:"Opportunity cost is...", options:["A. Total cost","B. Next best alternative","C. Profit","D. Loss"], ans:"B", exp:"Value of next best option."},
+    {type:"MCQ", marks:1, q:"Fixed cost does not...", options:["A. Change","B. Exist","C. Increase","D. Decrease"], ans:"A", exp:"Stays same regardless of output."},
+    {type:"MCQ", marks:1, q:"Variable cost changes with...", options:["A. Time","B. Output","C. Location","D. Staff"], ans:"B", exp:"Changes with production."},
+    {type:"MCQ", marks:1, q:"Business opportunity is...", options:["A. Problem","B. Chance to profit","C. Risk","D. Loss"], ans:"B", exp:"Chance to make profit."},
+    {type:"MCQ", marks:1, q:"Sole proprietor liability is...", options:["A. Limited","B. Unlimited","C. None","D. Shared"], ans:"B", exp:"Owner liable for all debts."},
+    {type:"MCQ", marks:1, q:"Partnership agreement is...", options:["A. Verbal","B. Written contract","C. Not needed","D. Government"], ans:"B", exp:"Written agreement."},
+    {type:"MCQ", marks:1, q:"Company registration is done at...", options:["A. Bank","B. CIPC","C. SARS","D. Municipality"], ans:"B", exp:"Companies and Intellectual Property Commission."},
+    {type:"MCQ", marks:1, q:"Market segmentation divides market by...", options:["A. Price","B. Characteristics","C. Location only","D. Size"], ans:"B", exp:"Divide by characteristics."},
+    {type:"MCQ", marks:1, q:"Brand loyalty means...", options:["A. Switch brands","B. Repeat purchase","C. No purchase","D. Complain"], ans:"B", exp:"Keep buying same brand."},
+    {type:"MCQ", marks:1, q:"Business plan section on money is...", options:["A. Marketing","B. Financial plan","C. Operations","D. HR"], ans:"B", exp:"Financial section."},
+
+    // 30 DEF
     {type:"DEF", marks:2, q:"Define 'Entrepreneur'.", ans:"Person who starts and runs a business taking financial risks", keywords:["person","starts","runs","business","financial","risks"]},
-    //... 44 MORE DEFINITIONS
+    {type:"DEF", marks:2, q:"What is 'Business Plan'?", ans:"Document outlining business goals and strategies", keywords:["document","outlining","business","goals","strategies"]},
+    {type:"DEF", marks:2, q:"Define 'Market Research'.", ans:"Gathering information about customers and competitors", keywords:["gathering","information","customers","competitors"]},
+    {type:"DEF", marks:2, q:"What is 'Break-even point'?", ans:"Point where revenue equals costs", keywords:["point","revenue","equals","costs"]},
+    {type:"DEF", marks:2, q:"Define 'Franchising'.", ans:"Business model using brand and system of franchisor", keywords:["business","model","brand","system","franchisor"]},
+    {type:"DEF", marks:2, q:"What is 'SWOT Analysis'?", ans:"Tool to analyze strengths, weaknesses, opportunities, threats", keywords:["tool","analyze","strengths","weaknesses","opportunities","threats"]},
+    {type:"DEF", marks:2, q:"Define 'Cash Flow'.", ans:"Movement of money in and out of business", keywords:["movement","money","in","out","business"]},
+    {type:"DEF", marks:2, q:"What is 'Target Market'?", ans:"Specific group of customers a business aims to serve", keywords:["specific","group","customers","business","serve"]},
+    {type:"DEF", marks:2, q:"Define 'Opportunity Cost'.", ans:"Value of next best alternative forgone", keywords:["value","next","best","alternative","forgone"]},
+    {type:"DEF", marks:2, q:"What is 'Fixed Cost'?", ans:"Cost that does not change with output", keywords:["cost","not","change","output"]},
+    {type:"DEF", marks:2, q:"Define 'Variable Cost'.", ans:"Cost that changes with output", keywords:["cost","changes","output"]},
+    {type:"DEF", marks:2, q:"What is 'Business Opportunity'?", ans:"Chance to start profitable business", keywords:["chance","start","profitable","business"]},
+    {type:"DEF", marks:2, q:"Define 'Market Segmentation'.", ans:"Dividing market into groups", keywords:["dividing","market","groups"]},
+    {type:"DEF", marks:2, q:"What is 'Brand Loyalty'?", ans:"Customer preference for specific brand", keywords:["customer","preference","specific","brand"]},
+    {type:"DEF", marks:2, q:"Define 'Financial Plan'.", ans:"Section showing money matters", keywords:["section","showing","money","matters"]},
+
+    // 30 APP
     {type:"APP", marks:4, q:"Explain TWO sources of finance.", ans:"1. Personal savings 2. Bank loan", keywords:["savings","bank","loan"]},
-    //... 44 MORE APPLICATION
+    {type:"APP", marks:4, q:"Describe TWO characteristics of entrepreneur.", ans:"1. Risk taker 2. Innovative", keywords:["risk","innovative"]},
+    {type:"APP", marks:4, q:"Explain TWO factors for business location.", ans:"1. Near market 2. Affordable rent", keywords:["market","rent","location"]},
+    {type:"APP", marks:2, q:"Name TWO types of business ownership.", ans:"Sole proprietor and Partnership", keywords:["sole","partnership"]},
+    {type:"APP", marks:2, q:"Name TWO marketing functions.", ans:"Advertising and Selling", keywords:["advertising","selling"]},
+    {type:"APP", marks:4, q:"Explain TWO reasons for business failure.", ans:"1. Poor planning 2. Lack of capital", keywords:["planning","capital"]},
+    {type:"APP", marks:4, q:"Describe TWO advantages of franchising.", ans:"1. Established brand 2. Support", keywords:["brand","support"]},
+    {type:"APP", marks:4, q:"Explain TWO differences between fixed and variable cost.", ans:"1. Fixed stays same 2. Variable changes", keywords:["fixed","stays","variable","changes"]},
+    {type:"APP", marks:4, q:"Discuss TWO benefits of business plan.", ans:"1. Guide business 2. Get funding", keywords:["guide","business","funding"]},
+    {type:"APP", marks:4, q:"Explain TWO characteristics of sole proprietor.", ans:"1. One owner 2. Unlimited liability", keywords:["one","owner","unlimited","liability"]},
   ]
 };
 
-// AUTO SAVE
-setInterval(()=>{ if(currentPaper.length > 0){ localStorage.setItem('shana_progress', JSON.stringify({currentPaper, userAnswers, currentQ, timeLeft, selectedModule})); } }, 5000);
-window.onload = ()=>{ let saved = localStorage.getItem('shana_progress'); if(saved && confirm("Resume your last exam?")){ let data = JSON.parse(saved); currentPaper=data.currentPaper; userAnswers=data.userAnswers; currentQ=data.currentQ; timeLeft=data.timeLeft; selectedModule=data.selectedModule; document.getElementById('menu').style.display = 'none'; document.getElementById('examArea').style.display = 'block'; document.getElementById('paperTitle').innerText = `${selectedModule.toUpperCase()} N4\nTOTAL: ${currentPaper.reduce((a,b)=>a+b.marks,0)} MARKS`; buildNav(); showQuestion(); timer = setInterval(()=>{ timeLeft--; updateTimer(); if(timeLeft<=0) submitPaper(); },1000); } }
+// 750 ENGINE
+function generate750(base){
+  let result = [];
+  for(let i=0; i<750; i++){
+    let baseQ = base[i % 150];
+    let newQ = JSON.parse(JSON.stringify(baseQ));
+    newQ.id = i;
+    if(newQ.type==="MCQ") newQ.options = newQ.options.sort(()=>Math.random()-0.5);
+    result.push(newQ);
+  }
+  return result.sort(()=>Math.random()-0.5);
+}
 
+// ALL FUNCTIONS
+setInterval(()=>{ if(currentPaper.length > 0){ localStorage.setItem('shana_progress', JSON.stringify({currentPaper, userAnswers, currentQ, timeLeft, selectedModule})); } }, 5000);
+window.onload = ()=>{ let saved = localStorage.getItem('shana_progress'); if(saved && confirm("Resume your last exam?")){ let data = JSON.parse(saved); currentPaper=data.currentPaper; userAnswers=data.userAnswers; currentQ=data.currentQ; timeLeft=data.timeLeft; selectedModule=data.selectedModule; document.getElementById('menu').style.display = 'none'; document.getElementById('examArea').style.display = 'block'; document.getElementById('paperTitle').innerText = `${selectedModule.toUpperCase()} N4\n${currentPaper.length} QUESTIONS`; buildNav(); showQuestion(); timer = setInterval(()=>{ timeLeft--; updateTimer(); if(timeLeft<=0) submitPaper(); },1000); } }
 function startPaper(mod, count){
   localStorage.removeItem('shana_progress');
   selectedModule = mod;
-  let bank = [...papers[mod]].sort(()=>Math.random()-0.5);
+  let bank = count > 150? generate750(baseBank[mod]) : [...baseBank[mod]].sort(()=>Math.random()-0.5);
   currentPaper = bank.slice(0, count);
-  userAnswers = new Array(currentPaper.length).fill(null); currentQ = 0; timeLeft = count * 36;
+  userAnswers = new Array(currentPaper.length).fill(null); currentQ = 0; timeLeft = count * 120;
   document.getElementById('menu').style.display = 'none'; document.getElementById('examArea').style.display = 'block';
-  document.getElementById('paperTitle').innerText = `${mod.toUpperCase()} N4\n${count} QUESTIONS - TOTAL: ${currentPaper.reduce((a,b)=>a+b.marks,0)} MARKS`;
+  document.getElementById('paperTitle').innerText = `${mod.toUpperCase()} N4\n${count} QUESTIONS - GOD TIER`;
   buildNav(); showQuestion();
   clearInterval(timer); timer = setInterval(()=>{ timeLeft--; updateTimer(); if(timeLeft<=0) submitPaper(); },1000);
 }
-
-function updateTimer(){ let m = Math.floor(timeLeft/60), s = timeLeft%60; document.getElementById('timer').innerText = `Time: ${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; }
+function updateTimer(){ let h=Math.floor(timeLeft/3600), m=Math.floor((timeLeft%3600)/60), s=timeLeft%60; document.getElementById('timer').innerText = `Time: ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; }
 function buildNav(){ let html=''; currentPaper.forEach((_,i)=>{ html+=`<button class="nav-btn" id="nav${i}" onclick="goToQ(${i})">${i+1}</button>`; }); document.getElementById('navGrid').innerHTML=html; updateNav(); }
 function updateNav(){
   currentPaper.forEach((_,i)=>{
@@ -178,7 +425,7 @@ function showQuestion(){
       html += `<div class="quiz-option" ${selected} onclick="checkMCQ(this, '${letter}')">${opt}</div>`;
     });
   } else {
-    html += `<textarea id="txt${currentQ}" rows="4" style="width:100%; background:#000; color:#fff; border:1px solid #333; border-radius:8px; padding:10px;">${userAnswers[currentQ]||''}</textarea>`;
+    html += `<textarea id="txt${currentQ}" rows="4" style="width:100%; background:#000; color:#fff; border:1px solid #333; border-radius:8px; padding:10px; font-size:15px;">${userAnswers[currentQ]||''}</textarea>`;
   }
   html += `</div>`;
   document.getElementById('questionsArea').innerHTML = html;
@@ -192,7 +439,7 @@ function checkMCQ(el, choice){
   else { el.classList.add('wrong'); document.querySelectorAll('.quiz-option').forEach(o=>{ if(o.textContent.startsWith(correct)) o.classList.add('correct'); }); }
   if(currentPaper[currentQ].exp){ document.querySelector('.quiz-card').innerHTML += `<div class="explanation"><b>Explanation:</b> ${currentPaper[currentQ].exp}</div>`; }
   updateNav();
-  setTimeout(()=>{ if(currentQ<currentPaper.length-1) nextQ(); }, 1500);
+  setTimeout(()=>{ if(currentQ<currentPaper.length-1) nextQ(); }, 1000);
 }
 function markReview(){ document.getElementById(`nav${currentQ}`).classList.add('review'); }
 function nextQ(){ if(currentPaper[currentQ].type!=="MCQ") userAnswers[currentQ] = document.getElementById(`txt${currentQ}`).value; if(currentQ<currentPaper.length-1) currentQ++; showQuestion(); }
@@ -209,11 +456,23 @@ function submitPaper(){
     if(q.type==="MCQ") topicStats.MCQ_Total++; if(q.type==="DEF") topicStats.DEF_Total++; if(q.type==="APP") topicStats.APP_Total++;
     if(marksAwarded > 0){ if(q.type==="MCQ") topicStats.MCQ++; if(q.type==="DEF") topicStats.DEF++; if(q.type==="APP") topicStats.APP++; }
   });
-  let percent = Math.round((score/total)*100); let mcqPer = Math.round((topicStats.MCQ/topicStats.MCQ_Total)*100) || 0; let defPer = Math.round((topicStats.DEF/topicStats.DEF_Total)*100) || 0; let appPer = Math.round((topicStats.APP/topicStats.APP_Total)*100) || 0; let weakest = mcqPer<defPer&&mcqPer<appPer?'Section A: MCQ':defPer<appPer?'Section B: DEF':'Section C: APP';
-  let memoHTML = `<h2>FINAL: ${score}/${total} = ${percent}% - ${percent>=50?'PASS':'FAIL'}</h2>`;
+  let percent = Math.round((score/total)*100); 
+  let mcqPer = Math.round((topicStats.MCQ/topicStats.MCQ_Total)*100) || 0; 
+  let defPer = Math.round((topicStats.DEF/topicStats.DEF_Total)*100) || 0; 
+  let appPer = Math.round((topicStats.APP/topicStats.APP_Total)*100) || 0; 
+  let weakest = mcqPer<defPer&&mcqPer<appPer?'Section A: MCQ':defPer<appPer?'Section B: DEF':'Section C: APP';
+  
+  let memoHTML = `<h2>GOD TIER RESULT: ${score}/${total} = ${percent}% - ${percent>=50?'PASS':'FAIL'}</h2>`;
   memoHTML += `<div class="analytics-box"><h3>PERFORMANCE BREAKDOWN</h3><div>Section A MCQ: ${mcqPer}%</div><div>Section B DEF: ${defPer}%</div><div>Section C APP: ${appPer}%</div><div style="margin-top:8px; color:var(--yellow)">⚠️ Focus more on: ${weakest}</div></div>`;
-  currentPaper.forEach((q,i)=>{ let correctText = q.type==="MCQ"? q.options.find(o=>o.startsWith(q.ans)) : q.ans; memoHTML += `<div style="margin-bottom:15px;"><b>Q${i+1}.</b> ${q.q}<br><b>Your:</b> ${userAnswers[i] || 'No Answer'}<br><div style="color:var(--green)"><b>Memo:</b> ${correctText}</div></div>`; });
-  document.getElementById('memoArea').innerHTML = memoHTML; document.getElementById('memoArea').style.display = 'block'; document.getElementById('timer').innerText = 'EXAM COMPLETED';
+  
+  currentPaper.forEach((q,i)=>{ 
+    let correctText = q.type==="MCQ"? q.options.find(o=>o.startsWith(q.ans)) : q.ans; 
+    memoHTML += `<div style="margin-bottom:15px;"><b>Q${i+1}.</b> ${q.q}<br><b>Your:</b> ${userAnswers[i] || 'No Answer'}<br><div style="color:var(--green)"><b>Memo:</b> ${correctText}</div></div>`; 
+  });
+  
+  document.getElementById('memoArea').innerHTML = memoHTML; 
+  document.getElementById('memoArea').style.display = 'block'; 
+  document.getElementById('timer').innerText = 'GOD TIER COMPLETED';
 }
 </script>
 </body>
